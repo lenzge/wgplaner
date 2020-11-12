@@ -2,9 +2,9 @@ package de.hdm_stuttgart_mi.notificationAndUsers;
 
 public class CurrentUser {
 
-    CurrentRoommate currentuser;
+    Roommate currentuser;
 
-    public void addNoteToBlackboard(String note){}
+   /* public void addNoteToBlackboard(String note){}
     public void deleteNoteFromBlackboard(){}
     public void pinNoteToBlackboard(){}
     public void makeCalenderEntry(String content){}
@@ -13,5 +13,5 @@ public class CurrentUser {
     public void finishTask(){}
     public void editTask(){}
     public void addItemToGroceryList(String item){}
-    public void boughtItem(){}
+    public void boughtItem(){}*/
 }
