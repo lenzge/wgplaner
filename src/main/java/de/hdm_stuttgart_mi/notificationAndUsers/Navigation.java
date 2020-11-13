@@ -23,7 +23,7 @@ public class Navigation {
         return formerRoommateList[i];
     }
    **/
-    SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy");
+    SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy");
 
 
     public static void addCurrentRoomate(Roommate newMate){

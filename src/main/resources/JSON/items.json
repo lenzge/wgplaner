@@ -1,0 +1,26 @@
+{
+"items": [
+  {
+    "content": "Zwiebeln",
+    "author": "Roommate 1",
+    "price": null,
+    "boughtDate": null,
+    "boughtBy": null
+  },
+  {
+    "content": "Klopapier",
+    "author": "Roommate 2",
+    "price": null,
+    "boughtDate": null,
+    "boughtBy": null
+  },
+  {
+    "content": "Knoblauch",
+    "author": "Roommate 1",
+    "price": 35,
+    "boughtDate": "12-10-2020",
+    "boughtBy": "Roommate 2"
+  }
+]
+}
+

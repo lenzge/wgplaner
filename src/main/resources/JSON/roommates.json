@@ -1,5 +1,5 @@
 {
-"currentroommate"[
+"currentroommate":[
 {"firstname":"Lara", "lastname":"Kohl","ID": 1,"phonenumber":"01345 9003204","current":true,"moveInDate": "10-08-2020","Birthday": "23-02-1998"},
 {"firstname":"Benni", "lastname":"Sauer","ID": 2,"phonenumber":"01245 8024654","current":true,"moveInDate": "18-09-2020","Birthday": "14-02-1999"}
 ]
