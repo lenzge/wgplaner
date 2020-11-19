@@ -3,21 +3,31 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 
 public class GroceryList {
 
+    //Collection
     private static List<Item> itemList = new ArrayList<Item>();
-    SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy");
 
+    //Date Format
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+
+    //When the Program is started, every Item from the JSON file has to be written into the collection
     public void initItems(){
         File file = new File("src\\main\\resources\\JSON\\items.json");
         try{
@@ -33,19 +43,25 @@ public class GroceryList {
 
 
                 if (tempJasonObject.isNull("price")){
-                    itemList.add(new Item(content, author));
+                    Item item = new Item(content, author);
                 }
                 else {
-                    int price = tempJasonObject.getInt("price");
-                    Date boughtDate = formatter.parse(tempJasonObject.getString("boughtDate"));
+                    long price = tempJasonObject.getLong("price");
+                    LocalDate boughtDate = LocalDate.parse(tempJasonObject.getString("boughtDate"), formatter);
                     String boughtBy = (String) tempJasonObject.get("boughtBy");
-                    itemList.add(new Item(content, author, price, boughtDate, boughtBy));
+                    Item item = new Item(content, author, price, boughtDate, boughtBy);
                 }
             }
         }
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    //When the Program is closed, the ItemList has to be safed in the JSONFile
+    public void safeItems() {
+
+
     }
 
     public List<Item> getItemList() {
@@ -56,33 +72,28 @@ public class GroceryList {
         itemList.add(item);
     }
 
-    public GroceryList() {
+    public GroceryList() { }
 
+    public void boughtItem (Item item, int price, Roommate boughtBy){
+        for (Item value : itemList) {
+            if (value.getContent().equals(item.getContent())) {
+                value.setPrice(price);
+                value.setBoughtBy(boughtBy.getFullname());
+                value.setBoughtDate(LocalDate.now());
+            }
+        }
     }
 
-    /**
-
-    //Collection/JsonFile with all items
-
-
-    //If an item has a Date, it obviously got bought
-    public boolean isBought(Item item) {
-        return item.getDate() != null;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Item item : itemList) {
+            sb.append(item.getContent()).append(", ");
+            sb.append(item.getAuthor()).append(", ");
+            sb.append(item.getPrice()).append(", ");
+            sb.append(item.getBoughtDate()).append(", ");
+            sb.append(item.getBoughtBy()).append("\n");
+        }
+        return sb.toString();
     }
-
-    //If an item got bought last month it gets deleted
-    public void isOld(Item item){
-        //if (got bought last month) delete item
-    }
-
-    //Price as String
-    public String priceToString(Item item){
-        return "price";
-    }
-
-    public static void addItem(Item item) {
-
-    }
- **/
-
 }

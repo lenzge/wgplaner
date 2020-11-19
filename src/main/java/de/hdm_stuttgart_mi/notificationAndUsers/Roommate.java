@@ -57,6 +57,10 @@ public class Roommate {
     public Date getBirthday() {
         return birthday;
     }
+
+    //Grüße von Lena, sorry, dass ich hier in deine Klasse schreibe, brauche die Methode für mich xD
+    public String getFullname() {return firstname + " " + lastname;}
+
     //setter
 
     public void setPhonenumber(String phonenumber) {

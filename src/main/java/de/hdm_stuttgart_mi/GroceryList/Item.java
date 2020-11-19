@@ -2,13 +2,14 @@ package de.hdm_stuttgart_mi.GroceryList;
 
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Item {
     private String content;
     private String author;
-    private int price;
-    private Date boughtDate;
+    private long price;
+    private LocalDate boughtDate;
     private String boughtBy;
 
 
@@ -21,11 +22,11 @@ public class Item {
         this.author = author;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
-    public void setBoughtDate(Date boughtDate) {
+    public void setBoughtDate(LocalDate boughtDate) {
         this.boughtDate = boughtDate;
     }
 
@@ -43,11 +44,9 @@ public class Item {
         return author;
     }
 
-    public int getPrice() {
-        return price;
-    }
+    public long getPrice() { return price; }
 
-    public Date getBoughtDate() {
+    public LocalDate getBoughtDate() {
         return boughtDate;
     }
 
@@ -56,17 +55,20 @@ public class Item {
     }
 
 
-    public Item(String content, String author, int price, Date boughtDate, String boughtBy) {
+
+    public Item(String content, String author, long price, LocalDate boughtDate, String boughtBy) {
         this.content = content;
         this.author = author;
         this.price = price;
         this.boughtDate = boughtDate;
         this.boughtBy = boughtBy;
+        GroceryList.putOnList(this);
+
     }
 
-    Item(String content, String author){
+    public Item(String content, String author){
         this.content = content;
         this.author = author;
-        //GroceryList.putOnList(this);
+        GroceryList.putOnList(this);
     }
 }
