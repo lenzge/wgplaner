@@ -4,33 +4,49 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Navigation {
 
-    static Roommate RoommateList[]=new Roommate[2];
+    public List<Roommate> roommateList = new ArrayList<Roommate>();
     //static FormerRoommate formerRoommateList[];
 
 
-    public static Roommate getCurrent(int i){
-        return RoommateList[i];
+    public  Roommate getCurrent(int i){
+        return roommateList.get(i);
     }
    /** public static FormerRoommate getFormer(int i){
         return formerRoommateList[i];
     }
    **/
-    SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
+    File file = new File("src/main/resources/JSON/roommates.json");
+
+    public void addCurrentRoomate(Roommate newMate) throws IOException {
+        String addRoommate = "{ \"firstname\":\""+newMate.getFirstname()+"\",\n" +
+                "  \"lastname\":\""+newMate.getLastname()+"\",\n" +
+                "  \"ID\": "+newMate.getID()+",\n" +
+                "  \"phonenumber\":\""+newMate.getPhonenumber()+"\",\n" +
+                "  \"current\":"+newMate.isCurrent()+",\n" +
+                "  \"moveInDate\": \""+newMate.getMoveInDate()+"\",\n" +
+                "  \"Birthday\": \""+newMate.getBirthday()+"\"},";
+       FileWriter writer = new FileWriter(file,true);
+       writer.append(addRoommate);
+       roommateList.add(newMate);
 
 
-    public static void addCurrentRoomate(Roommate newMate){
     }
 
     public void initroommate(){
-    File file = new File("../../../../resources/JSON/roommates.json");
+
     try{
     String content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
     JSONObject json = new JSONObject(content);
@@ -44,9 +60,9 @@ public class Navigation {
                 int ID = tempJasonObject.getInt("ID");
                 String phonenumber= tempJasonObject.getString("phonenumber");
                 boolean current= tempJasonObject.getBoolean("current");
-                Date moveInDate= formatter.parse(tempJasonObject.getString("MoveInDate"));
+                Date moveInDate= formatter.parse(tempJasonObject.getString("moveInDate"));
                 Date birthday= formatter.parse(tempJasonObject.getString("Birthday"));
-                RoommateList[i]=new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday);
+                roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday));
     }
     }
     catch(Exception e){

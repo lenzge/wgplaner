@@ -22,7 +22,10 @@ public class Roommate {
         this.birthday=birthday;
     }
     public Roommate(){}
-
+    @Override
+    public String toString(){
+        return   firstname + " "+ lastname+" zog am " + moveInDate + " ein";
+    }
 
 
     //getter
