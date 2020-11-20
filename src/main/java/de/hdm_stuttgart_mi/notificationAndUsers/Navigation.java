@@ -16,19 +16,40 @@ import java.util.List;
 
 public class Navigation {
 
-    public List<Roommate> roommateList = new ArrayList<Roommate>();
+    private List<Roommate> roommateList = new ArrayList<Roommate>();
+    private Roommate currentUser;
+    SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
+    File file = new File("src/main/resources/JSON/roommates.json");
+
+
+    public Navigation(){
+        initroommate();
+        setCurrentUser(-1);
+
+    }
+
     //static FormerRoommate formerRoommateList[];
 
+    public void setCurrentUser(int index){
+        if(index == -1){
+            currentUser= new Roommate("Default","User",-1,null,false,null,null);
+        }
+        else {
+            currentUser = roommateList.get(index);
+        }
+    }
 
-    public  Roommate getCurrent(int i){
+    public Roommate getCurrentUser(){
+        return currentUser;
+    }
+
+    public  Roommate getRoommate(int i){
         return roommateList.get(i);
     }
    /** public static FormerRoommate getFormer(int i){
         return formerRoommateList[i];
     }
    **/
-    SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
-    File file = new File("src/main/resources/JSON/roommates.json");
 
     public void addCurrentRoomate(Roommate newMate) throws IOException {
         String addRoommate = "{ \"firstname\":\""+newMate.getFirstname()+"\",\n" +

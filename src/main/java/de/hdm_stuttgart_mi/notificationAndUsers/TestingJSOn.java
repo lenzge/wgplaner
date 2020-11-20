@@ -15,11 +15,10 @@ public class TestingJSOn {
         Roommate dan = new Roommate("Danny","Kruger",3,"0129374368",true,moveInDate,birthday);
         Navigation nav = new Navigation();
 
-        nav.initroommate();
-        Roommate lara = nav.getCurrent(0);
+        Roommate lara = nav.getRoommate(0);
         System.out.println(lara.toString());
         nav.addCurrentRoomate(dan);
-        System.out.println(nav.getCurrent(2).toString());
+        System.out.println(nav.getRoommate(2).toString());
     }
 
 
