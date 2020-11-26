@@ -1,5 +1,7 @@
 package de.hdm_stuttgart_mi.notificationAndUsers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,8 +20,9 @@ public class Navigation {
 
     private List<Roommate> roommateList = new ArrayList<Roommate>();
     private Roommate currentUser;
-    SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
-    File file = new File("src/main/resources/JSON/roommates.json");
+    private SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
+    private File file = new File("src/main/resources/JSON/roommates.json");
+    private static Logger log = LogManager.getLogger(Navigation.class);
 
 
     public Navigation(){
@@ -88,6 +91,7 @@ public class Navigation {
     }
     catch(Exception e){
         e.printStackTrace();
+        log.error("rommate list couldn't be initialized");
     }
     }
 }
