@@ -35,7 +35,8 @@ public class Navigation {
 
     public void setCurrentUser(int index){
         if(index == -1){
-            currentUser= new Roommate("Default","User",-1,null,false,null,null);
+           // currentUser= new Roommate("Default","User",-1,null,false,null,null);
+            currentUser = roommateList.get(0);
         }
         else {
             currentUser = roommateList.get(index);
@@ -88,6 +89,7 @@ public class Navigation {
                 Date birthday= formatter.parse(tempJasonObject.getString("Birthday"));
                 roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday));
     }
+    log.info("Rommates initialized");
     }
     catch(Exception e){
         e.printStackTrace();
