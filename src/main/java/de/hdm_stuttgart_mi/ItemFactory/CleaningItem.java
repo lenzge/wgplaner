@@ -14,4 +14,5 @@ public class CleaningItem extends Item {
     public CleaningItem(String type, String content, String author) {
         super(type, content, author);
     }
+
 }
