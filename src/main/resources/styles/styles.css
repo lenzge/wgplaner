@@ -3,22 +3,24 @@
 .label {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #cbcbcb;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
 .button {
-    -fx-text-fill: white;
+    -fx-text-fill: #cbcbcb;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-background-color: linear-gradient(#5f5e61, #5f5e62);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
 .button:hover{
-	 -fx-background-color: #395bae;
+	 -fx-background-color: #1d9399;
 }
-
+.button:focused {
+    -fx-background-color: #1d9399;
+}
 /* Component specific styles */
 
 

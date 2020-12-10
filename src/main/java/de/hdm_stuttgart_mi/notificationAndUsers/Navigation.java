@@ -19,7 +19,7 @@ import java.util.List;
 public class Navigation {
 
     private List<Roommate> roommateList = new ArrayList<Roommate>();
-    private Roommate currentUser;
+    public static Roommate currentUser;
     private SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
     private File file = new File("src/main/resources/JSON/roommates.json");
     private static Logger log = LogManager.getLogger(Navigation.class);
