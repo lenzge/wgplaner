@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="de.hdm_stuttgart_mi.WelcomeController"
+          hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="800" prefWidth="1400" vgap="10.0" >
+    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+             GridPane.columnSpan="20" spacing="5.0">
+           <children>
+               <Button fx:id="blackboard_bt" text="Pinnwand" onAction="#blackboardButton"   prefWidth="250.0" prefHeight="40"/>
+               <Button fx:id="grocerylist_bt" text="Einkaufsliste" onAction="#groceryListButton"  prefWidth="250.0" prefHeight="40"/>
+               <Button fx:id="roommates_bt" text="Mitbewohner" onAction="#roommatesButton"  prefWidth="250.0" prefHeight="40"/>
+           </children>
+       </VBox>
+       <StackPane fx:id="changing" GridPane.columnIndex="21" GridPane.rowIndex="0"
+             GridPane.columnSpan="40">
+           <children>
+               <Label fx:id="welcomeText" > =^-^= </Label>
+
+           </children>
+       </StackPane>
+</GridPane>

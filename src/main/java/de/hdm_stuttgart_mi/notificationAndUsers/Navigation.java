@@ -1,5 +1,7 @@
 package de.hdm_stuttgart_mi.notificationAndUsers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,9 +19,10 @@ import java.util.List;
 public class Navigation {
 
     private List<Roommate> roommateList = new ArrayList<Roommate>();
-    private Roommate currentUser;
-    SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
-    File file = new File("src/main/resources/JSON/roommates.json");
+    public static Roommate currentUser;
+    private SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
+    private File file = new File("src/main/resources/JSON/roommates.json");
+    private static Logger log = LogManager.getLogger(Navigation.class);
 
 
     public Navigation(){
@@ -32,7 +35,8 @@ public class Navigation {
 
     public void setCurrentUser(int index){
         if(index == -1){
-            currentUser= new Roommate("Default","User",-1,null,false,null,null);
+           // currentUser= new Roommate("Default","User",-1,null,false,null,null);
+            currentUser = roommateList.get(0);
         }
         else {
             currentUser = roommateList.get(index);
@@ -89,9 +93,11 @@ public class Navigation {
                 Date birthday= formatter.parse(tempJasonObject.getString("Birthday"));
                 roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday));
     }
+    log.info("Rommates initialized");
     }
     catch(Exception e){
         e.printStackTrace();
+        log.error("rommate list couldn't be initialized");
     }
     }
 }

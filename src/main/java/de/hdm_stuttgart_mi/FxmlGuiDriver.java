@@ -1,5 +1,6 @@
 package de.hdm_stuttgart_mi;
 
+import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,20 +27,34 @@ public class FxmlGuiDriver extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-
+        Navigation nav = new Navigation();
+        WelcomeController welcomeController = new WelcomeController();
         log.info("Starting Hello JavaFX and Maven demonstration application");
 
-        final String fxmlFile = "/fxml/hello.fxml";
+        final String fxmlFile = "/fxml/welcome.fxml";    //Orginal:  "/fxml/hello.fxml";
         log.debug("Loading FXML for main view from: {}", fxmlFile);
+
+       /*stylesheet als ExternalForm Kennzeichnen*/
+        final String stylesheet = getClass().getResource("/styles/styles.css").toExternalForm();
+
+
         final FXMLLoader loader = new FXMLLoader();
+
         final Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+        loader.setController(this);
+
 
         log.debug("Showing JFX scene");
-        final Scene scene = new Scene(rootNode, 400, 200);
-        //scene.getStylesheets().add("/styles/styles.css");
+        final Scene scene = new Scene(rootNode);
 
-        stage.setTitle("Hello JavaFX and Maven");
+
+        scene.getStylesheets().add(stylesheet);
+
+        stage.setTitle("WGPlaner");
         stage.setScene(scene);
+
+
         stage.show();
+        //welcomeController.setWelcomeText();
     }
 }
