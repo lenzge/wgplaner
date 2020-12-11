@@ -50,9 +50,13 @@ public class Navigation {
         return formerRoommateList[i];
     }
    **/
+    public void safeRoommates(){
 
+
+    }
     public void addCurrentRoomate(Roommate newMate) throws IOException {
-        String addRoommate = "{ \"firstname\":\""+newMate.getFirstname()+"\",\n" +
+
+       /* String addRoommate = "{ \"firstname\":\""+newMate.getFirstname()+"\",\n" +
                 "  \"lastname\":\""+newMate.getLastname()+"\",\n" +
                 "  \"ID\": "+newMate.getID()+",\n" +
                 "  \"phonenumber\":\""+newMate.getPhonenumber()+"\",\n" +
@@ -60,7 +64,7 @@ public class Navigation {
                 "  \"moveInDate\": \""+newMate.getMoveInDate()+"\",\n" +
                 "  \"Birthday\": \""+newMate.getBirthday()+"\"},";
        FileWriter writer = new FileWriter(file,true);
-       writer.append(addRoommate);
+       writer.append(addRoommate);*/
        roommateList.add(newMate);
 
 
