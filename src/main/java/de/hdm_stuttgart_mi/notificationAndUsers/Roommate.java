@@ -11,8 +11,9 @@ public class Roommate {
     private  boolean current;
     private Date moveInDate;
     private Date birthday;
+    private String profilepic;
 
-    public Roommate(String firstname, String lastname, int ID, String phonenumber, boolean current, Date moveInDate, Date birthday){
+    public Roommate(String firstname, String lastname, int ID, String phonenumber, boolean current, Date moveInDate, Date birthday,String profilepic){
         this.firstname= firstname;
         this.lastname=lastname;
         this.ID=ID;
@@ -20,6 +21,7 @@ public class Roommate {
         this.current=current;
         this.moveInDate=moveInDate;
         this.birthday=birthday;
+        this.profilepic= profilepic;
     }
     public Roommate(){}
     @Override
@@ -29,6 +31,9 @@ public class Roommate {
 
 
     //getter
+    public String getProfilepic() {
+        return profilepic;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -89,5 +94,9 @@ public class Roommate {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public void setProfilepic(String profilepicURL) {
+        this.profilepic = profilepicURL;
     }
 }

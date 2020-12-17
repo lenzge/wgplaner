@@ -36,7 +36,7 @@ public class Navigation {
     public void setCurrentUser(int index){
         if(index == -1){
            // currentUser= new Roommate("Default","User",-1,null,false,null,null);
-            currentUser = roommateList.get(0);
+            currentUser = roommateList.get(1);
         }
         else {
             currentUser = roommateList.get(index);
@@ -66,7 +66,8 @@ public class Navigation {
                 "  \"phonenumber\":\""+newMate.getPhonenumber()+"\",\n" +
                 "  \"current\":"+newMate.isCurrent()+",\n" +
                 "  \"moveInDate\": \""+newMate.getMoveInDate()+"\",\n" +
-                "  \"Birthday\": \""+newMate.getBirthday()+"\"},";
+                "  \"Birthday\": \""+newMate.getBirthday()+
+                "  \"profilePic\": \""+newMate.getProfilepic()+ "\"},";
        FileWriter writer = new FileWriter(file,true);
        writer.append(addRoommate);*/
        roommateList.add(newMate);
@@ -91,7 +92,8 @@ public class Navigation {
                 boolean current= tempJasonObject.getBoolean("current");
                 Date moveInDate= formatter.parse(tempJasonObject.getString("moveInDate"));
                 Date birthday= formatter.parse(tempJasonObject.getString("Birthday"));
-                roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday));
+                String profilePic = tempJasonObject.getString("profilePic");
+                roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday,profilePic));
     }
     log.info("Rommates initialized");
     }

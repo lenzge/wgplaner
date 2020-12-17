@@ -28,8 +28,7 @@ public class FxmlGuiDriver extends Application {
 
     public void start(Stage stage) throws Exception {
         Navigation nav = new Navigation();
-        WelcomeController welcomeController = new WelcomeController();
-        log.info("Starting Hello JavaFX and Maven demonstration application");
+        log.info("Starting GUI");
 
         final String fxmlFile = "/fxml/welcome.fxml";    //Orginal:  "/fxml/hello.fxml";
         log.debug("Loading FXML for main view from: {}", fxmlFile);
@@ -55,6 +54,6 @@ public class FxmlGuiDriver extends Application {
 
 
         stage.show();
-        //welcomeController.setWelcomeText();
+
     }
 }

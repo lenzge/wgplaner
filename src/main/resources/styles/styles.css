@@ -1,9 +1,27 @@
 /* Application wide styles */
+.GridPane{
+    -fx-background-color: #424045;
+}
+.StackPane{
+    -fx-border-style: solid;
+    -fx-border-width:4px;
+    -fx-border-color: #5f5e61;
+    -fx-background-color: #424045;
+}
+.BorderPane{
+    -fx-background-color: #424045;
+}
+.Menue{
+    -fx-border-style: solid;
+    -fx-border-width:4px;
+    -fx-border-color: #5f5e61;
+    -fx-background-color: #424045;
 
+}
 .label {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #cbcbcb;
+    -fx-text-fill: #CBCBCB;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
@@ -25,7 +43,8 @@
 
 
 .main-panel {
-    -fx-background-image: url("../images/background.jpg");
+    /*-fx-background-image: url("../images/background.jpg");*/
+    -fx-background-color: #424145;
 }
 
 .hello-message {
