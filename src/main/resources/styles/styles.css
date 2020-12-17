@@ -47,9 +47,15 @@
     -fx-background-color: #424145;
 }
 
-.hello-message {
-    -fx-text-fill: #AA0000;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+
+#profilePic {
+    -fx-effect: dropshadow(one-pass-box,#1d9399,10,5.0,0,0)
+}
+
+#roommateName{
+    -fx-background-color: #5f5e61;
+}
+#welcomeText{
+    -fx-font-size: 30;
 }
 

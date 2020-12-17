@@ -52,10 +52,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70" minWidth="10.0" prefWidth="70.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="180" minWidth="10.0" prefWidth="180.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90" minWidth="10.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="160" minWidth="10.0" prefWidth="180.0" />
             </columnConstraints>
-
+            <padding><Insets top="0" right="5" bottom="0" left="5"/></padding>
            <children>
                <ImageView fx:id="profilePic" GridPane.rowIndex="1"  GridPane.columnIndex="0" GridPane.columnSpan="1"></ImageView>
                <Label fx:id="roommateName" text="TestUser Kohlig" prefWidth="250.0" prefHeight="40" GridPane.rowIndex="1"  GridPane.columnIndex="1" GridPane.columnSpan="1"/>
@@ -69,7 +69,7 @@
         <StackPane fx:id="changing" GridPane.columnIndex="1" GridPane.rowIndex="0"  GridPane.rowSpan="7"
              GridPane.columnSpan="5" styleClass="StackPane">
             <children>
-               <Label fx:id="welcomeText" ></Label>
+               <Label fx:id="welcomeText"></Label>
 
            </children>
         </StackPane>

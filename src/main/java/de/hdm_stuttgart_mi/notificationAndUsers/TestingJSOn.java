@@ -15,11 +15,11 @@ public class TestingJSOn {
         SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
         Date moveInDate= formatter.parse("21-03-2020") ;
         Date birthday= formatter.parse("21-02-2000") ;
-        Roommate dan = new Roommate("Danny","Kruger",3,"0129374368",true,moveInDate,birthday,"/src/resources/images/background.jpg");
+        Roommate dan = new Roommate("Danny","Kruger",3,"0129374368",true,moveInDate,birthday,"src/main/resources/images/Königstiger.jpg");
         Navigation nav = new Navigation();
 
         Roommate lara = nav.getRoommate(0);
-        log.info(lara.toString());
+        log.info(lara.toString() + lara.getProfilepic());
         nav.addCurrentRoomate(dan);
         log.info(nav.getRoommate(2).toString());
     }

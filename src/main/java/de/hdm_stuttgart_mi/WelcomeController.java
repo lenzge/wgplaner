@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -20,7 +23,13 @@ public class WelcomeController implements Initializable {
     @FXML private ImageView profilePic;
     @FXML private Label roommateName;
     private String catsmile = " =^.^=";
-   // private Image currentProfilPic= new Image(currentUser.getProfilepic());
+
+    FileInputStream input = new FileInputStream(currentUser.getProfilepic());
+    private Image currentProfilePic= new Image(input);
+
+
+    public WelcomeController() throws FileNotFoundException {
+    }
 
     @FXML public void blackboardButton(){
         blackboard_bt.setText("gedrückt");
@@ -29,6 +38,7 @@ public class WelcomeController implements Initializable {
         grocerylist_bt.setText("gedrückt");
     }
     @FXML public void roommatesButton(){ roommates_bt.setText("gedrückt"); }
+
     public String getTime(){
            Date date = new Date();
            int hours = date.getHours();
@@ -40,8 +50,10 @@ public class WelcomeController implements Initializable {
 
 
     @Override public void initialize(URL location, ResourceBundle resources){
-        welcomeText.setText(getTime()+currentUser.getFullname()+catsmile);
-        //profilePic.setImage(currentProfilPic);
+        welcomeText.setText(getTime()+currentUser.getFirstname()+catsmile);
+        profilePic.setImage(currentProfilePic);
+        profilePic.setFitWidth(55);
+        profilePic.setFitHeight(55);
         roommateName.setText(currentUser.getFullname());
     }
 

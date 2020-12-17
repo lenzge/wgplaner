@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,7 +35,7 @@ public class Navigation {
     public void setCurrentUser(int index){
         if(index == -1){
            // currentUser= new Roommate("Default","User",-1,null,false,null,null);
-            currentUser = roommateList.get(1);
+            currentUser = roommateList.get(0);
         }
         else {
             currentUser = roommateList.get(index);
