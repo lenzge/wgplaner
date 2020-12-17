@@ -5,9 +5,6 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 
 public class RunTest {
@@ -18,7 +15,7 @@ public class RunTest {
 
         GroceryList groceryList = new GroceryList();
         Roommate roommateTest = new Roommate("Anna", "Tajana", 10, "015735378152",
-                true, formatter.parse("10-08-2020"), formatter.parse("10-08-2020"));
+                true, formatter.parse("10-08-2020"), formatter.parse("10-08-2020"),"/src/resources/images/background.jpg");
         groceryList.initItems();
         Iitem item = ItemFactory.getInstance("food","Kartoffel", "Roommate 3");
         //System.out.print(Arrays.toString(groceryList.getItemList().toArray()));

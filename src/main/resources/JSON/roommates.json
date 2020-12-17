@@ -6,7 +6,8 @@
   "phonenumber":"01345 9003204",
   "current":true,
   "moveInDate": "10-08-2020",
-  "Birthday": "23-02-1998"
+  "Birthday": "23-02-1998",
+  "profilePic": "/src/resources/images/background.jpg"
 },
 {"firstname":"Benni",
   "lastname":"Sauer",
@@ -14,7 +15,8 @@
   "phonenumber":"01245 8024654",
   "current":true,
   "moveInDate": "18-09-2020",
-  "Birthday": "14-02-1999"
+  "Birthday": "14-02-1999",
+  "profilePic": "/src/resources/images/background.jpg"
 }
 ]
 }

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.Date;
@@ -16,6 +17,10 @@ public class WelcomeController implements Initializable {
     @FXML private Button grocerylist_bt;
     @FXML private Button roommates_bt;
     @FXML private Label welcomeText;
+    @FXML private ImageView profilePic;
+    @FXML private Label roommateName;
+    private String catsmile = " =^.^=";
+   // private Image currentProfilPic= new Image(currentUser.getProfilepic());
 
     @FXML public void blackboardButton(){
         blackboard_bt.setText("gedrückt");
@@ -29,13 +34,15 @@ public class WelcomeController implements Initializable {
            int hours = date.getHours();
            if(hours > 18){return "Guten Abend ";}
            if(hours > 11){return "Hallo ";}
-           if(hours > 5){return "Guten Morgen";}
+           if(hours > 5){return "Guten Morgen ";}
            return "";
     }
 
 
     @Override public void initialize(URL location, ResourceBundle resources){
-        welcomeText.setText(getTime()+currentUser.getFullname());
+        welcomeText.setText(getTime()+currentUser.getFullname()+catsmile);
+        //profilePic.setImage(currentProfilPic);
+        roommateName.setText(currentUser.getFullname());
     }
 
 }
