@@ -23,7 +23,7 @@ public class Roommate {
         this.birthday=birthday;
         this.profilepic= profilepic;
     }
-    public Roommate(){}
+
     @Override
     public String toString(){
         return   firstname + " "+ lastname+" zog am " + moveInDate + " ein";
@@ -76,20 +76,8 @@ public class Roommate {
         this.current = current;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    public void setMoveInDate(Date moveInDate) {
-        this.moveInDate = moveInDate;
     }
 
     public void setBirthday(Date birthday) {

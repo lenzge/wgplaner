@@ -30,7 +30,7 @@ public class FxmlGuiDriver extends Application {
         Navigation nav = new Navigation();
         log.info("Starting GUI");
 
-        final String fxmlFile = "/fxml/welcome.fxml";    //Orginal:  "/fxml/hello.fxml";
+        final String fxmlFile = "/fxml/startscreen.fxml";    //Orginal:  "/fxml/hello.fxml";
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 
        /*stylesheet als ExternalForm Kennzeichnen*/

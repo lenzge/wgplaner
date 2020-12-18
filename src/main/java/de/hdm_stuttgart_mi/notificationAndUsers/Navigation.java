@@ -18,9 +18,11 @@ import java.util.List;
 public class Navigation {
 
     private List<Roommate> roommateList = new ArrayList<Roommate>();
-    public static Roommate currentUser;
     private SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
     private File file = new File("src/main/resources/JSON/roommates.json");
+
+    public static Roommate currentUser;
+
     private static Logger log = LogManager.getLogger(Navigation.class);
 
 
@@ -28,6 +30,10 @@ public class Navigation {
         initroommate();
         setCurrentUser(-1);
 
+    }
+    public Navigation(int i){
+        initroommate();
+        setCurrentUser(i);
     }
 
     //static FormerRoommate formerRoommateList[];
@@ -42,8 +48,8 @@ public class Navigation {
         }
     }
 
-    public Roommate getCurrentUser(){
-        return currentUser;
+    public int roommateListLenght(){
+        return roommateList.size();
     }
 
     public  Roommate getRoommate(int i){
@@ -77,25 +83,28 @@ public class Navigation {
     public void initroommate(){
 
     try{
-    String content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
-    JSONObject json = new JSONObject(content);
+        String content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
+        JSONObject json = new JSONObject(content);
 
-    JSONArray jsonArray = json.getJSONArray("currentroommate");
-    for(int i=0; i<jsonArray.length();i++){
-    JSONObject tempJasonObject = jsonArray.getJSONObject(i);
+        JSONArray jsonArray = json.getJSONArray("currentroommate");
 
-                String firstname = tempJasonObject.getString("firstname");
-                String lastname= tempJasonObject.getString("lastname");
-                int ID = tempJasonObject.getInt("ID");
-                String phonenumber= tempJasonObject.getString("phonenumber");
-                boolean current= tempJasonObject.getBoolean("current");
-                Date moveInDate= formatter.parse(tempJasonObject.getString("moveInDate"));
-                Date birthday= formatter.parse(tempJasonObject.getString("Birthday"));
-                String profilePic = tempJasonObject.getString("profilePic");
+        for(int i=0; i<jsonArray.length();i++){
+            JSONObject tempJasonObject = jsonArray.getJSONObject(i);
+
+                String firstname    = tempJasonObject.getString(                 "firstname");
+                String lastname     = tempJasonObject.getString(                 "lastname");
+                int ID              = tempJasonObject.getInt(                    "ID");
+                String phonenumber  = tempJasonObject.getString(                 "phonenumber");
+                boolean current     = tempJasonObject.getBoolean(                "current");
+                Date moveInDate     = formatter.parse(tempJasonObject.getString( "moveInDate"));
+                Date birthday       = formatter.parse(tempJasonObject.getString( "Birthday"));
+                String profilePic   = tempJasonObject.getString(                 "profilePic");
+
                 roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday,profilePic));
+        }
+        log.info("Rommates initialized");
     }
-    log.info("Rommates initialized");
-    }
+
     catch(Exception e){
         e.printStackTrace();
         log.error("rommate list couldn't be initialized");

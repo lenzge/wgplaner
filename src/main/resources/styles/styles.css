@@ -22,7 +22,6 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #CBCBCB;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
 .button {
@@ -57,5 +56,10 @@
 }
 #welcomeText{
     -fx-font-size: 30;
+}
+.menu-item{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #424045;
 }
 
