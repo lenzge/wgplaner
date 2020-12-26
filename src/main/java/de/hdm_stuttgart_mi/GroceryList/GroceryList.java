@@ -1,8 +1,11 @@
 package de.hdm_stuttgart_mi.GroceryList;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 import java.io.File;
@@ -34,52 +37,59 @@ public class GroceryList {
 
     //When the Program is started, every Item from the JSON file has to be written into the collection
     public void initItems(){
+        JSONParser parser = new JSONParser();
+
         try{
             String json_content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
-            JSONObject json = new JSONObject(json_content);
+            JSONObject json = (JSONObject) parser.parse(json_content);
 
-            JSONArray jsonArray = json.getJSONArray("items");
-            for(int i=0; i<jsonArray.length();i++){
-                JSONObject tempJasonObject = jsonArray.getJSONObject(i);
+            JSONArray jsonArray = (JSONArray) json.get("items");
+            for(int i=0; i<jsonArray.size();i++){
+                JSONObject tempJasonObject = (JSONObject) jsonArray.get(i);
 
-                String type = tempJasonObject.getString("type");
-                String content = tempJasonObject.getString("content");
+                String type = (String) tempJasonObject.get("type");
+                String content = (String) tempJasonObject.get("content");
                 String author = (String) tempJasonObject.get("author");
 
 
-                if (tempJasonObject.isNull("price")){
+                if (tempJasonObject.get("price") == null){
                     Iitem Item = ItemFactory.getInstance(type, content, author);
                 }
                 else {
-                    long price = tempJasonObject.getLong("price");
-                    LocalDate boughtDate = LocalDate.parse(tempJasonObject.getString("boughtDate"), formatter);
+                    long price = (Long) tempJasonObject.get("price");
+                    LocalDate boughtDate = LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter);
                     String boughtBy = (String) tempJasonObject.get("boughtBy");
                     Iitem Item = ItemFactory.getInstance(type, content, author, price, boughtDate, boughtBy);
                 }
             }
         }
-        catch(Exception e){
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
     }
 
     //When the Program is closed, the ItemList has to be safed in the JSONFile
-    public void safeItems() throws IOException {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n \"items\": [ \n");
+    public void safeItems() throws IOException, ParseException {
+        JSONObject obj = new JSONObject();
+        JSONArray list = new JSONArray();
         for (Item item : itemList) {
-            sb.append(" { \"type\":\"" + item.getType() + "\",\n" +
-                    " \"content\":\"" + item.getContent() + "\",\n" +
-                    " \"author\":\"" + item.getAuthor() + "\",\n" +
-                    " \"price\":\"" + item.getPrice() + "\",\n" +
-                    " \"boughtDate\":\"" + item.getBoughtDate() + "\",\n" +
-                    " \"boughtBy\":\"" + item.getBoughtBy() + "\" \n }, \n");
+            JSONObject innerObj = new JSONObject();
+            innerObj.put("type", item.getType());
+            innerObj.put("content", item.getContent());
+                    //" \"author\":\"" + item.getAuthor() + "\",\n" +
+                    //" \"price\":\"" + item.getPrice() + "\",\n" +
+                    //" \"boughtDate\":\"" + item.getBoughtDate() + "\",\n" +
+                    //" \"boughtBy\":\"" + item.getBoughtBy() + "\" \n }, \n");
+            list.add(innerObj);
         }
-        sb.delete(sb.length()-3, sb.length()-2);
-        sb.append("] \n}");
-        System.out.print(sb.toString());
-        FileWriter writer = new FileWriter(file, false);
-        writer.write(sb.toString());
+        obj.put("items", list);
+
+        FileWriter writer = new FileWriter(file);
+        writer.write(obj.toJSONString());
+
 
 
     }
