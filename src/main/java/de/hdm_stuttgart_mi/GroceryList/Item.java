@@ -3,38 +3,23 @@ package de.hdm_stuttgart_mi.GroceryList;
 import java.time.LocalDate;
 
 public abstract class Item implements Iitem{
-    private String content;
-    private String author;
-    private long price;
+    private final String content;
+    private final String author;
+    private String price;
     private LocalDate boughtDate;
     private String boughtBy;
-    private String type;
+    private final String type;
 
 
     //Setter
+
     @Override
-    public void setContent(String content) {
-        this.content = content;
-    }
-    @Override
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-    @Override
-    public void setPrice(long price) {
+    public void boughtItem (String price, LocalDate boughtDate, String boughtBy) {
+
         this.price = price;
-    }
-    @Override
-    public void setBoughtDate(LocalDate boughtDate) {
         this.boughtDate = boughtDate;
-    }
-    @Override
-    public void setBoughtBy(String boughtBy) {
         this.boughtBy = boughtBy;
     }
-    @Override
-    public void setType(String type){ this.type = type; }
-
 
     //Getter
     @Override
@@ -46,7 +31,7 @@ public abstract class Item implements Iitem{
         return author;
     }
     @Override
-    public long getPrice() { return price; }
+    public String getPrice() { return price; }
     @Override
     public LocalDate getBoughtDate() {
         return boughtDate;
@@ -60,7 +45,7 @@ public abstract class Item implements Iitem{
 
 
 
-    public Item(String type, String content, String author, long price, LocalDate boughtDate, String boughtBy) {
+    public Item(String type, String content, String author, String price, LocalDate boughtDate, String boughtBy) {
         this.content = content;
         this.author = author;
         this.price = price;

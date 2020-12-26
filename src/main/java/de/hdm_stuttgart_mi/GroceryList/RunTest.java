@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class RunTest {
 
-    public static void main(String[] args) throws ParseException, IOException, org.json.simple.parser.ParseException {
+    public static void main(String[] args) throws ParseException {
 
         SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy");
 
@@ -20,7 +20,7 @@ public class RunTest {
         groceryList.initItems();
         Iitem item = ItemFactory.getInstance("food","Kartoffel", "Roommate 3");
         System.out.print(Arrays.toString(groceryList.getItemList().toArray()));
-        groceryList.boughtItem(groceryList.getItemList().get(1), 359, roommateTest);
+        groceryList.boughtItem(groceryList.getItemList().get(1), "3,59€", roommateTest);
         System.out.print(groceryList.toString());
         groceryList.safeItems();
     }

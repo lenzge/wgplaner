@@ -5,17 +5,9 @@ import java.time.LocalDate;
 public interface Iitem {
 
     //Setter
-    void setContent(String content); //-
 
-    void setAuthor(String author); //-
 
-    void setPrice(long price);
-
-    void setBoughtDate(LocalDate boughtDate);
-
-    void setBoughtBy(String boughtBy);
-
-    void setType(String type); //-
+    void boughtItem (String price, LocalDate boughtDate, String boughtBy);
 
 
     //Getter
@@ -23,7 +15,7 @@ public interface Iitem {
 
     String getAuthor();
 
-    long getPrice();
+    String getPrice();
 
     LocalDate getBoughtDate();
 

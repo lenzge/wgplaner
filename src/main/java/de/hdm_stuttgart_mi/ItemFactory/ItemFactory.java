@@ -20,7 +20,7 @@ public class ItemFactory {
         }
     }
 
-    public static Iitem getInstance(String type, String content, String author, long price, LocalDate boughtDate, String boughtBy){
+    public static Iitem getInstance(String type, String content, String author, String price, LocalDate boughtDate, String boughtBy){
 
         switch (type){
             case "cleaning":
