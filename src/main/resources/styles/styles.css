@@ -21,11 +21,14 @@
 .label {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
+    -fx-font-family: "Arial Narrow";
     -fx-text-fill: #CBCBCB;
+    -fx-alignment: center;
 }
 
 .button {
     -fx-text-fill: #cbcbcb;
+    -fx-font-size: 12px;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#5f5e61, #5f5e62);
@@ -53,6 +56,7 @@
 
 #roommateName{
     -fx-background-color: #5f5e61;
+    -fx-text-alignment: center;
 }
 #welcomeText{
     -fx-font-size: 30;

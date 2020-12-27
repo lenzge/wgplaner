@@ -52,7 +52,6 @@ public abstract class Item implements Iitem{
         this.boughtDate = boughtDate;
         this.boughtBy = boughtBy;
         this.type = type;
-        GroceryList.putOnList(this);
 
     }
 
@@ -60,6 +59,5 @@ public abstract class Item implements Iitem{
         this.content = content;
         this.author = author;
         this.type = type;
-        GroceryList.putOnList(this);
     }
 }

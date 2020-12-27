@@ -19,12 +19,6 @@ public class GUITest extends Application {
 
     private static final Logger log = LogManager.getLogger(FxmlGuiDriver.class);
 
-    /**
-     * @param args unused
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     public void start(Stage stage) throws Exception {
         Navigation nav = new Navigation();
@@ -56,5 +50,11 @@ public class GUITest extends Application {
         stage.show();
 
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
 }
 

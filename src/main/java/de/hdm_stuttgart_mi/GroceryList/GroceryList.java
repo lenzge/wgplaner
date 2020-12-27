@@ -21,7 +21,7 @@ import java.util.List;
 public class GroceryList {
 
     //Collection
-    private static List<Item> itemList = new ArrayList<Item>();
+    List<Iitem> itemList;
 
     //Date Format
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -32,6 +32,7 @@ public class GroceryList {
 
     //When the Program is started, every Item from the JSON file has to be written into the collection
     public void initItems(){
+        itemList = new ArrayList<Iitem>();
         JSONParser parser = new JSONParser();
 
         try{
@@ -48,13 +49,16 @@ public class GroceryList {
 
 
                 if (tempJasonObject.get("price") == null) {
-                    Iitem Item = ItemFactory.getInstance(type, content, author);
+                    Iitem item = ItemFactory.getInstance(type, content, author);
+                    itemList.add(item);
                 } else {
                     String price = (String) tempJasonObject.get("price");
                     LocalDate boughtDate = LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter);
                     String boughtBy = (String) tempJasonObject.get("boughtBy");
-                    Iitem Item = ItemFactory.getInstance(type, content, author, price, boughtDate, boughtBy);
+                    Iitem item = ItemFactory.getInstance(type, content, author, price, boughtDate, boughtBy);
+                    itemList.add(item);
                 }
+                System.out.print(itemList);
             }
         }
         catch (IOException e) {
@@ -69,7 +73,7 @@ public class GroceryList {
     public void safeItems()  {
         JSONObject obj = new JSONObject();
         JSONArray list = new JSONArray();
-        for (Item item : itemList) {
+        for (Iitem item : itemList) {
             JSONObject innerObj = new JSONObject();
             innerObj.put("type", item.getType());
             innerObj.put("content", item.getContent());
@@ -83,7 +87,7 @@ public class GroceryList {
         obj.put("items", list);
         System.out.print(obj);
 
-        try (FileWriter writer = new FileWriter(file)) {
+        try (FileWriter writer = new FileWriter(file, false)) {
             writer.write(obj.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,18 +97,18 @@ public class GroceryList {
 
     }
 
-    public List<Item> getItemList() {
+    public List<Iitem> getItemList() {
         return itemList;
     }
 
-    public static void putOnList(Item item){
-        itemList.add(item);
+
+
+    public GroceryList() {
+        initItems();
     }
 
-    public GroceryList() { }
-
-    public void boughtItem (Item item, String price, Roommate boughtBy){
-        for (Item value : itemList) {
+    public void boughtItem (Iitem item, String price, Roommate boughtBy){
+        for (Iitem value : itemList) {
             if (value.getContent().equals(item.getContent())) {
                 value.boughtItem(price, LocalDate.now(), boughtBy.getFullname());
             }
@@ -115,7 +119,7 @@ public class GroceryList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Item item : itemList) {
+        for (Iitem item : itemList) {
             sb.append(item.getType()).append(", ");
             sb.append(item.getContent()).append(", ");
             sb.append(item.getAuthor()).append(", ");
