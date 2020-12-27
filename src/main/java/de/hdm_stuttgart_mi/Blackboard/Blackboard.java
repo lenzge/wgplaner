@@ -1,39 +1,69 @@
 package de.hdm_stuttgart_mi.Blackboard;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Blackboard {
 
-    public static void main(String[] args) {
+    List<Note> noteList = new ArrayList<>();
 
+    File file = new File("src\\main\\resources\\JSON\\notes.json");
+
+    DateTimeFormatter date = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public void initNote() {
+        JSONParser parser = new JSONParser();
         try{
 
-            File file = new File("src\\main\\resources\\JSON\\notes.json");
             String jsonContent = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
-            JSONObject json = new JSONObject(jsonContent);
+            JSONObject json = (JSONObject) parser.parse(jsonContent);
 
-            JSONArray jsonArray = json.getJSONArray("notes");
+            JSONArray jsonArray = (JSONArray) json.get("notes");
+            for(int x = 0; x < jsonArray.size(); x++){
+                JSONObject jsonObjectFromArray = (JSONObject) jsonArray.get(x);
 
-            for(int x = 0; x < jsonArray.length(); x++){
-                JSONObject jsonObjectFromArray = jsonArray.getJSONObject(x);
+                String content = (String) jsonObjectFromArray.get("content");
+                String author = (String) jsonObjectFromArray.get("author");
+                LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date);
+                boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
-                String content = jsonObjectFromArray.getString("content");
-                String author = jsonObjectFromArray.getString("author");
-
-                System.out.println("Note: " + content);
-                System.out.println("Author: " + author);
+                Note note = new Note(content, author, timestamp, isPinned);
             }
 
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public void safeBlackboard() {
+        JSONObject obj = new JSONObject();
+        JSONArray notes = new JSONArray();
+        for (Note note : noteList){
+            JSONObject entries = new JSONObject();
+            entries.put("content",note.getContent());
+            entries.put("author",note.getAuthor());
+            entries.put("timestamp",note.getTimestamp());
+            entries.put("isPinned",note.getIsPinned());
+            notes.add(entries);
+        }
+        obj.put("note",notes);
+        System.out.println(obj);
 
+        try(FileWriter writer = new FileWriter(file)){
+            writer.write(obj.toJSONString());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
