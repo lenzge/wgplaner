@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class GUITest extends Application {
 
 
-    private static final Logger log = LogManager.getLogger(de.hdm_stuttgart_mi.FxmlGuiDriver.class);
+    private static final Logger log = LogManager.getLogger(FxmlGuiDriver.class);
 
     /**
      * @param args unused

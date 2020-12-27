@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi;
+package de.hdm_stuttgart_mi.Controller;
 
 import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
@@ -18,7 +18,7 @@ import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
 public class StartscreenController implements Initializable {
 
-    private static final Logger log = LogManager.getLogger(FxmlGuiDriver.class);
+    private static final Logger log = LogManager.getLogger(StartscreenController.class);
 
     @FXML private MenuButton roommateMenuButton;
     @FXML private Button newRoommate_bt;
@@ -37,9 +37,9 @@ public class StartscreenController implements Initializable {
     private void initUser(MenuItem menuItem){
         roommateMenuButton.setText(menuItem.getText());
         String Id =menuItem.getId();
-        int id = Integer.parseInt(Id);
-        nav.setCurrentUser(id);
-        log.info("der aktuelle user"+currentUser.getFullname());
+        int id = Integer.parseInt(Id)-1;
+        nav = new Navigation(id);
+        log.info("Der aktuelle User "+currentUser.getFullname());
     }
 
 

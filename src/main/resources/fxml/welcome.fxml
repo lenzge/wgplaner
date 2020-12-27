@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.hdm_stuttgart_mi.WelcomeController"
+          fx:controller="de.hdm_stuttgart_mi.Controller.WelcomeController"
           styleClass="main-panel"
           hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="800" prefWidth="1400" vgap="10.0" >

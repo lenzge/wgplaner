@@ -1,12 +1,10 @@
 package de.hdm_stuttgart_mi;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,13 +25,12 @@ public class FxmlGuiDriver extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        Navigation nav = new Navigation();
         log.info("Starting GUI");
 
-        final String fxmlFile = "/fxml/startscreen.fxml";    //Orginal:  "/fxml/hello.fxml";
-        log.debug("Loading FXML for main view from: {}", fxmlFile);
+        final String fxmlFile = "/fxml/newRoommate.fxml";    //Orginal:  \"/fxml/hello.fxml\";
+             log.debug("Loading FXML for main view from: {}", fxmlFile);
 
-       /*stylesheet als ExternalForm Kennzeichnen*/
+                  /*stylesheet als ExternalForm Kennzeichnen*/
         final String stylesheet = getClass().getResource("/styles/styles.css").toExternalForm();
 
 
@@ -41,7 +38,6 @@ public class FxmlGuiDriver extends Application {
 
         final Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
         loader.setController(this);
-
 
         log.debug("Showing JFX scene");
         final Scene scene = new Scene(rootNode);

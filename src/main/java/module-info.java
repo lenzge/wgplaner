@@ -7,5 +7,7 @@ module gui {
     requires json.simple;
 
     opens de.hdm_stuttgart_mi to javafx.fxml;
+    opens de.hdm_stuttgart_mi.Controller to javafx.fxml;
+    exports de.hdm_stuttgart_mi.Controller;
     exports de.hdm_stuttgart_mi;
 }

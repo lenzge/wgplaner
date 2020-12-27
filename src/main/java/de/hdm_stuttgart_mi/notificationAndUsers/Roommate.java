@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi.notificationAndUsers;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Roommate {
@@ -9,11 +9,11 @@ public class Roommate {
     private int ID;
     private String phonenumber;
     private  boolean current;
-    private Date moveInDate;
-    private Date birthday;
+    private LocalDate moveInDate;
+    private LocalDate birthday;
     private String profilepic;
 
-    public Roommate(String firstname, String lastname, int ID, String phonenumber, boolean current, Date moveInDate, Date birthday,String profilepic){
+    public Roommate(String firstname, String lastname, int ID, String phonenumber, boolean current, LocalDate moveInDate, LocalDate birthday,String profilepic){
         this.firstname= firstname;
         this.lastname=lastname;
         this.ID=ID;
@@ -23,10 +23,9 @@ public class Roommate {
         this.birthday=birthday;
         this.profilepic= profilepic;
     }
-
     @Override
     public String toString(){
-        return   firstname + " "+ lastname+" zog am " + moveInDate + " ein";
+        return   firstname + " "+ lastname+" zog am " + moveInDate + " ein ";
     }
 
 
@@ -34,6 +33,7 @@ public class Roommate {
     public String getProfilepic() {
         return profilepic;
     }
+
 
     public String getFirstname() {
         return firstname;
@@ -55,11 +55,11 @@ public class Roommate {
         return current;
     }
 
-    public Date getMoveInDate() {
+    public LocalDate getMoveInDate() {
         return moveInDate;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -80,7 +80,7 @@ public class Roommate {
         this.ID = ID;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

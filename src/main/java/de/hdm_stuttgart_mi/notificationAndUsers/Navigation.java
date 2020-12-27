@@ -2,23 +2,25 @@ package de.hdm_stuttgart_mi.notificationAndUsers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 public class Navigation {
 
     private List<Roommate> roommateList = new ArrayList<Roommate>();
-    private SimpleDateFormat formatter=new SimpleDateFormat("DD-MM-YYYY");
+    private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private File file = new File("src/main/resources/JSON/roommates.json");
 
     public static Roommate currentUser;
@@ -28,7 +30,6 @@ public class Navigation {
 
     public Navigation(){
         initroommate();
-        setCurrentUser(-1);
 
     }
     public Navigation(int i){
@@ -38,7 +39,7 @@ public class Navigation {
 
     //static FormerRoommate formerRoommateList[];
 
-    public void setCurrentUser(int index){
+    private void setCurrentUser(int index){
         if(index == -1){
            // currentUser= new Roommate("Default","User",-1,null,false,null,null);
             currentUser = roommateList.get(0);
@@ -64,43 +65,61 @@ public class Navigation {
 
     }
     public void addCurrentRoomate(Roommate newMate) throws IOException {
+        roommateList.add(newMate);
+        JSONObject obj = new JSONObject();
+        JSONArray list = new JSONArray();
+        for (Roommate roommate : roommateList) {
+            JSONObject innerObj = new JSONObject();
+            innerObj.put("firstname", roommate.getFirstname());
+            innerObj.put("lastname", roommate.getLastname());
+            innerObj.put("ID", roommate.getID());
+            innerObj.put("phonenumber", roommate.getPhonenumber());
+            innerObj.put("current", roommate.isCurrent());
+            innerObj.put("moveInDate", roommate.getMoveInDate().format(formatter));
+            innerObj.put("birthday", roommate.getBirthday().format(formatter));
+            innerObj.put("profilepic", roommate.getProfilepic());
+            list.add(innerObj);
+        }
+        obj.put("roommates", list);
+        log.debug(obj);
 
-       /* String addRoommate = "{ \"firstname\":\""+newMate.getFirstname()+"\",\n" +
-                "  \"lastname\":\""+newMate.getLastname()+"\",\n" +
-                "  \"ID\": "+newMate.getID()+",\n" +
-                "  \"phonenumber\":\""+newMate.getPhonenumber()+"\",\n" +
-                "  \"current\":"+newMate.isCurrent()+",\n" +
-                "  \"moveInDate\": \""+newMate.getMoveInDate()+"\",\n" +
-                "  \"Birthday\": \""+newMate.getBirthday()+
-                "  \"profilePic\": \""+newMate.getProfilepic()+ "\"},";
-       FileWriter writer = new FileWriter(file,true);
-       writer.append(addRoommate);*/
-       roommateList.add(newMate);
-
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(obj.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void initroommate(){
 
+        JSONParser parser = new JSONParser();
     try{
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
-        JSONObject json = new JSONObject(content);
+        JSONObject json = (JSONObject) parser.parse(content);
 
-        JSONArray jsonArray = json.getJSONArray("currentroommate");
+        JSONArray jsonArray = (JSONArray) json.get("roommates");
+        for(Object o : jsonArray) {
+            JSONObject tempJasonObject = (JSONObject) o;
 
-        for(int i=0; i<jsonArray.length();i++){
-            JSONObject tempJasonObject = jsonArray.getJSONObject(i);
+                String firstname    = (String) tempJasonObject.get("firstname");
+            //log.debug("firstname initialized");
+                String lastname     = (String) tempJasonObject.get("lastname");
+            //log.debug("lastname initialized");
+                long id             = (long)tempJasonObject.get("ID");
+            //log.debug("id initialized");
+                String phonenumber  = (String) tempJasonObject.get("phonenumber");
+            //log.debug("phonenumber initialized");
+                boolean current     = (boolean)tempJasonObject.get("current");
+            //log.debug("current initialized");
+                LocalDate moveInDate     = LocalDate.parse((String) tempJasonObject.get("moveInDate"), formatter);
+                LocalDate birthday       = LocalDate.parse((String) tempJasonObject.get("birthday"), formatter);
+                String profilePic   = (String) tempJasonObject.get("profilePic");
 
-                String firstname    = tempJasonObject.getString(                 "firstname");
-                String lastname     = tempJasonObject.getString(                 "lastname");
-                int ID              = tempJasonObject.getInt(                    "ID");
-                String phonenumber  = tempJasonObject.getString(                 "phonenumber");
-                boolean current     = tempJasonObject.getBoolean(                "current");
-                Date moveInDate     = formatter.parse(tempJasonObject.getString( "moveInDate"));
-                Date birthday       = formatter.parse(tempJasonObject.getString( "Birthday"));
-                String profilePic   = tempJasonObject.getString(                 "profilePic");
+                int ID = Math.toIntExact(id);
 
                 roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday,profilePic));
+                log.debug("roommate initialized");
         }
         log.info("Rommates initialized");
     }

@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi;
+package de.hdm_stuttgart_mi.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
@@ -40,11 +40,11 @@ public class WelcomeController implements Initializable {
     @FXML public void roommatesButton(){ roommates_bt.setText("gedrückt"); }
 
     public String getTime(){
-           Date date = new Date();
-           int hours = date.getHours();
-           if(hours > 18){return "Guten Abend ";}
-           if(hours > 11){return "Hallo ";}
-           if(hours > 5){return "Guten Morgen ";}
+           LocalDateTime date =  LocalDateTime.now();
+           int hour = date.getHour();
+           if(hour > 18){return "Guten Abend ";}
+           if(hour > 11){return "Hallo ";}
+           if(hour > 5){return "Guten Morgen ";}
            return "";
     }
 

@@ -2,9 +2,9 @@ package de.hdm_stuttgart_mi.GroceryList;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 
@@ -16,7 +16,7 @@ public class RunTest {
 
         GroceryList groceryList = new GroceryList();
         Roommate roommateTest = new Roommate("Anna", "Tajana", 10, "015735378152",
-                true, formatter.parse("10-08-2020"), formatter.parse("10-08-2020"),"/src/resources/images/background.jpg");
+                true, LocalDate.parse("10-08-2020"), LocalDate.parse("10-08-2020"),"/src/resources/images/Lucifer.jpg");
         groceryList.initItems();
         Iitem item = ItemFactory.getInstance("food","Kartoffel", "Roommate 3");
         System.out.print(Arrays.toString(groceryList.getItemList().toArray()));
