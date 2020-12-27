@@ -1,12 +1,12 @@
 package de.hdm_stuttgart_mi.Blackboard;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Note {
 
     private String content;
     private String author;
-    private Date timestamp;
+    private LocalDate timestamp;
     private boolean isPinned;
 
 
@@ -26,15 +26,23 @@ public class Note {
         this.author = author;
     }
 
-    public Date getTimestamp() {
+    public LocalDate getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(LocalDate timestamp) {
         this.timestamp = timestamp;
     }
 
-    public Note(String content, String author, Date timestamp, boolean isPinned ){
+    public void setIsPinned() {
+        this.isPinned = isPinned;
+    }
+
+    public boolean getIsPinned(){
+        return isPinned;
+    }
+
+    public Note(String content, String author, LocalDate timestamp, boolean isPinned ){
         this.content = content;
         this.author = author;
         this.timestamp = timestamp;
