@@ -1,5 +1,6 @@
 package de.hdm_stuttgart_mi.Controller;
 
+import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class WelcomeController implements Initializable {
     @FXML private Label roommateName;
     private String catsmile = " =^.^=";
 
+    Navigation nav = new Navigation(3);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
     private Image currentProfilePic= new Image(input);
 

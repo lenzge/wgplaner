@@ -19,9 +19,9 @@ public class TestingJSOn {
         Navigation nav = new Navigation();
 
         Roommate lara = nav.getRoommate(0);
-        log.info(lara.toString() + lara.getProfilepic());
+        log.info(lara.toString() + lara.getProfilepic() + "" + lara.getID());
        // nav.addCurrentRoomate(dan);
-        log.info(nav.getRoommate(2).toString());
+        log.info(nav.getRoommate(3).toString() + nav.getRoommate(3).getProfilepic() +" "+ nav.getRoommate(3).getID());
     }
 
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Navigation {
 
-    private List<Roommate> roommateList = new ArrayList<Roommate>();
+    private List<Roommate> roommateList;
     private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private File file = new File("src/main/resources/JSON/roommates.json");
 
@@ -60,12 +60,7 @@ public class Navigation {
         return formerRoommateList[i];
     }
    **/
-    public void safeRoommates(){
-
-
-    }
-    public void addCurrentRoomate(Roommate newMate) throws IOException {
-        roommateList.add(newMate);
+    public void saveRoommates(){
         JSONObject obj = new JSONObject();
         JSONArray list = new JSONArray();
         for (Roommate roommate : roommateList) {
@@ -90,23 +85,28 @@ public class Navigation {
         }
 
     }
+    public void addCurrentRoomate(Roommate newMate){
+        newMate.setID(roommateListLenght());
+        roommateList.add(newMate);
+        saveRoommates();
+    }
 
     public void initroommate(){
-
+        roommateList = new ArrayList<Roommate>();
         JSONParser parser = new JSONParser();
     try{
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
         JSONObject json = (JSONObject) parser.parse(content);
 
         JSONArray jsonArray = (JSONArray) json.get("roommates");
-        for(Object o : jsonArray) {
-            JSONObject tempJasonObject = (JSONObject) o;
+        for(int i=0;i<jsonArray.size();i++) {
+            JSONObject tempJasonObject = (JSONObject) jsonArray.get(i);
 
                 String firstname    = (String) tempJasonObject.get("firstname");
             //log.debug("firstname initialized");
                 String lastname     = (String) tempJasonObject.get("lastname");
             //log.debug("lastname initialized");
-                long id             = (long)tempJasonObject.get("ID");
+                int ID            = i;
             //log.debug("id initialized");
                 String phonenumber  = (String) tempJasonObject.get("phonenumber");
             //log.debug("phonenumber initialized");
@@ -114,9 +114,9 @@ public class Navigation {
             //log.debug("current initialized");
                 LocalDate moveInDate     = LocalDate.parse((String) tempJasonObject.get("moveInDate"), formatter);
                 LocalDate birthday       = LocalDate.parse((String) tempJasonObject.get("birthday"), formatter);
-                String profilePic   = (String) tempJasonObject.get("profilePic");
+                String profilePic   = (String) tempJasonObject.get("profilepic");
 
-                int ID = Math.toIntExact(id);
+                /*int ID = Math.toIntExact(id);*/
 
                 roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday,profilePic));
                 log.debug("roommate initialized");

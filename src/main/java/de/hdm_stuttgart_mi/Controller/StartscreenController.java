@@ -37,9 +37,10 @@ public class StartscreenController implements Initializable {
     private void initUser(MenuItem menuItem){
         roommateMenuButton.setText(menuItem.getText());
         String Id =menuItem.getId();
-        int id = Integer.parseInt(Id)-1;
+        int id = Integer.parseInt(Id);
         nav = new Navigation(id);
         log.info("Der aktuelle User "+currentUser.getFullname());
+
     }
 
 

@@ -1,11 +1,16 @@
 package de.hdm_stuttgart_mi.Controller;
 
+import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,13 +29,56 @@ public class NewRoommateController implements Initializable {
 
     private LocalDate birthday;
     private String profilePic;
+    private boolean apply = false;
     @FXML private DatePicker birthday_dp;
     @FXML private HBox profilepicList;
+    @FXML private TextField firstname_tf;
+    @FXML private TextField lastname_tf;
+    @FXML private TextField phonenumber_tf;
+    @FXML private Label birthday_lb;
+    Navigation nav = new Navigation();
     @FXML private void datepicked(){
         String value = birthday_dp.getValue().format(formatter);
         birthday = LocalDate.parse(value,formatter);
         log.info(birthday);
     }
+    @FXML private void apply() {
+        boolean applyable=true;
+        String firstname="",lastname="",phonenumber="";
+        if(firstname_tf.getText() ==null || firstname_tf.getText().equals("")||firstname_tf.getText().matches("[^a-zA-Z]")){
+            firstname_tf.setText("Bitte trage deinen Vornamen ein. Es sind keine Zahlen erlaubt");
+            firstname_tf.setStyle("-fx-text-fill: red");
+            applyable=false;}
+        else {firstname = firstname_tf.getText();}
+        if(lastname_tf.getText() ==null || lastname_tf.getText().equals("")||lastname_tf.getText().matches("[^a-zA-Z]")){
+            lastname_tf.setText("Bitte trage deinen Nachnamen ein. Es sind keine Zahlen erlaubt");
+            lastname_tf.setStyle("-fx-text-fill: red");
+            applyable=false;}
+        else{lastname = lastname_tf.getText();}
+        if(phonenumber_tf.getText().matches("^(\\d+)$"))
+        {
+         phonenumber = phonenumber_tf.getText();
+        }
+        else {
+            phonenumber_tf.setText("Nur Zahlen in der Telefonnummer erlaubt");
+            phonenumber_tf.setStyle("-fx-text-fill: red");
+            applyable=false;}
+        if(birthday_dp.getValue()==null){
+            birthday_dp.setStyle("-fx-border-color: red;");
+            applyable=false;
+        }
+        if(applyable)
+        {
+            Roommate newRoommate = new Roommate(firstname,lastname,0,phonenumber,true,LocalDate.now(),birthday,profilePic);
+            log.debug("Roommate created");
+            nav.addCurrentRoomate(newRoommate);
+            apply=true;
+        }
+
+
+
+    }
+
     private void initProfilpics() throws FileNotFoundException {
         File directory = new File("src/main/resources/images");
         String[] list = directory.list();
@@ -43,16 +91,24 @@ public class NewRoommateController implements Initializable {
             showProfilePic.setFitWidth(100);
             showProfilePic.setFitHeight(100);
             button.setGraphic(showProfilePic);
+            button.setId("src/main/resources/images/"+profilepicPath);
+
             button.setOnAction(event -> profilButton(button));
+
+
             profilepicList.getChildren().add(button);
         }
     }
    private void profilButton(Button button){
-        ImageView imageView = (ImageView) button.getGraphic();
-        String profilepicPath = imageView.getImage().getUrl();
-        profilePic = profilepicPath;
+        profilePic = button.getId();
         log.debug(profilePic);
    }
+
+   @FXML private void clear(MouseEvent mouseEvent){
+     TextField textfield = (TextField) mouseEvent.getSource();
+     textfield.setText("");
+
+    }
 
 
 
@@ -65,5 +121,6 @@ public class NewRoommateController implements Initializable {
             e.printStackTrace();
             log.error("File not found");
         }
+
     }
 }
