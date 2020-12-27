@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class CleaningItem extends Item {
 
 
-    public CleaningItem(String type, String content, String author, long price, LocalDate boughtDate, String boughtBy) {
+    public CleaningItem(String type, String content, String author, String price, LocalDate boughtDate, String boughtBy) {
         super(type, content, author, price, boughtDate, boughtBy);
     }
 
