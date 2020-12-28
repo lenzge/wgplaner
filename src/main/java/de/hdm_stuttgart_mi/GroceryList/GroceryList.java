@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -50,16 +52,20 @@ public class GroceryList {
 
                 if (tempJasonObject.get("price") == null) {
                     Iitem item = ItemFactory.getInstance(type, content, author);
-                    itemList.add(item);
-                } else {
+                    itemList.add(0,item);
+                } else if (LocalDate.now().minusMonths(1).compareTo(LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter))> 0){
+
+                }
+                else {
                     String price = (String) tempJasonObject.get("price");
                     LocalDate boughtDate = LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter);
                     String boughtBy = (String) tempJasonObject.get("boughtBy");
                     Iitem item = ItemFactory.getInstance(type, content, author, price, boughtDate, boughtBy);
                     itemList.add(item);
                 }
-                System.out.print(itemList);
+
             }
+
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -93,15 +99,16 @@ public class GroceryList {
             e.printStackTrace();
         }
 
-
-
     }
 
     public List<Iitem> getItemList() {
         return itemList;
     }
 
-
+    public void addItem(String type, String content, Roommate author){
+        Iitem item = ItemFactory.getInstance(type, content, author.getFullname());
+        itemList.add(item);
+    }
 
     public GroceryList() {
         initItems();

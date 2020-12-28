@@ -28,7 +28,7 @@ public class GUITest extends Application {
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 
         /*stylesheet als ExternalForm Kennzeichnen*/
-        final String stylesheet = getClass().getResource("/styles/styles.css").toExternalForm();
+        final String stylesheet = getClass().getResource("/styles/stylesLena.css").toExternalForm();
 
 
         final FXMLLoader loader = new FXMLLoader();
