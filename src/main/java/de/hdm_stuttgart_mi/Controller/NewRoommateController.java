@@ -2,6 +2,7 @@ package de.hdm_stuttgart_mi.Controller;
 
 import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,18 +19,18 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class NewRoommateController implements Initializable {
+public class NewRoommateController extends Supercontroller implements Initializable {
     private static final Logger log = LogManager.getLogger(NewRoommateController.class);
     private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     private LocalDate birthday;
     private String profilePic;
-    private boolean apply = false;
     @FXML private DatePicker birthday_dp;
     @FXML private HBox profilepicList;
     @FXML private TextField firstname_tf;
@@ -42,7 +43,7 @@ public class NewRoommateController implements Initializable {
         birthday = LocalDate.parse(value,formatter);
         log.info(birthday);
     }
-    @FXML private void apply() {
+    @FXML private void apply(ActionEvent e) throws IOException {
         boolean applyable=true;
         String firstname="",lastname="",phonenumber="";
         if(firstname_tf.getText() ==null || firstname_tf.getText().equals("")||firstname_tf.getText().matches("[^a-zA-Z]")){
@@ -72,7 +73,10 @@ public class NewRoommateController implements Initializable {
             Roommate newRoommate = new Roommate(firstname,lastname,0,phonenumber,true,LocalDate.now(),birthday,profilePic);
             log.debug("Roommate created");
             nav.addCurrentRoomate(newRoommate);
-            apply=true;
+            int id= nav.getRoommate(nav.roommateListLenght()-1).getID();
+            nav = new Navigation(id);
+
+            super.changeScene(e);
         }
 
 

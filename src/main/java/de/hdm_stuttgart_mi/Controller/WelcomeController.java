@@ -25,7 +25,6 @@ public class WelcomeController implements Initializable {
     @FXML private Label roommateName;
     private String catsmile = " =^.^=";
 
-    Navigation nav = new Navigation(3);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
     private Image currentProfilePic= new Image(input);
 

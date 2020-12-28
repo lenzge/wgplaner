@@ -27,7 +27,7 @@ public class FxmlGuiDriver extends Application {
     public void start(Stage stage) throws Exception {
         log.info("Starting GUI");
 
-        String fxmlFile = "/fxml/newRoommate.fxml";    //Orginal:  \"/fxml/hello.fxml\";
+        String fxmlFile = "/fxml/startscreen.fxml";    //Orginal:  \"/fxml/hello.fxml\";
              log.debug("Loading FXML for main view from: {}", fxmlFile);
 
                   /*stylesheet als ExternalForm Kennzeichnen*/

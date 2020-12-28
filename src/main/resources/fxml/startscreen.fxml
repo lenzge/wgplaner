@@ -37,9 +37,13 @@
     <VBox GridPane.columnIndex="2"  GridPane.rowIndex="2" GridPane.rowSpan="5"
           GridPane.columnSpan="6" >
         <Label text="Hallo, wähle bitte deinen Namen" prefWidth="200" prefHeight="30"/>
-        <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40"/>
+        <HBox>
+            <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40"/>
+            <Button fx:id="apply_bt" text="weiter" onAction="#changeScene"/>
+        </HBox>
+
         <Label text="Gerade erst eingezogen? Lege dein Profil hier an:" prefHeight="30" prefWidth="400"/>
-        <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" prefWidth="150" prefHeight="40"/>
+        <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" onAction="#changeScene" prefWidth="150" prefHeight="40"/>
     </VBox>
 
 </GridPane>
