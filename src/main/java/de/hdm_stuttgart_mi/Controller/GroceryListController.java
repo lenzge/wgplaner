@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi;
+package de.hdm_stuttgart_mi.Controller;
 
 import de.hdm_stuttgart_mi.GroceryList.GroceryList;
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
@@ -37,6 +37,7 @@ public class GroceryListController implements Initializable {
     @FXML private Label roommateName;
 
 
+    Navigation nav = new Navigation(3);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
     private Image currentProfilePic= new Image(input);
     public GroceryListController() throws FileNotFoundException {
