@@ -3,12 +3,7 @@
 .GridPane{
     -fx-background-color: #2f2e33;
 }
-.StackPane{
-    -fx-border-style: solid;
-    -fx-border-width:4px;
-    -fx-border-color: #5f5e61;
-    -fx-background-color: #424045;
-}
+
 .BorderPane{
     -fx-background-color: #424045;
 }
@@ -107,7 +102,7 @@
     -fx-effect: dropshadow(one-pass-box,#1d9399,10,5.0,0,0)
 }
 
-#roommateName{
+#profil_bt{
     -fx-background-color: #5f5e61;
     -fx-alignment: center;
 }

@@ -6,9 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.hdm_stuttgart_mi.Controller.WelcomeController"
+          fx:controller="de.hdm_stuttgart_mi.Controller.profilController"
           styleClass="main-panel"
           hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="800" prefWidth="1400" vgap="10.0" >
@@ -55,9 +57,33 @@
 
 
     </GridPane>
-        <StackPane fx:id="changing" GridPane.columnIndex="1"  styleClass="Menue">
-            <children>
-               <Label fx:id="welcomeText"></Label>
-           </children>
-        </StackPane>
+   <GridPane GridPane.columnIndex="1" styleClass="Menue">
+       <columnConstraints>
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="600.0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="400.0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="100.0" prefWidth="100.0" />
+       </columnConstraints>
+       <rowConstraints>
+           <RowConstraints minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+       </rowConstraints>
+
+       <padding><Insets top="0" right="25" bottom="0" left="20"/></padding>
+   <!-- Name  -->
+       <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Testname"/>
+
+   <!-- Changebale Birthday  -->
+       <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Geburtstag"/>
+       <Label  fx:id="birthday_lb" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+       <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="Bearbeiten" prefWidth="100" prefHeight="40"/>
+       <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" visible="false" disable="true"/>
+   <!-- ProfilPic change  -->
+       <Label text="Dein Profilbild" GridPane.rowIndex="2"  GridPane.columnIndex="0"/>
+       <ImageView fx:id="ownProfilePic" GridPane.rowIndex="2"  GridPane.columnIndex="0" />
+       <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="1" spacing="10"/>
+   <!-- delete user -->
+       <Button fx:id="deleteUser_bt" text="Ausziehen" GridPane.rowIndex="3"  GridPane.columnIndex="2" style="-fx-border-color: red; -fx-border-style: solid" />
+   </GridPane>
 </GridPane>

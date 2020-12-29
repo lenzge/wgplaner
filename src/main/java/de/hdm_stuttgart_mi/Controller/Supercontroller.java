@@ -35,6 +35,9 @@ public class Supercontroller {
         else if(button.getId().equals("newRoommate_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/newRoommate.fxml"));
         }
+        else if(button.getId().equals("profil_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/profil.fxml"));
+        }
         else {
             Label label = new Label("Tut uns Leid es ist etwas schief gelaufen. Bitte starte das Programm neu");
             sceneRoot=label;
