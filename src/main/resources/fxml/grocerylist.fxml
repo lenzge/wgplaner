@@ -47,9 +47,9 @@
         <children>
             <ImageView fx:id="profilePic" GridPane.rowIndex="1"  GridPane.columnIndex="0" GridPane.columnSpan="1"></ImageView>
             <Label fx:id="roommateName" text="TestUser Kohlig" prefWidth="250.0" prefHeight="40" GridPane.rowIndex="1"  GridPane.columnIndex="1" GridPane.columnSpan="1"/>
-            <Button fx:id="blackboard_bt" text="Pinnwand" onAction="#blackboardButton"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
-            <Button fx:id="grocerylist_bt" text="Einkaufsliste" onAction="#groceryListButton"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
-            <Button fx:id="roommates_bt" text="Mitbewohner" onAction="#roommatesButton"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
+            <Button fx:id="blackboard_bt" text="Pinnwand" onAction="#changeScene"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
+            <Button fx:id="grocerylist_bt" text="Einkaufsliste" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
+            <Button fx:id="roommates_bt" text="Mitbewohner" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
         </children>
 
 

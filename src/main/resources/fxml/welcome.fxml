@@ -51,7 +51,7 @@
 
 
     </GridPane>
-        <StackPane fx:id="changing" GridPane.columnIndex="1"  styleClass="main">
+        <StackPane fx:id="changing" GridPane.columnIndex="1"  styleClass="Menue">
             <children>
                <Label fx:id="welcomeText"></Label>
 

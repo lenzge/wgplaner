@@ -91,7 +91,6 @@ public class GroceryList {
             list.add(innerObj);
         }
         obj.put("items", list);
-        System.out.print(obj);
 
         try (FileWriter writer = new FileWriter(file, false)) {
             writer.write(obj.toJSONString());
@@ -108,6 +107,10 @@ public class GroceryList {
     public void addItem(String type, String content, Roommate author){
         Iitem item = ItemFactory.getInstance(type, content, author.getFullname());
         itemList.add(item);
+    }
+
+    public void deleteItem(Iitem item){
+        itemList.removeIf(value -> value.getContent().equals(item.getContent()));
     }
 
     public GroceryList() {
