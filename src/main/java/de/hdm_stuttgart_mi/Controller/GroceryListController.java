@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class GroceryListController implements Initializable {
+public class GroceryListController extends Supercontroller implements Initializable {
 
     @FXML private ListView<HBox> itemlistView;
     @FXML private TextField itemContent;
@@ -82,7 +82,13 @@ public class GroceryListController implements Initializable {
             if (value.getPrice() != null) {
                 Label type = new Label(value.getType());
                 type.setStyle("-fx-text-fill: transparent");
-                type.setPrefWidth(170);
+                type.setPrefWidth(100);
+                Button delete = new Button("delete");
+                delete.setPrefWidth(65);
+                delete.setStyle("-fx-background-color: #2f2e33");
+                delete.setStyle(" -fx-text-fill: #2f2e33");
+                delete.setVisible(false);
+                delete.setOnAction(event -> deleteItem(value));
                 Label label= new Label(value.getContent());
                // label.setPrefWidth(720);
                 label.setMinWidth(76);
@@ -93,22 +99,29 @@ public class GroceryListController implements Initializable {
                 vbox.setMinWidth(76);
                 vbox.setAlignment(Pos.CENTER_LEFT);
                 Label price = new Label(value.getPrice());
-                price.setPrefWidth(155);
+                price.setPrefWidth(80);
                 price.setMinWidth(76);
                 hbox.getChildren().addAll(
                         label,
                         type,
                         vbox,
-                        price
+                        price,
+                        delete
                 );
-                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33");});
-                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");});
+                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33"); delete.setVisible(true);});
+                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");delete.setVisible(false);});
                 HBox.setHgrow(label, Priority.SOMETIMES);
             }
             else {
                 Label type = new Label(value.getType());
                 type.setStyle("-fx-text-fill: transparent");
-                type.setPrefWidth(170);
+                type.setPrefWidth(100);
+                Button delete = new Button("delete");
+                delete.setPrefWidth(65);
+                delete.setStyle("-fx-background-color: #2f2e33");
+                delete.setStyle(" -fx-text-fill: #2f2e33");
+                delete.setVisible(false);
+                delete.setOnAction(event -> deleteItem(value));
                 Label label = new Label(value.getContent());
                 //label.setPrefWidth(720);
                 label.setMinWidth(76);
@@ -118,16 +131,17 @@ public class GroceryListController implements Initializable {
                 textfield.setMinWidth(76);
                 Button button = new Button ("check");
                 button.setOnAction(event -> checkItem(textfield.getText(), value));
-                button.setPrefWidth(155);
+                button.setPrefWidth(80);
                 button.setMinWidth(76);
                 hbox.getChildren().addAll(
                         label,
                         type,
                         textfield,
-                        button
+                        button,
+                        delete
                 );
-                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33");});
-                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");});
+                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33"); delete.setVisible(true);});
+                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");delete.setVisible(false);});
                 HBox.setHgrow(label, Priority.SOMETIMES);
                 HBox.setHgrow(button, Priority.SOMETIMES);
             }
@@ -146,14 +160,13 @@ public class GroceryListController implements Initializable {
         initItemListView();
     }
 
+    private void deleteItem(Iitem value){
+        GroceryList groceryList = new GroceryList();
+        groceryList.deleteItem(value);
+        groceryList.safeItems();
+        initItemListView();
+    }
 
-    @FXML private void blackboardButton(){
-        blackboard_bt.setText("gedrückt");
-    }
-    @FXML private void groceryListButton(){
-        grocerylist_bt.setText("gedrückt");
-    }
-    @FXML private void roommatesButton(){ roommates_bt.setText("gedrückt"); }
 
     @FXML private void addItem() {
         GroceryList groceryList = new GroceryList();
