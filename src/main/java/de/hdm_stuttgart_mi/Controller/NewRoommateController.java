@@ -5,10 +5,7 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -84,11 +81,16 @@ public class NewRoommateController extends Supercontroller implements Initializa
     }
 
     private void initProfilpics() throws FileNotFoundException {
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         File directory = new File("src/main/resources/images");
+       //all Filenames in the directory are written into a Stringarray
         String[] list = directory.list();
+       //sicherstellen dass die Liste icht null ist
         assert list != null;
         for(String profilepicPath : list){
-            Button button = new Button();
+            ToggleButton button = new ToggleButton();
             FileInputStream input = new FileInputStream("src/main/resources/images/"+profilepicPath);
             Image profilePic= new Image(input);
             ImageView showProfilePic = new ImageView(profilePic);
@@ -99,17 +101,20 @@ public class NewRoommateController extends Supercontroller implements Initializa
 
             button.setOnAction(event -> profilButton(button));
 
-
+            toggleGroup.getToggles().add(button);
             profilepicList.getChildren().add(button);
         }
     }
-   private void profilButton(Button button){
+   private void profilButton(ToggleButton button){
+
         profilePic = button.getId();
+        button.setSelected(true);
         log.debug(profilePic);
    }
 
    @FXML private void clear(MouseEvent mouseEvent){
      TextField textfield = (TextField) mouseEvent.getSource();
+     textfield.setStyle("-fx-text-fill: #CBCBCB");
      textfield.setText("");
 
     }

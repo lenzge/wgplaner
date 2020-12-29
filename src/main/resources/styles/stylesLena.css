@@ -165,3 +165,10 @@
 
 
 }
+
+.toggle-button{
+    -fx-background-color: #5f5e61;
+}
+.toggle-button:selected{
+    -fx-background-color: #1d9399;
+}

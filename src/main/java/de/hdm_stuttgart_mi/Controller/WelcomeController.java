@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class WelcomeController implements Initializable {
+public class WelcomeController extends Supercontroller implements Initializable {
     @FXML private Button blackboard_bt;
     @FXML private Button grocerylist_bt;
     @FXML private Button roommates_bt;
