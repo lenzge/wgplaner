@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +29,6 @@ public class StartscreenController extends Supercontroller implements Initializa
     private static final Logger log = LogManager.getLogger(StartscreenController.class);
 
     @FXML private MenuButton roommateMenuButton;
-    @FXML private Button newRoommate_bt;
     Navigation nav = new Navigation();
     private void initMenuButton(){
         roommateMenuButton.setText("Mitbewohner");
@@ -44,6 +44,7 @@ public class StartscreenController extends Supercontroller implements Initializa
     }
     private void changeMenuButtonText(ActionEvent e){
         roommateMenuButton.setText(((MenuItem)e.getSource()).getText());
+        roommateMenuButton.setTextFill(Paint.valueOf("#1d9399"));
         String Id =((MenuItem)e.getSource()).getId();
         int id = Integer.parseInt(Id);
         nav = new Navigation(id);

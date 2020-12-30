@@ -5,6 +5,7 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,12 +46,12 @@ public class NewRoommateController extends Supercontroller implements Initializa
         String firstname="",lastname="",phonenumber="";
         if(firstname_tf.getText() ==null || firstname_tf.getText().equals("")||firstname_tf.getText().matches("[^a-zA-Z]")){
             firstname_tf.setText("Bitte trage deinen Vornamen ein. Es sind keine Zahlen erlaubt");
-            firstname_tf.setStyle("-fx-text-fill: red");
+            firstname_tf.setStyle("-fx-border-color: red");
             applyable=false;}
         else {firstname = firstname_tf.getText();}
         if(lastname_tf.getText() ==null || lastname_tf.getText().equals("")||lastname_tf.getText().matches("[^a-zA-Z]")){
             lastname_tf.setText("Bitte trage deinen Nachnamen ein. Es sind keine Zahlen erlaubt");
-            lastname_tf.setStyle("-fx-text-fill: red");
+            lastname_tf.setStyle("-fx-border-color: red");
             applyable=false;}
         else{lastname = lastname_tf.getText();}
         if(phonenumber_tf.getText().matches("^(\\d+)$"))
@@ -59,7 +60,7 @@ public class NewRoommateController extends Supercontroller implements Initializa
         }
         else {
             phonenumber_tf.setText("Nur Zahlen in der Telefonnummer erlaubt");
-            phonenumber_tf.setStyle("-fx-text-fill: red");
+            phonenumber_tf.setStyle("-fx-border-color: red");
             applyable=false;}
         if(birthday_dp.getValue()==null){
             birthday_dp.setStyle("-fx-border-color: red;");
@@ -113,11 +114,16 @@ public class NewRoommateController extends Supercontroller implements Initializa
    }
 
    @FXML private void clear(MouseEvent mouseEvent){
-     TextField textfield = (TextField) mouseEvent.getSource();
-     textfield.setStyle("-fx-text-fill: #CBCBCB");
-     textfield.setText("");
+        if(mouseEvent.getSource() instanceof TextField){
+            TextField textfield = (TextField) mouseEvent.getSource();
+            textfield.setStyle("-fx-border-style: none");
+            textfield.setText("");}
+        if(mouseEvent.getSource() instanceof DatePicker){
+            DatePicker textfield = (DatePicker) mouseEvent.getSource();
+            textfield.setStyle("-fx-border-style: none");
+            }
+        }
 
-    }
 
 
 

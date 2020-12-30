@@ -13,23 +13,24 @@
           styleClass="main-panel"
           maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="800" prefWidth="1400"
-          alignment="CENTER" spacing="50">
+          alignment="CENTER" >
 
 
-    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-
-    <VBox alignment="CENTER">
-        <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>
-        <HBox spacing="10" alignment="CENTER">
-            <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40" alignment="CENTER"/>
-            <Button fx:id="apply_bt" text="weiter" onAction="#changeScene" prefHeight="40"/>
-        </HBox>
+    <padding><Insets top="5" right="50" bottom="10" left="50"/></padding>
+    <VBox alignment="CENTER" styleClass="Menue" spacing="50">
+        <padding><Insets top="200" right="25" bottom="200" left="25"/></padding>
+        <VBox alignment="CENTER">
+            <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40" alignment="CENTER"/>
+                    <Button fx:id="apply_bt" text="weiter" onAction="#changeScene" prefHeight="40"/>
+                </HBox>
+        </VBox>
+        <VBox alignment="CENTER" >
+            <padding><Insets top="25"/></padding>
+            <Label text="Gerade erst eingezogen? Lege dein Profil hier an:" prefHeight="30" prefWidth="400" alignment="CENTER"/>
+            <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" onAction="#changeScene" prefWidth="250" prefHeight="40" alignment="CENTER"/>
+        </VBox>
     </VBox>
-    <VBox alignment="CENTER" >
-        <padding><Insets top="25"/></padding>
-        <Label text="Gerade erst eingezogen? Lege dein Profil hier an:" prefHeight="30" prefWidth="400" alignment="CENTER"/>
-        <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" onAction="#changeScene" prefWidth="250" prefHeight="40" alignment="CENTER"/>
-    </VBox>
-
 </VBox>
 
