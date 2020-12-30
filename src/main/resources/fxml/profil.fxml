@@ -59,9 +59,9 @@
     </GridPane>
    <GridPane GridPane.columnIndex="1" styleClass="Menue">
        <columnConstraints>
-           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="600.0" />
-           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="400.0" />
-           <ColumnConstraints hgrow="SOMETIMES"  minWidth="100.0" prefWidth="100.0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="250" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="650.0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="100.0" prefWidth="200.0" />
        </columnConstraints>
        <rowConstraints>
            <RowConstraints minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
@@ -72,18 +72,27 @@
 
        <padding><Insets top="0" right="25" bottom="0" left="20"/></padding>
    <!-- Name  -->
-       <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Testname"/>
+       <Label fx:id="fullname_lb" GridPane.columnIndex="0" GridPane.rowIndex="0" text="Testname"/>
+       <Label fx:id="phonenumber" GridPane.columnIndex="1" GridPane.rowIndex="0" text="Testname"/>
+       <Label fx:id="moveInDate" GridPane.columnIndex="2" GridPane.rowIndex="0" text="Testname"/>
+
 
    <!-- Changebale Birthday  -->
-       <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Geburtstag"/>
-       <Label  fx:id="birthday_lb" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-       <Button GridPane.columnIndex="2" GridPane.rowIndex="1" text="Bearbeiten" prefWidth="100" prefHeight="40"/>
-       <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" visible="false" disable="true"/>
+      <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <Label text="Geburtstag"/>
+          <Label  fx:id="birthday_lb" />
+      </VBox>
+
+       <Button onAction="#changeBirthday" fx:id="birthday_bt" GridPane.columnIndex="2" GridPane.rowIndex="1" text="Bearbeiten" prefWidth="150" prefHeight="40" />
+       <DatePicker fx:id="birthdaypicker" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" visible="false" disable="true" showWeekNumbers="false" />
    <!-- ProfilPic change  -->
-       <Label text="Dein Profilbild" GridPane.rowIndex="2"  GridPane.columnIndex="0"/>
-       <ImageView fx:id="ownProfilePic" GridPane.rowIndex="2"  GridPane.columnIndex="0" />
-       <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="1" spacing="10"/>
+       <VBox GridPane.rowIndex="2"  GridPane.columnIndex="0" alignment="TOP_LEFT" spacing="5">
+           <Label text="Dein Profilbild:" GridPane.rowIndex="2"  GridPane.columnIndex="0"/>
+           <ImageView fx:id="ownProfilePic" GridPane.rowIndex="2"  GridPane.columnIndex="0" />
+       </VBox>
+
+       <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="1" GridPane.columnSpan="1" spacing="10" alignment="BASELINE_LEFT"/>
    <!-- delete user -->
-       <Button fx:id="deleteUser_bt" text="Ausziehen" GridPane.rowIndex="3"  GridPane.columnIndex="2" style="-fx-border-color: red; -fx-border-style: solid" />
+       <Button fx:id="deleteUser_bt" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="3"  GridPane.columnIndex="2" style="-fx-border-color: red; -fx-border-style: solid" />
    </GridPane>
 </GridPane>

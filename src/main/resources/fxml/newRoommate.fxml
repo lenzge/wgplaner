@@ -39,7 +39,7 @@
         <Label text="Nachname:" prefHeight="30" prefWidth="400"/>
         <TextField fx:id="lastname_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
         <Label fx:id="birthday_lb" text="Geburtstag:" prefWidth="200" prefHeight="30"/>
-        <DatePicker fx:id="birthday_dp" prefWidth="300" prefHeight="40" onAction="#datepicked"/>
+        <DatePicker fx:id="birthday_dp" prefWidth="300" prefHeight="40" onAction="#datepicked" showWeekNumbers="false"/>
         <Label text="Telefonnummer:" prefHeight="30" prefWidth="400"/>
         <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
         <Label text="Wähle ein Profilbild:" prefWidth="200" prefHeight="30"/>

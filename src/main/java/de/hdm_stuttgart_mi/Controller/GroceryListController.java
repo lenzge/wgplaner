@@ -46,7 +46,7 @@ public class GroceryListController extends Supercontroller implements Initializa
 
 
 
-    Navigation nav = new Navigation(3);
+    Navigation nav = new Navigation(1);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
     private Image currentProfilePic= new Image(input);
     public GroceryListController() throws FileNotFoundException {

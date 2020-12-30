@@ -49,6 +49,7 @@ public class Navigation {
         }
     }
 
+
     public int roommateListLenght(){
         return roommateList.size();
     }
@@ -56,10 +57,23 @@ public class Navigation {
     public  Roommate getRoommate(int i){
         return roommateList.get(i);
     }
-   /** public static FormerRoommate getFormer(int i){
+
+    public void deleteFromList(){
+        roommateList.remove(currentUser.getID());
+        saveRoommates();
+    }
+
+    public void updateCurrentUser() {
+        roommateList.set(currentUser.getID(),currentUser);
+        saveRoommates();
+    }
+
+    /** public static FormerRoommate getFormer(int i){
         return formerRoommateList[i];
     }
    **/
+
+
     public void saveRoommates(){
         JSONObject obj = new JSONObject();
         JSONArray list = new JSONArray();

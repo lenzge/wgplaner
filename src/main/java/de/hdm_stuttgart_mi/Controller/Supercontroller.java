@@ -17,7 +17,7 @@ public class Supercontroller {
     public void changeScene(ActionEvent event) throws IOException {
 
         final FXMLLoader loader = new FXMLLoader();
-        //choose fxml Scene
+        //choose fxml Scene. To add a scenechange simply add another else if with the button ID and scenefilename
         Button button = ((Button)event.getSource());
         Parent sceneRoot;
         if(button.getId().equals("apply_bt")){
@@ -37,6 +37,9 @@ public class Supercontroller {
         }
         else if(button.getId().equals("profil_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/profil.fxml"));
+        }
+        else if(button.getId().equals("deleteUser_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
         }
         else {
             Label label = new Label("Tut uns Leid es ist etwas schief gelaufen. Bitte starte das Programm neu");
