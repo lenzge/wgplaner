@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 public class GUITest extends Application {
 
 
-    private static final Logger log = LogManager.getLogger(FxmlGuiDriver.class);
+    private static final Logger log = LogManager.getLogger(GUITest.class);
 
 
     public void start(Stage stage) throws Exception {
