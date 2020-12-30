@@ -76,14 +76,14 @@
                             </Insets>
                         </HBox.margin>
                     </TextField >
-                    <MenuButton fx:id="itemType" prefWidth="180.0" minWidth="76" prefHeight="45">
+                    <MenuButton fx:id="itemType" prefWidth="180.0" minWidth="180" prefHeight="45">
                         <HBox.margin>
                             <Insets>
                                 <top>5</top>
                             </Insets>
                         </HBox.margin>
                     </MenuButton>
-                    <Button fx:id="addItem" onAction="#addItem" text="add" prefWidth="180.0" minWidth="76" prefHeight="45">
+                    <Button fx:id="addItem" onAction="#addItem" text="add" prefWidth="180.0" minWidth="180" prefHeight="45">
                         <HBox.margin>
                             <Insets>
                                 <top>5</top>

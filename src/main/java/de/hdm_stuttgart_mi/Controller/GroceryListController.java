@@ -2,182 +2,120 @@ package de.hdm_stuttgart_mi.Controller;
 
 import de.hdm_stuttgart_mi.GroceryList.GroceryList;
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
-import de.hdm_stuttgart_mi.GroceryList.Item;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
-import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+//import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+/*import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Logger;*/
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
 public class GroceryListController extends Supercontroller implements Initializable {
+    //only for testing
+    //Navigation nav = new Navigation(3);
 
-    @FXML private ListView<HBox> itemlistView;
-    @FXML private TextField itemContent;
-    @FXML private MenuButton itemType;
-    @FXML private Button addItem;
-
-    @FXML private Button blackboard_bt;
-    @FXML private Button grocerylist_bt;
-    @FXML private Button roommates_bt;
+    //menu
     @FXML private ImageView profilePic;
     @FXML private Label roommateName;
 
-
-
-    Navigation nav = new Navigation(3);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
-    private Image currentProfilePic= new Image(input);
+    private final Image currentProfilePic= new Image(input);
     public GroceryListController() throws FileNotFoundException {
     }
 
 
+    @FXML private ListView<HBox> itemlistView;
+    @FXML private TextField itemContent;
+    @FXML private MenuButton itemType;
+
+    //global
+    GroceryList groceryList;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
+
+
+    //loading gui
+
+    //depending on ItemFactory
     private void initItemTypes(){
-        itemType.setText("food");
+        itemType.setText("food"); //default, because food is the most used type
         for(String type : ItemFactory.getAllItemTypes()) {
             MenuItem menuitem = new MenuItem(type);
-            menuitem.setId(type);
             menuitem.setOnAction(event -> initType(menuitem));
             itemType.getItems().add(menuitem);
         }
     }
-
     private void initType(MenuItem menuItem){
         itemType.setText(menuItem.getText());
     }
 
+    //loads every item from itemList into the ListView
     private void initItemListView(){
 
-        GroceryList groceryList = new GroceryList();
-        ObservableList<HBox> obsList = FXCollections.<HBox>observableArrayList();
+        ObservableList<HBox> obsList = FXCollections.observableArrayList();
+
         for(Iitem value : groceryList.getItemList()){
             HBox hbox = new HBox();
-            hbox.setSpacing(5);
-            hbox.setPrefHeight(50);
-            hbox.setAlignment(Pos.CENTER);
+                hbox.getStyleClass().add("hboxLena");
+            Label content = new Label(value.getContent());
+                content.getStyleClass().add("contentLabel");
+            Label type = new Label(value.getType());
+                type.getStyleClass().add("typeLabel");
+                type.setVisible(false); //only visible while hovering
+            Button delete = new Button("delete");
+                delete.getStyleClass().add("deleteButton");
+                delete.setVisible(false); //only visible while hovering
+                delete.setOnAction(event -> deleteItem(value));
 
+            //bought items
             if (value.getPrice() != null) {
-                Label type = new Label(value.getType());
-                type.setStyle("-fx-text-fill: transparent");
-                type.setPrefWidth(100);
-                Button delete = new Button("delete");
-                delete.setPrefWidth(65);
-                delete.setStyle("-fx-background-color: #2f2e33");
-                delete.setStyle(" -fx-text-fill: #2f2e33");
-                delete.setVisible(false);
-                delete.setOnAction(event -> deleteItem(value));
-                Label label= new Label(value.getContent());
-               // label.setPrefWidth(720);
-                label.setMinWidth(76);
-                label.setMaxWidth(2000);
-                VBox vbox = new VBox (new Label(value.getBoughtBy()),
-                        new Label(value.getBoughtDate().format(formatter)));
-                vbox.setPrefWidth(170);
-                vbox.setMinWidth(76);
-                vbox.setAlignment(Pos.CENTER_LEFT);
+                VBox bought = new VBox (new Label(value.getBoughtBy()), new Label(value.getBoughtDate().format(formatter)));
+                    bought.getStyleClass().add("columnthree");
                 Label price = new Label(value.getPrice());
-                price.setPrefWidth(80);
-                price.setMinWidth(76);
-                hbox.getChildren().addAll(
-                        label,
-                        type,
-                        vbox,
-                        price,
-                        delete
-                );
-                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33"); delete.setVisible(true);});
-                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");delete.setVisible(false);});
-                HBox.setHgrow(label, Priority.SOMETIMES);
+                    price.getStyleClass().add("columnfour");
+
+                hbox.getChildren().addAll(content, type, bought, price, delete);
             }
+
+            //non-bought items
             else {
-                Label type = new Label(value.getType());
-                type.setStyle("-fx-text-fill: transparent");
-                type.setPrefWidth(100);
-                Button delete = new Button("delete");
-                delete.setPrefWidth(65);
-                delete.setStyle("-fx-background-color: #2f2e33");
-                delete.setStyle(" -fx-text-fill: #2f2e33");
-                delete.setVisible(false);
-                delete.setOnAction(event -> deleteItem(value));
-                Label label = new Label(value.getContent());
-                //label.setPrefWidth(720);
-                label.setMinWidth(76);
-                label.setMaxWidth(2000);
-                TextField textfield = new TextField("€");
-                textfield.setPrefWidth(170);
-                textfield.setMinWidth(76);
-                Button button = new Button ("check");
-                button.setOnAction(event -> checkItem(textfield.getText(), value));
-                button.setPrefWidth(80);
-                button.setMinWidth(76);
-                hbox.getChildren().addAll(
-                        label,
-                        type,
-                        textfield,
-                        button,
-                        delete
-                );
-                hbox.setOnMouseEntered((event) -> { type.setStyle("-fx-text-fill: #2f2e33"); delete.setVisible(true);});
-                hbox.setOnMouseExited((event) -> { type.setStyle("-fx-text-fill: transparent");delete.setVisible(false);});
-                HBox.setHgrow(label, Priority.SOMETIMES);
-                HBox.setHgrow(button, Priority.SOMETIMES);
+                TextField price = new TextField("€");
+                    price.getStyleClass().add("columnthree");
+                Button check = new Button ("check");
+                    check.getStyleClass().add("columnfour");
+                    check.setOnAction(event -> checkItem(value, price));
+
+                hbox.getChildren().addAll(content, type, price, check, delete);
             }
+
+            HBox.setHgrow(content, Priority.ALWAYS);
+            hbox.setOnMouseEntered(event -> visible(type,delete));
+            hbox.setOnMouseExited(event -> hidden(type,delete));
             obsList.add(hbox);
 
         }
-
         itemlistView.setItems(obsList);
-
     }
 
-    private void checkItem(String price, Iitem value) {
-        GroceryList groceryList = new GroceryList();
-        groceryList.boughtItem(value, price, currentUser);
-        groceryList.safeItems();
-        initItemListView();
-    }
-
-    private void deleteItem(Iitem value){
-        GroceryList groceryList = new GroceryList();
-        groceryList.deleteItem(value);
-        groceryList.safeItems();
-        initItemListView();
-    }
-
-
-    @FXML private void addItem() {
-        GroceryList groceryList = new GroceryList();
-        groceryList.addItem(itemType.getText(), itemContent.getText(), currentUser);
-        groceryList.safeItems();
-        initItemListView();
-        itemContent.setText("");
-    }
-
-
+    //start
     @Override public void initialize(URL location, ResourceBundle resources){
+        groceryList = new GroceryList();
         initItemListView();
         initItemTypes();
         profilePic.setImage(currentProfilePic);
@@ -186,5 +124,77 @@ public class GroceryListController extends Supercontroller implements Initializa
         roommateName.setText(currentUser.getFullname());
     }
 
+
+
+    //edit functions
+
+    //change item from non-bought to bought
+    private void checkItem(Iitem value, TextField textfield) {
+        //error, if price is no price
+        if(textfield.getText() == null || !textfield.getText().matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
+            textfield.setText("€");
+            textfield.getStyleClass().add("error");
+            textfield.setOnMouseClicked((event) -> textfield.getStyleClass().remove("error"));
+        }
+        else {
+            groceryList.boughtItem(value, textfield.getText(), currentUser);
+            groceryList.safeItems();
+            groceryList.initItems();
+            initItemListView();
+        }
+    }
+
+    //delete item from itemList
+    private void deleteItem(Iitem value){
+        groceryList.deleteItem(value);
+        groceryList.safeItems();
+        initItemListView();
+    }
+
+    //add item to itemList
+    @FXML private void addItem() {
+        //item needs content
+        if(itemContent.getText() == null || itemContent.getText().equals("") ){
+            itemContent.getStyleClass().add("error");
+            itemContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
+            //remove error
+            itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null); });
+        }
+        //item shouldn't already exists in itemList
+        else if(itemExists(itemContent.getText())){
+            itemContent.getStyleClass().add("error");
+            itemContent.setTooltip(new Tooltip("Item existiert schon"));
+            itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null);});
+        }
+        else {
+            groceryList.addItem(itemType.getText(), itemContent.getText(), currentUser);
+            groceryList.safeItems();
+            groceryList.initItems();
+            initItemListView();
+            itemContent.setText("");
+
+        }
+    }
+
+
+    // helper functions
+
+    //does the new item already exists?
+    private boolean itemExists(String content){
+        for(Iitem item: groceryList.getItemList()){
+            if (item.getContent().equals(content)) return true;
+        }
+        return false;
+    }
+
+    //for elements, which should only visible while hovering
+    private void visible(Label type, Button delete){
+        type.setVisible(true);
+        delete.setVisible(true);
+    }
+    private void hidden (Label type, Button delete){
+        type.setVisible(false);
+        delete.setVisible(false);
+    }
 
 }

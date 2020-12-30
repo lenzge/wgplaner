@@ -53,7 +53,7 @@ public class GroceryList {
                 if (tempJasonObject.get("price") == null) {
                     Iitem item = ItemFactory.getInstance(type, content, author);
                     itemList.add(0,item);
-                } else if (LocalDate.now().minusMonths(1).compareTo(LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter))> 0){
+                } else if (LocalDate.now().minusWeeks(2).compareTo(LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter))> 0){
 
                 }
                 else {

@@ -91,9 +91,7 @@
 .button:hover{
     -fx-background-color: #1d9399;
 }
-.button:focused {
-    -fx-background-color: #1d9399;
-}
+
 /* Component specific styles */
 
 
@@ -119,6 +117,40 @@
     -fx-font-weight: bold;
     -fx-text-fill: #424045;
 }
+
+
+.hboxLena{
+    -fx-spacing: 5;
+    -fx-pref-height: 50;
+    -fx-alignment: center-left;
+}
+.contentLabel{
+    -fx-min-width: 76;
+    -fx-max-width: 2000;
+
+}
+.typeLabel{
+    -fx-pref-width: 100;
+    -fx-text-fill: #2f2e33;
+}
+.columnthree{
+    -fx-min-width: 76;
+    -fx-pref-width: 170;
+    -fx-alignment: center-left;
+}
+.columnfour{
+    -fx-min-width: 76;
+    -fx-pref-width: 80;
+}
+.deleteButton{
+    -fx-pref-width: 65;
+    -fx-background-color: #5f5e61;
+    -fx-text-fill: #2f2e33;
+}
+.error{
+    -fx-border-color: red;
+}
+
 
 /* The main scrollbar **track** CSS class  */
 .list-view .scroll-bar:horizontal .track,
