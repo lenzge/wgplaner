@@ -13,7 +13,7 @@
     </Appenders>
     <Loggers>
 
-        <!-- You my want to define class or package level per-logger rules -->
+        <!-- You may want to define class or package level per-logger rules -->
         <Logger name="de.hdm_stuttgart_mi.GuiDriver" level="debug">
             <AppenderRef ref="A1"/>
         </Logger>

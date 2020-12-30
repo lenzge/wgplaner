@@ -96,6 +96,7 @@ public class Navigation {
             writer.write(obj.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("Konnte nicht in JSON File geschrieben werden");
         }
 
     }

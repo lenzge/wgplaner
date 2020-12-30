@@ -5,7 +5,6 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,7 +38,7 @@ public class NewRoommateController extends Supercontroller implements Initializa
     @FXML private void datepicked(){
         String value = birthday_dp.getValue().format(formatter);
         birthday = LocalDate.parse(value,formatter);
-        log.info(birthday);
+        log.debug(birthday);
     }
     @FXML private void apply(ActionEvent e) throws IOException {
         boolean applyable=true;

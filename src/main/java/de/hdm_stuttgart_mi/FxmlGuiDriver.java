@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
-
 /**
  * Driver class for a simple JavaFX demonstration.
  *
@@ -30,11 +28,11 @@ public class FxmlGuiDriver extends Application {
     public void start(Stage stage) throws Exception {
         log.info("Starting GUI");
 
-        final String fxmlFile = "/fxml/welcome.fxml";    //Orginal:  \"/fxml/hello.fxml\";
+        final String fxmlFile = "/fxml/startscreen.fxml";
 
-             log.debug("Loading FXML for main view from: {}", fxmlFile);
+        log.debug("Loading FXML for main view from: {}", fxmlFile);
 
-                  /*stylesheet als ExternalForm Kennzeichnen*/
+        /*parse stylesheet to external form*/
         final String stylesheet = getClass().getResource("/styles/stylesLena.css").toExternalForm();
 
 

@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
-
 public class Supercontroller {
     public void changeScene(ActionEvent event) throws IOException {
 
@@ -23,6 +21,12 @@ public class Supercontroller {
         if(button.getId().equals("apply_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/welcome.fxml"));
         }
+        else if(button.getId().equals("newRoommate_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/newRoommate.fxml"));
+        }
+        else if(button.getId().equals("profil_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/profil.fxml"));
+        }
         else if(button.getId().equals("blackboard_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/hello.fxml"));
         }
@@ -32,13 +36,10 @@ public class Supercontroller {
         else if(button.getId().equals("roommates_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/hello.fxml"));
         }
-        else if(button.getId().equals("newRoommate_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/newRoommate.fxml"));
-        }
-        else if(button.getId().equals("profil_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/profil.fxml"));
-        }
         else if(button.getId().equals("deleteUser_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
+        }
+        else if(button.getId().equals("logout_bt")){
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
         }
         else {
@@ -53,5 +54,8 @@ public class Supercontroller {
 
         window.setScene(scene);
         window.show();
+    }
+    public void terminate(ActionEvent event){
+        System.exit(0);
     }
 }

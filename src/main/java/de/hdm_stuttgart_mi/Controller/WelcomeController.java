@@ -1,6 +1,5 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,11 +19,15 @@ public class WelcomeController extends Supercontroller implements Initializable 
 
     @FXML private Label welcomeText;
     @FXML private ImageView profilePic;
+    @FXML private ImageView shutdownIcon;
     @FXML private Button profil_bt;
-    private String catsmile = " =^.^=";
 
-    FileInputStream input = new FileInputStream(currentUser.getProfilepic());
-    private Image currentProfilePic= new Image(input);
+    private String catsmile = "=^.^=";
+
+    FileInputStream pp = new FileInputStream(currentUser.getProfilepic());
+    private Image currentProfilePic= new Image(pp);
+    FileInputStream shutdownIconPath = new FileInputStream("src/main/resources/icons/shutdown.png");
+    private Image shutdown= new Image(shutdownIconPath);
 
 
     public WelcomeController() throws FileNotFoundException {
@@ -46,6 +49,9 @@ public class WelcomeController extends Supercontroller implements Initializable 
         profilePic.setFitWidth(55);
         profilePic.setFitHeight(55);
         profil_bt.setText(currentUser.getFullname());
+        shutdownIcon.setImage(shutdown);
+        shutdownIcon.setFitWidth(25);
+        shutdownIcon.setFitHeight(25);
     }
 
 }
