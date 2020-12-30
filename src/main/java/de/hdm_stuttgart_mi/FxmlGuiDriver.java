@@ -1,5 +1,6 @@
 package de.hdm_stuttgart_mi;
 
+import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
 /**
  * Driver class for a simple JavaFX demonstration.
@@ -28,10 +31,11 @@ public class FxmlGuiDriver extends Application {
         log.info("Starting GUI");
 
         final String fxmlFile = "/fxml/welcome.fxml";    //Orginal:  \"/fxml/hello.fxml\";
+
              log.debug("Loading FXML for main view from: {}", fxmlFile);
 
                   /*stylesheet als ExternalForm Kennzeichnen*/
-        final String stylesheet = getClass().getResource("/styles/styles.css").toExternalForm();
+        final String stylesheet = getClass().getResource("/styles/stylesLena.css").toExternalForm();
 
 
         final FXMLLoader loader = new FXMLLoader();
@@ -51,5 +55,12 @@ public class FxmlGuiDriver extends Application {
 
         stage.show();
 
+    }
+    @Override
+    public void stop() throws Exception {
+        Navigation nav = new Navigation();
+        nav.updateCurrentUser();
+        super.stop();
+        log.info("Terminating application");
     }
 }

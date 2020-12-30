@@ -25,5 +25,6 @@ public class RunTest {
         groceryList.safeItems();*/
         groceryList.initItems();
         System.out.print(groceryList.toString());
+
     }
 }

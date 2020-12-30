@@ -2,9 +2,14 @@ package de.hdm_stuttgart_mi.ItemFactory;
 
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
 
+
+
 import java.time.LocalDate;
 
 public class ItemFactory {
+
+
+    private static String[] itemFactory = {"cleaning","food","furniture"};
 
     public static Iitem getInstance(String type, String content, String author){
 
@@ -32,6 +37,10 @@ public class ItemFactory {
             default:
                 return new DefaultItem(type, content, author, price, boughtDate, boughtBy);
         }
+    }
+
+    public static String[] getAllItemTypes(){
+        return itemFactory;
     }
 
 }

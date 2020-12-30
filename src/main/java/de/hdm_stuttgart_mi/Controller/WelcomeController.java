@@ -16,30 +16,19 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class WelcomeController implements Initializable {
-    @FXML private Button blackboard_bt;
-    @FXML private Button grocerylist_bt;
-    @FXML private Button roommates_bt;
+public class WelcomeController extends Supercontroller implements Initializable {
+
     @FXML private Label welcomeText;
     @FXML private ImageView profilePic;
-    @FXML private Label roommateName;
+    @FXML private Button profil_bt;
     private String catsmile = " =^.^=";
 
-    Navigation nav = new Navigation(3);
     FileInputStream input = new FileInputStream(currentUser.getProfilepic());
     private Image currentProfilePic= new Image(input);
 
 
     public WelcomeController() throws FileNotFoundException {
     }
-
-    @FXML public void blackboardButton(){
-        blackboard_bt.setText("gedrückt");
-    }
-    @FXML public void groceryListButton(){
-        grocerylist_bt.setText("gedrückt");
-    }
-    @FXML public void roommatesButton(){ roommates_bt.setText("gedrückt"); }
 
     public String getTime(){
            LocalDateTime date =  LocalDateTime.now();
@@ -56,7 +45,7 @@ public class WelcomeController implements Initializable {
         profilePic.setImage(currentProfilePic);
         profilePic.setFitWidth(55);
         profilePic.setFitHeight(55);
-        roommateName.setText(currentUser.getFullname());
+        profil_bt.setText(currentUser.getFullname());
     }
 
 }

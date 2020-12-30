@@ -1,0 +1,201 @@
+/* Application wide styles */
+
+.GridPane{
+    -fx-background-color: #2f2e33;
+}
+
+.BorderPane{
+    -fx-background-color: #424045;
+}
+.Menue{
+    -fx-border-style: solid;
+    -fx-border-width:4px;
+    -fx-border-color: #5f5e61;
+    -fx-background-color: #424045;
+
+}
+.main{
+    -fx-border-style: solid;
+    -fx-border-width:4px;
+    -fx-border-color: #5f5e61;
+    -fx-background-color: #2f2e33;
+}
+
+.list-view{
+    -fx-background-color: #424045;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0px;
+    -fx-border-color: #2f2e33;
+}
+.list-cell{
+    -fx-background-color: #424045;
+    -fx-border-color: #2f2e33;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 1;
+    -fx-pref-height: 70px;
+
+}
+.list-cell:hover {
+    -fx-background-color: #1d9399;
+    -fx-text-fill: white;
+}
+.text-field{
+    -fx-background-color: #5f5e61;
+    -fx-text-fill: #cbcbcb;
+    -fx-font-size: 17px;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+}
+
+.menu-button{
+    -fx-background-color: #5f5e61;
+}
+.menu-item{
+    -fx-background-color: #5f5e61;
+    -fx-border-color: #424045;
+    -fx-pref-width: 175;
+    -fx-pref-height: 45;
+}
+.menu-item:hover{
+    -fx-background-color: #1d9399;
+}
+.context-menu{
+    -fx-background-color: #5f5e61;
+    -fx-pref-width: 175;
+    -fx-background-radius: 0;
+    -fx-padding:0;
+}
+
+.label {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial Narrow";
+    -fx-text-fill: #CBCBCB;
+}
+
+.button {
+    -fx-text-fill: #cbcbcb;
+    -fx-font-size: 17px;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#5f5e61, #5f5e62);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover{
+    -fx-background-color: #1d9399;
+}
+
+/* Component specific styles */
+
+
+.main-panel {
+    /*-fx-background-image: url("../images/background.jpg");*/
+    -fx-background-color: #2f2e33;
+}
+
+
+#profilePic {
+    -fx-effect: dropshadow(one-pass-box,#1d9399,10,5.0,0,0)
+}
+
+#profil_bt{
+    -fx-background-color: #5f5e61;
+    -fx-alignment: center;
+}
+#welcomeText{
+    -fx-font-size: 30;
+}
+.menu-item{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #424045;
+}
+
+
+.hboxLena{
+    -fx-spacing: 5;
+    -fx-pref-height: 50;
+    -fx-alignment: center-left;
+}
+.contentLabel{
+    -fx-min-width: 76;
+    -fx-max-width: 2000;
+
+}
+.typeLabel{
+    -fx-pref-width: 100;
+    -fx-text-fill: #2f2e33;
+}
+.columnthree{
+    -fx-min-width: 76;
+    -fx-pref-width: 170;
+    -fx-alignment: center-left;
+}
+.columnfour{
+    -fx-min-width: 76;
+    -fx-pref-width: 80;
+}
+.deleteButton{
+    -fx-pref-width: 65;
+    -fx-background-color: #5f5e61;
+    -fx-text-fill: #2f2e33;
+}
+.error{
+    -fx-border-color: red;
+}
+
+
+/* The main scrollbar **track** CSS class  */
+.list-view .scroll-bar:horizontal .track,
+.list-view .scroll-bar:vertical .track{
+    -fx-background-color:#424045;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.list-view .scroll-bar:horizontal .increment-button ,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:#5f5e61;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+.list-view .scroll-bar:vertical .increment-button ,
+.list-view .scroll-bar:vertical .decrement-button {
+
+    -fx-background-color:#5f5e61;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 5;
+
+}
+
+.list-view  .scroll-bar .increment-arrow,
+.list-view  .scroll-bar .decrement-arrow
+{
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.list-view .scroll-bar:horizontal .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color:#5f5e61;
+    -fx-background-insets: 2, 0, 0;
+
+
+}
+
+.toggle-button{
+    -fx-background-color: #5f5e61;
+}
+.toggle-button:selected{
+    -fx-background-color: #1d9399;
+}
