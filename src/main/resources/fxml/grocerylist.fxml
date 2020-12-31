@@ -65,7 +65,7 @@
                 <ListView fx:id="itemlistView" GridPane.rowIndex="0"/>
 
                 <HBox fx:id="newItemFormular" GridPane.rowIndex="1" GridPane.rowSpan="1" spacing="5" >
-                    <TextField fx:id="itemContent" promptText="new Item" prefWidth="720.0" prefHeight="45" minWidth="76" HBox.hgrow="SOMETIMES">
+                    <TextField fx:id="itemContent" promptText="neuer Eintrag" prefWidth="720.0" prefHeight="45" minWidth="176" HBox.hgrow="SOMETIMES">
                         <HBox.margin>
                             <Insets>
                                 <top>5</top>
@@ -79,7 +79,7 @@
                             </Insets>
                         </HBox.margin>
                     </MenuButton>
-                    <Button fx:id="addItem" onAction="#addItem" text="add" prefWidth="180.0" minWidth="180" prefHeight="45">
+                    <Button fx:id="addItem" onAction="#addItem" text="hinzufügen" prefWidth="180.0" minWidth="180" prefHeight="45">
                         <HBox.margin>
                             <Insets>
                                 <top>5</top>

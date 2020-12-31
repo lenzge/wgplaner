@@ -60,4 +60,16 @@ public abstract class Item implements Iitem{
         this.author = author;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", price='" + price + '\'' +
+                ", boughtDate=" + boughtDate +
+                ", boughtBy='" + boughtBy + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

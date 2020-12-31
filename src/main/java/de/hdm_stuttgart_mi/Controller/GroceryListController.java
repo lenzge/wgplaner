@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 /*import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;*/
@@ -47,22 +49,25 @@ public class GroceryListController extends Supercontroller implements Initializa
     //global
     GroceryList groceryList;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
+    //debugger
+    private static final Logger log = LogManager.getLogger(GroceryListController.class);
 
 
     //loading gui
 
     //depending on ItemFactory
     private void initItemTypes(){
-        itemType.setText("food"); //default, because food is the most used type
+        itemType.setText("Lebensmittel"); //default, because food is the most used type
         for(String type : ItemFactory.getAllItemTypes()) {
             MenuItem menuitem = new MenuItem(type);
             menuitem.setOnAction(event -> initType(menuitem));
             itemType.getItems().add(menuitem);
+            log.debug(type + " added as menuitem");
         }
     }
     private void initType(MenuItem menuItem){
         itemType.setText(menuItem.getText());
+        log.debug(itemType.getText() + " is the chosen Itemtype");
     }
 
     //loads every item from itemList into the ListView
@@ -78,7 +83,7 @@ public class GroceryListController extends Supercontroller implements Initializa
             Label type = new Label(value.getType());
                 type.getStyleClass().add("typeLabel");
                 type.setVisible(false); //only visible while hovering
-            Button delete = new Button("delete");
+            Button delete = new Button("löschen");
                 delete.getStyleClass().add("deleteButton");
                 delete.setVisible(false); //only visible while hovering
                 delete.setOnAction(event -> deleteItem(value));
@@ -97,7 +102,7 @@ public class GroceryListController extends Supercontroller implements Initializa
             else {
                 TextField price = new TextField("€");
                     price.getStyleClass().add("columnthree");
-                Button check = new Button ("check");
+                Button check = new Button ("kaufen");
                     check.getStyleClass().add("columnfour");
                     check.setOnAction(event -> checkItem(value, price));
 
@@ -111,6 +116,7 @@ public class GroceryListController extends Supercontroller implements Initializa
 
         }
         itemlistView.setItems(obsList);
+        log.info("ListView initialzied");
     }
 
     //start
@@ -122,6 +128,7 @@ public class GroceryListController extends Supercontroller implements Initializa
         profilePic.setFitWidth(55);
         profilePic.setFitHeight(55);
         roommateName.setText(currentUser.getFullname());
+        log.info("open GroceryList");
     }
 
 
@@ -132,9 +139,11 @@ public class GroceryListController extends Supercontroller implements Initializa
     private void checkItem(Iitem value, TextField textfield) {
         //error, if price is no price
         if(textfield.getText() == null || !textfield.getText().matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
+            log.info("input "+ textfield.getText() + " is no price");
             textfield.setText("€");
             textfield.getStyleClass().add("error");
-            textfield.setOnMouseClicked((event) -> textfield.getStyleClass().remove("error"));
+            textfield.setOnMouseClicked((event) -> {textfield.getStyleClass().remove("error");
+                                                    log.debug("error removed");});
         }
         else {
             groceryList.boughtItem(value, textfield.getText(), currentUser);
