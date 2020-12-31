@@ -57,12 +57,11 @@
                 </graphic>
             </Button>
         </children>
+    </GridPane >
 
-
-    </GridPane>
-        <StackPane fx:id="changing" GridPane.columnIndex="1"  styleClass="Menue">
+        <GridPane fx:id="changing" GridPane.columnIndex="1" styleClass="main">
             <children>
                <Label fx:id="welcomeText"></Label>
            </children>
-        </StackPane>
+        </GridPane>
 </GridPane>

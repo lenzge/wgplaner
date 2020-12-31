@@ -20,9 +20,7 @@ import java.util.ResourceBundle;
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
 public class profilController extends Supercontroller implements Initializable {
-    @FXML private ImageView profilePic;
     @FXML private ImageView ownProfilePic;
-    @FXML private Button profil_bt;
     @FXML private Button birthday_bt;
     @FXML private Label birthday_lb;
     @FXML private Label moveInDate;
@@ -31,8 +29,6 @@ public class profilController extends Supercontroller implements Initializable {
     @FXML private HBox profilpics;
     @FXML private DatePicker birthdaypicker;
 
-    final private FileInputStream currentPp = new FileInputStream(currentUser.getProfilepic());
-    final private Image currentProfilePic= new Image(currentPp);
     final private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
     Navigation nav = new Navigation();
 
@@ -132,13 +128,6 @@ public class profilController extends Supercontroller implements Initializable {
         nav.updateCurrentUser();
         setOwnPp();
 
-        FileInputStream currentPp = new FileInputStream(currentUser.getProfilepic());
-        Image currentProfilePic= new Image(currentPp);
-
-        profilePic.setImage(currentProfilePic);
-        profilePic.setFitWidth(55);
-        profilePic.setFitHeight(55);
-
         setProfilePics();
     }
 
@@ -153,10 +142,7 @@ public class profilController extends Supercontroller implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources){
         fullname_lb.setText(currentUser.getFullname());
-        profilePic.setImage(currentProfilePic);
-        profilePic.setFitWidth(55);
-        profilePic.setFitHeight(55);
-        profil_bt.setText(currentUser.getFullname());
+
         initMoveInDate();
         initPhonenumber();
 
