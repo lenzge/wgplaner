@@ -1,6 +1,9 @@
 package de.hdm_stuttgart_mi.GroceryList;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
+import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,14 +18,15 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
 public class GroceryList {
 
-    //Collection
+    //Logger
+    private static final Logger log = LogManager.getLogger(GroceryList.class);
+
+    //Global collection
     List<Iitem> itemList;
 
     //Date Format
@@ -32,13 +36,21 @@ public class GroceryList {
     File file = new File("src\\main\\resources\\JSON\\items.json");
 
 
-    //When the Program is started, every Item from the JSON file has to be written into the collection
+    public List<Iitem> getItemList() { return itemList; }
+    public GroceryList() {
+        log.debug("try to initialize groceryList");
+        initItems();
+
+    }
+
+    //When the Program is started, or the list is updated, every Item from the JSON file has to be written into the collection
     public void initItems(){
         itemList = new ArrayList<Iitem>();
         JSONParser parser = new JSONParser();
 
         try{
             String jsonContent = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
+            log.debug("read JSONFile");
             JSONObject json = (JSONObject) parser.parse(jsonContent);
 
             JSONArray jsonArray = (JSONArray) json.get("items");
@@ -49,33 +61,42 @@ public class GroceryList {
                 String content = (String) tempJasonObject.get("content");
                 String author = (String) tempJasonObject.get("author");
 
-
+                //non-bought items
                 if (tempJasonObject.get("price") == null) {
                     Iitem item = ItemFactory.getInstance(type, content, author);
-                    itemList.add(0,item);
-                } else if (LocalDate.now().minusWeeks(2).compareTo(LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter))> 0){
-
+                    itemList.add(0,item); //non-bought items should be on top of the list
+                    log.debug("non-bought item: " + item.toString());
                 }
+                //items, which are older than two weeks will get deleted
+                else if (LocalDate.now().minusWeeks(2).compareTo(LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter))> 0){ }
+                //bought items
                 else {
                     String price = (String) tempJasonObject.get("price");
                     LocalDate boughtDate = LocalDate.parse((String) tempJasonObject.get("boughtDate"), formatter);
                     String boughtBy = (String) tempJasonObject.get("boughtBy");
                     Iitem item = ItemFactory.getInstance(type, content, author, price, boughtDate, boughtBy);
                     itemList.add(item);
+                    log.debug("bought item: " + item.toString());
                 }
 
             }
+            log.info("Grocerylist initialized");
 
         }
-        catch (IOException e) {
+        catch (IOException e ) {
             e.printStackTrace();
-        } catch (ParseException e) {
+            log.error("IOException");
+
+        }
+        catch (ParseException e) {
             e.printStackTrace();
+            log.error("ParseException");
+
         }
 
     }
 
-    //When the Program is closed, the ItemList has to be safed in the JSONFile
+    //When the list gets updated, the ItemList has to be safed in the JSONFile
     public void safeItems()  {
         JSONObject obj = new JSONObject();
         JSONArray list = new JSONArray();
@@ -94,27 +115,26 @@ public class GroceryList {
 
         try (FileWriter writer = new FileWriter(file, false)) {
             writer.write(obj.toJSONString());
+            log.info("Items safed");
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("IOException");
         }
 
     }
 
-    public List<Iitem> getItemList() {
-        return itemList;
-    }
+
+    //edit itemList
 
     public void addItem(String type, String content, Roommate author){
         Iitem item = ItemFactory.getInstance(type, content, author.getFullname());
         itemList.add(item);
+        log.info(item.toString() + " added");
     }
 
     public void deleteItem(Iitem item){
         itemList.removeIf(value -> value.getContent().equals(item.getContent()));
-    }
-
-    public GroceryList() {
-        initItems();
+        log.info(item.toString() + " deleted");
     }
 
     public void boughtItem (Iitem item, String price, Roommate boughtBy){
@@ -123,7 +143,9 @@ public class GroceryList {
                 value.boughtItem(price, LocalDate.now(), boughtBy.getFullname());
             }
         }
+        log.info(item.toString() + " bought");
     }
+
 
 
     @Override

@@ -14,10 +14,13 @@
     <Loggers>
 
         <!-- You may want to define class or package level per-logger rules -->
-        <Logger name="de.hdm_stuttgart_mi.GuiDriver" level="debug">
-            <AppenderRef ref="A1"/>
+        <Logger name="de.hdm_stuttgart_mi.GroceryList.GroceryList" level="info">
+            <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="de.hdm_stuttgart_mi.notificationAndUsers.Navigation" level="debug">
+        <Logger name="de.hdm_stuttgart_mi.notificationAndUsers.Navigation" level="info">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+        <Logger name="de.hdm_stuttgart_mi.Controller.GroceryListController" level="debuug">
             <AppenderRef ref="STDOUT"/>
         </Logger>
         <Root level="info">

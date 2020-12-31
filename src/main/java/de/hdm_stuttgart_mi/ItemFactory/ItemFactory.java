@@ -9,17 +9,15 @@ import java.time.LocalDate;
 public class ItemFactory {
 
 
-    private static String[] itemFactory = {"cleaning","food","furniture"};
+    private static final String[] itemFactory = {"Lebensmittel","Reinigung","Sonstiges"};
 
     public static Iitem getInstance(String type, String content, String author){
 
         switch (type){
-            case "cleaning":
+            case "Reinigung":
                 return new CleaningItem(type, content, author);
-            case "food":
+            case "Lebensmittel":
                 return new FoodItem(type, content, author);
-            case "furniture":
-                return new FurnitureItem(type, content, author);
             default:
                 return new DefaultItem(type, content, author);
         }
@@ -28,12 +26,10 @@ public class ItemFactory {
     public static Iitem getInstance(String type, String content, String author, String price, LocalDate boughtDate, String boughtBy){
 
         switch (type){
-            case "cleaning":
+            case "Reinigung":
                 return new CleaningItem(type, content, author, price, boughtDate, boughtBy);
-            case "food":
+            case "Lebensmittel":
                 return new FoodItem(type, content, author, price, boughtDate, boughtBy);
-            case "furniture":
-                return new FurnitureItem(type, content, author, price, boughtDate, boughtBy);
             default:
                 return new DefaultItem(type, content, author, price, boughtDate, boughtBy);
         }
