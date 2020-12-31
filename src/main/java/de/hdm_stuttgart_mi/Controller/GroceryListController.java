@@ -3,43 +3,34 @@ package de.hdm_stuttgart_mi.Controller;
 import de.hdm_stuttgart_mi.GroceryList.GroceryList;
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
-//import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-/*import javafx.scene.paint.Color;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;*/
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
+//import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+/*import javafx.scene.paint.Color;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;*/
+
 public class GroceryListController extends Supercontroller implements Initializable {
     //only for testing
     //Navigation nav = new Navigation(3);
 
     //menu
-    @FXML private ImageView profilePic;
-    @FXML private Label roommateName;
 
-    FileInputStream input = new FileInputStream(currentUser.getProfilepic());
-    private final Image currentProfilePic= new Image(input);
-    public GroceryListController() throws FileNotFoundException {
-    }
 
 
     @FXML private ListView<HBox> itemlistView;
@@ -124,10 +115,6 @@ public class GroceryListController extends Supercontroller implements Initializa
         groceryList = new GroceryList();
         initItemListView();
         initItemTypes();
-        profilePic.setImage(currentProfilePic);
-        profilePic.setFitWidth(55);
-        profilePic.setFitHeight(55);
-        roommateName.setText(currentUser.getFullname());
         log.info("open GroceryList");
     }
 
