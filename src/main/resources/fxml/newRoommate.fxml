@@ -47,7 +47,7 @@
         </HBox>
 
     </VBox>
-       <Button fx:id="apply_bt" onAction="#apply" GridPane.columnIndex="2" GridPane.columnSpan="4"  GridPane.rowIndex="6" text="Übernehmen"  textAlignment="CENTER"   prefWidth="400" prefHeight="50"/>
+       <Button fx:id="menu" onAction="#apply" GridPane.columnIndex="2" GridPane.columnSpan="4"  GridPane.rowIndex="6" text="Übernehmen"  textAlignment="CENTER"   prefWidth="400" prefHeight="50"/>
 </GridPane>
 
 

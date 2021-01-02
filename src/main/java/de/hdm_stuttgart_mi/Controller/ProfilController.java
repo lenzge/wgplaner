@@ -138,15 +138,7 @@ public class ProfilController extends MenuController implements Initializable {
     @FXML
     public void deleteUser(ActionEvent e) throws IOException {
         nav.deleteFromList();
-        FXMLLoader loader = new FXMLLoader();
-        Button button = (Button)e.getSource();
-        Parent sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
-        Scene scene =  new Scene(sceneRoot);
-        //add Stylesheet
-        scene.getStylesheets().add(getClass().getResource("/styles/stylesLena.css").toExternalForm());
-        Stage window = (Stage)(button).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        super.changeScene(e);
     }
 
 

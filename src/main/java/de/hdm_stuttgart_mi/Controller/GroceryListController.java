@@ -29,9 +29,6 @@ public class GroceryListController extends Supercontroller implements Initializa
     //only for testing
     //Navigation nav = new Navigation(3);
 
-    //menu
-
-
 
     @FXML private ListView<HBox> itemlistView;
     @FXML private TextField itemContent;

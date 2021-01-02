@@ -54,5 +54,5 @@
 
        <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="2" GridPane.columnSpan="1" spacing="10" alignment="BASELINE_LEFT"/>
    <!-- delete user -->
-       <Button fx:id="deleteUser_bt" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="4"  GridPane.columnIndex="4" alignment="BOTTOM_RIGHT" style="-fx-border-color: red; -fx-border-style: solid" />
+       <Button fx:id="startscreen" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="4"  GridPane.columnIndex="4" alignment="BOTTOM_RIGHT" style="-fx-border-color: red; -fx-border-style: solid" />
    </GridPane>

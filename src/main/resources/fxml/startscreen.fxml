@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
+<GridPane fx:id= "startscreen" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="de.hdm_stuttgart_mi.Controller.StartscreenController"
           styleClass="main-panel"
@@ -23,13 +23,13 @@
             <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>
                 <HBox spacing="10" alignment="CENTER">
                     <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40" alignment="CENTER"/>
-                    <Button fx:id="apply_bt" text="weiter" onAction="#changeScene" prefHeight="40"/>
+                    <Button fx:id="menu" text="weiter" onAction="#changeFirstScene" prefHeight="40"/>
                 </HBox>
         </VBox>
         <VBox alignment="CENTER" >
             <padding><Insets top="25"/></padding>
             <Label text="Gerade erst eingezogen? Lege dein Profil hier an:" prefHeight="30" prefWidth="400" alignment="CENTER"/>
-            <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" onAction="#changeScene" prefWidth="250" prefHeight="40" alignment="CENTER"/>
+            <Button fx:id="newRoommate" text="Neues Profil erstellen" onAction="#changeCenterScene" prefWidth="250" prefHeight="40" alignment="CENTER"/>
         </VBox>
     </VBox>
 </GridPane>

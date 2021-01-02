@@ -5,14 +5,21 @@
 }
 
 .BorderPane{
-    -fx-background-color: #424045;
+    -fx-background-color: #2f2e33;
 }
 .menu{
     -fx-border-style: solid;
     -fx-border-width:4px;
     -fx-border-color: #5f5e61;
     -fx-background-color: #424045;
+    -fx-max-height: infinity;
 
+}
+.center{
+    -fx-border-style: solid;
+    -fx-border-width:4px;
+    -fx-border-color: #5f5e61;
+    -fx-background-color: #2f2e33;
 }
 .main{
     -fx-border-style: solid;

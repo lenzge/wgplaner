@@ -47,36 +47,9 @@ public class MenuController extends Supercontroller implements Initializable {
         profilePic.setFitHeight(55);
     }
 
-    public String getTime(){
-           LocalDateTime date =  LocalDateTime.now();
-           int hour = date.getHour();
-           if(hour > 18){return "Guten Abend ";}
-           if(hour > 11){return "Hallo ";}
-           if(hour > 5){return "Guten Morgen ";}
-           return "";
-    }
-    public void changeScene(ActionEvent event) throws IOException {
-        final FXMLLoader loader = new FXMLLoader();
-        //choose fxml Scene. To add a scenechange simply add another else if with the button ID and scenefilename
-        Button button = ((Button)event.getSource());
-        Parent sceneRoot;
-        if(button.getId().equals("deleteUser_bt")||button.getId().equals("logout_bt")) {
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
-            root.getChildren().clear();
-            root.getChildren().add(sceneRoot);
-        }
 
-        else {
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/"+button.getId()+".fxml"));
-            changing.getChildren().clear();
-            changing.getChildren().add(sceneRoot);
-        }
-       /* changing.getChildren().clear();
-        changing.getChildren().add(sceneRoot);*/
-    }
 
     @Override public void initialize(URL location, ResourceBundle resources){
-        welcomeText.setText(getTime()+currentUser.getFirstname()+catsmile);
         try {
             initPp();
         } catch (FileNotFoundException e) {

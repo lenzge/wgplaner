@@ -28,7 +28,7 @@ public class FxmlGuiDriver extends Application {
     public void start(Stage stage) throws Exception {
         log.info("Starting GUI");
 
-        final String fxmlFile = "/fxml/startscreen.fxml";
+        final String fxmlFile = "/fxml/main.fxml";
 
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 

@@ -90,7 +90,7 @@ public class NewRoommateController extends Supercontroller implements Initializa
             int id = nav.getRoommate(nav.roommateListLenght() - 1).getID();
             nav = new Navigation(id);
 
-            super.changeScene(e);
+            super.changeFirstScene(e);
         }
 
 
