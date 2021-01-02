@@ -60,7 +60,7 @@ public class StartscreenController extends Supercontroller implements Initializa
         Parent sceneRoot;
         if(button.getId().equals("apply_bt")){
             //choose fxml Scene
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/welcome.fxml"));
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/menu.fxml"));
             root.getChildren().clear();
             root.getChildren().add(sceneRoot);
         }

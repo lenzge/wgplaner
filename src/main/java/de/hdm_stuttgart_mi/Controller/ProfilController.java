@@ -3,11 +3,15 @@ package de.hdm_stuttgart_mi.Controller;
 import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +23,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class ProfilController extends WelcomeController implements Initializable {
+public class ProfilController extends MenuController implements Initializable {
     @FXML private ImageView ownProfilePic;
     @FXML private Button birthday_bt;
     @FXML private Label birthday_lb;
@@ -133,9 +137,16 @@ public class ProfilController extends WelcomeController implements Initializable
 
     @FXML
     public void deleteUser(ActionEvent e) throws IOException {
-        Navigation nav = new Navigation();
         nav.deleteFromList();
-        super.changeScene(e);
+        FXMLLoader loader = new FXMLLoader();
+        Button button = (Button)e.getSource();
+        Parent sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
+        Scene scene =  new Scene(sceneRoot);
+        //add Stylesheet
+        scene.getStylesheets().add(getClass().getResource("/styles/stylesLena.css").toExternalForm());
+        Stage window = (Stage)(button).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
 

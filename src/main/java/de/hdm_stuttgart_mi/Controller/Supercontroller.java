@@ -18,7 +18,7 @@ public class Supercontroller {
         Button button = ((Button)event.getSource());
         Parent sceneRoot;
         if(button.getId().equals("apply_bt")){
-            sceneRoot = loader.load(getClass().getResource("/fxml/welcome.fxml"));
+            sceneRoot = loader.load(getClass().getResource("/fxml/menu.fxml"));
         }
         else if(button.getId().equals("newRoommate_bt")){
             sceneRoot = loader.load(getClass().getResource("/fxml/newRoommate.fxml"));

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.hdm_stuttgart_mi.Controller.WelcomeController"
+          fx:controller="de.hdm_stuttgart_mi.Controller.MenuController"
           styleClass="main-panel"
           hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="800" prefWidth="1400" vgap="10.0" alignment="CENTER" >
@@ -21,7 +21,7 @@
     <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 
     <!-- Menü GridPain -->
-    <GridPane GridPane.columnIndex="0" styleClass="Menue">
+    <GridPane GridPane.columnIndex="0" styleClass="menu">
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
@@ -41,17 +41,17 @@
         </columnConstraints>
         <padding><Insets right="5"  left="5"/></padding>
         <children>
-            <Button  fx:id="profil_bt" onAction="#changeScene" GridPane.columnIndex="0" GridPane.columnSpan="2" prefWidth="250.0" prefHeight="40" GridPane.rowIndex="1" >
+            <Button  fx:id="profil" onAction="#changeScene" GridPane.columnIndex="0" GridPane.columnSpan="2" prefWidth="250.0" prefHeight="40" GridPane.rowIndex="1" >
                 <graphic>
                     <ImageView fx:id="profilePic" GridPane.rowIndex="1"  GridPane.columnIndex="0" GridPane.columnSpan="1" />
                 </graphic>
             </Button>
 
-            <Button fx:id="blackboard_bt" text="Pinnwand" onAction="#changeScene"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
-            <Button fx:id="grocerylist_bt" text="Einkaufsliste" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
-            <Button fx:id="roommates_bt" text="Mitbewohner" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
+            <Button fx:id="blackboard_" text="Pinnwand" onAction="#changeScene"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
+            <Button fx:id="grocerylist" text="Einkaufsliste" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
+            <Button fx:id="roommates" text="Mitbewohner" onAction="#changeScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
             <Button fx:id="logout_bt" text="Ausloggen" onAction="#changeScene" prefWidth="150.0" prefHeight="40" GridPane.rowIndex="10"  GridPane.columnIndex="1"/>
-            <Button fx:id="terminate_bt" onAction="#terminate" prefWidth="40.0" prefHeight="40" GridPane.rowIndex="10"  GridPane.columnIndex="0">
+            <Button fx:id="terminate" onAction="#terminate" prefWidth="40.0" prefHeight="40" GridPane.rowIndex="10"  GridPane.columnIndex="0">
                 <graphic>
                     <ImageView fx:id="shutdownIcon"/>
                 </graphic>

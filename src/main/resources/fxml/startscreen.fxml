@@ -17,7 +17,7 @@
 
 
     <padding><Insets top="5" right="5" bottom="10" left="5"/></padding>
-    <VBox  alignment="CENTER" styleClass="Menue" spacing="50" minWidth="600"  maxWidth="Infinity">
+    <VBox alignment="CENTER" styleClass="menu" spacing="50" minWidth="600" maxWidth="Infinity">
         <padding><Insets top="100" right="25" bottom="100" left="25"/></padding>
         <VBox alignment="CENTER">
             <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>

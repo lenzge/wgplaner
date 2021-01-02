@@ -20,12 +20,12 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class WelcomeController extends Supercontroller implements Initializable {
+public class MenuController extends Supercontroller implements Initializable {
 
     @FXML private Label welcomeText;
     @FXML private ImageView profilePic;
     @FXML private ImageView shutdownIcon;
-    @FXML private Button profil_bt;
+    @FXML private Button profil;
     @FXML private GridPane changing;
     @FXML private GridPane root;
 
@@ -36,7 +36,7 @@ public class WelcomeController extends Supercontroller implements Initializable 
     private Image shutdown= new Image(shutdownIconPath);
 
 
-    public WelcomeController() throws FileNotFoundException {
+    public MenuController() throws FileNotFoundException {
     }
     public void initPp() throws FileNotFoundException {
         FileInputStream pp = new FileInputStream(currentUser.getProfilepic());
@@ -60,39 +60,14 @@ public class WelcomeController extends Supercontroller implements Initializable 
         //choose fxml Scene. To add a scenechange simply add another else if with the button ID and scenefilename
         Button button = ((Button)event.getSource());
         Parent sceneRoot;
-        if(button.getId().equals("profil_bt")){
-            sceneRoot = loader.load(getClass().getResource("/fxml/profil.fxml"));
-            changing.getChildren().clear();
-            changing.getChildren().add(sceneRoot);
-        }
-        else if(button.getId().equals("blackboard_bt")){
-            sceneRoot = loader.load(getClass().getResource("/fxml/hello.fxml"));
-            changing.getChildren().clear();
-            changing.getChildren().add(sceneRoot);
-        }
-        else if(button.getId().equals("grocerylist_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/grocerylist.fxml"));
-            changing.getChildren().clear();
-            changing.getChildren().add(sceneRoot);
-        }
-        else if(button.getId().equals("roommates_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/roommates.fxml"));
-            changing.getChildren().clear();
-            changing.getChildren().add(sceneRoot);
-        }
-        else if(button.getId().equals("deleteUser_bt")){
+        if(button.getId().equals("deleteUser_bt")||button.getId().equals("logout_bt")) {
             sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
             root.getChildren().clear();
             root.getChildren().add(sceneRoot);
         }
-        else if(button.getId().equals("logout_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
-            root.getChildren().clear();
-            root.getChildren().add(sceneRoot);
-        }
+
         else {
-            Label label = new Label("Tut uns Leid es ist etwas schief gelaufen. Bitte starte das Programm neu");
-            sceneRoot=label;
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/"+button.getId()+".fxml"));
             changing.getChildren().clear();
             changing.getChildren().add(sceneRoot);
         }
@@ -107,7 +82,7 @@ public class WelcomeController extends Supercontroller implements Initializable 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        profil_bt.setText(currentUser.getFullname());
+        profil.setText(currentUser.getFullname());
         shutdownIcon.setImage(shutdown);
         shutdownIcon.setFitWidth(25);
         shutdownIcon.setFitHeight(25);

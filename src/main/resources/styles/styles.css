@@ -11,7 +11,7 @@
 .BorderPane{
     -fx-background-color: #424045;
 }
-.Menue{
+.menu{
     -fx-border-style: solid;
     -fx-border-width:4px;
     -fx-border-color: #5f5e61;
