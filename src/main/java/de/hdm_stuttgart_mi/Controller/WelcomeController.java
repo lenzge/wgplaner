@@ -31,13 +31,20 @@ public class WelcomeController extends Supercontroller implements Initializable 
 
     private String catsmile = "=^.^=";
 
-    FileInputStream pp = new FileInputStream(currentUser.getProfilepic());
-    private Image currentProfilePic= new Image(pp);
+
     FileInputStream shutdownIconPath = new FileInputStream("src/main/resources/icons/shutdown.png");
     private Image shutdown= new Image(shutdownIconPath);
 
 
     public WelcomeController() throws FileNotFoundException {
+    }
+    public void initPp() throws FileNotFoundException {
+        FileInputStream pp = new FileInputStream(currentUser.getProfilepic());
+        Image currentProfilePic= new Image(pp);
+        System.out.println(currentProfilePic.getUrl());
+        profilePic.setImage(currentProfilePic);
+        profilePic.setFitWidth(55);
+        profilePic.setFitHeight(55);
     }
 
     public String getTime(){
@@ -95,9 +102,11 @@ public class WelcomeController extends Supercontroller implements Initializable 
 
     @Override public void initialize(URL location, ResourceBundle resources){
         welcomeText.setText(getTime()+currentUser.getFirstname()+catsmile);
-        profilePic.setImage(currentProfilePic);
-        profilePic.setFitWidth(55);
-        profilePic.setFitHeight(55);
+        try {
+            initPp();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         profil_bt.setText(currentUser.getFullname());
         shutdownIcon.setImage(shutdown);
         shutdownIcon.setFitWidth(25);

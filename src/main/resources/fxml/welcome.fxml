@@ -10,7 +10,7 @@
           fx:controller="de.hdm_stuttgart_mi.Controller.WelcomeController"
           styleClass="main-panel"
           hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="800" prefWidth="1400" vgap="10.0" >
+          prefHeight="800" prefWidth="1400" vgap="10.0" alignment="CENTER" >
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="250.0" prefWidth="250.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="250.0" prefWidth="2000.0" />

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<VBox fx:id= "root" xmlns="http://javafx.com/javafx"
+<GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="de.hdm_stuttgart_mi.Controller.StartscreenController"
           styleClass="main-panel"
@@ -16,9 +16,9 @@
           alignment="CENTER" >
 
 
-    <padding><Insets top="5" right="50" bottom="10" left="50"/></padding>
-    <VBox alignment="CENTER" styleClass="Menue" spacing="50">
-        <padding><Insets top="200" right="25" bottom="200" left="25"/></padding>
+    <padding><Insets top="5" right="5" bottom="10" left="5"/></padding>
+    <VBox  alignment="CENTER" styleClass="Menue" spacing="50" minWidth="600"  maxWidth="Infinity">
+        <padding><Insets top="100" right="25" bottom="100" left="25"/></padding>
         <VBox alignment="CENTER">
             <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>
                 <HBox spacing="10" alignment="CENTER">
@@ -32,5 +32,5 @@
             <Button fx:id="newRoommate_bt" text="Neues Profil erstellen" onAction="#changeScene" prefWidth="250" prefHeight="40" alignment="CENTER"/>
         </VBox>
     </VBox>
-</VBox>
+</GridPane>
 

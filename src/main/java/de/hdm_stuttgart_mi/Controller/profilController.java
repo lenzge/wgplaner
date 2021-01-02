@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class profilController extends Supercontroller implements Initializable {
+public class profilController extends WelcomeController implements Initializable {
     @FXML private ImageView ownProfilePic;
     @FXML private Button birthday_bt;
     @FXML private Label birthday_lb;
@@ -101,8 +101,8 @@ public class profilController extends Supercontroller implements Initializable {
             if(!(filename.equals(currentUser.getProfilepic()))) {
 
                 ToggleButton button = new ToggleButton();
-                Image profilePic = new Image(input);
-                ImageView showProfilePic = new ImageView(profilePic);
+                Image profilePicImage = new Image(input);
+                ImageView showProfilePic = new ImageView(profilePicImage);
                 showProfilePic.setFitWidth(100);
                 showProfilePic.setFitHeight(100);
                 button.setGraphic(showProfilePic);
@@ -127,8 +127,8 @@ public class profilController extends Supercontroller implements Initializable {
         currentUser.setProfilepic(button.getId());
         nav.updateCurrentUser();
         setOwnPp();
-
         setProfilePics();
+        super.initPp();
     }
 
     @FXML

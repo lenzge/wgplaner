@@ -87,7 +87,7 @@ public class NewRoommateController extends Supercontroller implements Initializa
         File directory = new File("src/main/resources/images");
        //all Filenames in the directory are written into a Stringarray
         String[] list = directory.list();
-       //sicherstellen dass die Liste icht null ist
+       //sicherstellen dass die Liste nicht null ist
         assert list != null;
         for(String profilepicPath : list){
             ToggleButton button = new ToggleButton();

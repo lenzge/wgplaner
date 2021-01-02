@@ -24,7 +24,24 @@ public class Supercontroller {
             sceneRoot = loader.load(getClass().getResource("/fxml/newRoommate.fxml"));
 
         }
-
+        /*else if(button.getId().equals("profil_bt")){
+            sceneRoot = loader.load(getClass().getResource("/fxml/profil.fxml"));
+        }
+        else if(button.getId().equals("blackboard_bt")){
+            sceneRoot = loader.load(getClass().getResource("/fxml/hello.fxml"));
+        }
+        else if(button.getId().equals("grocerylist_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/grocerylist.fxml"));
+        }
+        else if(button.getId().equals("roommates_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/hello.fxml"));
+        }*/
+        else if(button.getId().equals("deleteUser_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
+        }
+        else if(button.getId().equals("logout_bt")){
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/startscreen.fxml"));
+        }
         else {
             Label label = new Label("Tut uns Leid es ist etwas schief gelaufen. Bitte starte das Programm neu");
             sceneRoot=label;
