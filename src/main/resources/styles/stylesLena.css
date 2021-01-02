@@ -119,6 +119,12 @@
     -fx-pref-height: 50;
     -fx-alignment: center-left;
 }
+.hboxLea{
+    -fx-spacing: 20;
+    -fx-pref-height: 100;
+    -fx-alignment: center-left;
+}
+
 .contentLabel{
     -fx-min-width: 76;
     -fx-max-width: 2000;

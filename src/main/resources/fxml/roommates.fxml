@@ -6,9 +6,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.hdm_stuttgart_mi.Controller.roommateController"
-            prefHeight="400.0" prefWidth="600.0" styleClass="main-panel">
+<?import javafx.geometry.Insets?>
+<GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="de.hdm_stuttgart_mi.Controller.RoommateController"
+          styleClass="main-panel">
+    <!-- hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+     prefHeight="800" prefWidth="1400" vgap="10.0" > -->
 
+    <rowConstraints>
+        <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+        <RowConstraints minHeight="200.0" prefHeight="680.0" vgrow="SOMETIMES" />
+
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" prefWidth="1000.0" />
+    </columnConstraints>
+    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+
+    <children>
+        <HBox GridPane.columnIndex="1" spacing="20" style="-fx-background-color:#424045 ">
+            <Label text="Mitbewohner" minWidth="200"/>
+            <Label text="Einzugsdatum" minWidth="200"/>
+            <Label text="Telefonnummer" minWidth="200"/>
+            <Label text="Geburtstag" minWidth="200"/>
+        </HBox>
+        <ListView fx:id="roommateListView" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
+
+    </children>
 </GridPane>

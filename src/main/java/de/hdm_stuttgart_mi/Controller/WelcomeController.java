@@ -76,7 +76,7 @@ public class WelcomeController extends Supercontroller implements Initializable 
             changing.getChildren().add(sceneRoot);
         }
         else if(button.getId().equals("roommates_bt")){
-            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/hello.fxml"));
+            sceneRoot = loader.load(getClass().getResourceAsStream("/fxml/roommates.fxml"));
             changing.getChildren().clear();
             changing.getChildren().add(sceneRoot);
         }

@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class profilController extends WelcomeController implements Initializable {
+public class ProfilController extends WelcomeController implements Initializable {
     @FXML private ImageView ownProfilePic;
     @FXML private Button birthday_bt;
     @FXML private Label birthday_lb;
@@ -32,11 +32,11 @@ public class profilController extends WelcomeController implements Initializable
     final private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
     Navigation nav = new Navigation();
 
-    public profilController() throws FileNotFoundException { }
+    public ProfilController() throws FileNotFoundException { }
 
 
     private void initPhonenumber(){
-        phonenumber.setText("Deine eingetragene Handynummer ist: "+currentUser.getPhonenumber());
+        phonenumber.setText(currentUser.getPhonenumber());
     }
 
     private void initMoveInDate(){

@@ -57,6 +57,9 @@ public class Navigation {
     public  Roommate getRoommate(int i){
         return roommateList.get(i);
     }
+    public List<Roommate> getRoommateList(){
+        return roommateList;
+    }
 
     public void deleteFromList(){
         roommateList.remove(currentUser.getID());

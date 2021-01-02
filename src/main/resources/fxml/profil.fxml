@@ -10,27 +10,32 @@
 <?import javafx.scene.control.DatePicker?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.hdm_stuttgart_mi.Controller.profilController"
+          fx:controller="de.hdm_stuttgart_mi.Controller.ProfilController"
           style="-fx-border-style: none" styleClass="MainPanel" minHeight="-Infinity" minWidth="-Infinity">
 
        <columnConstraints>
            <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="250" />
-           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="600.0" />
-           <ColumnConstraints hgrow="SOMETIMES"  minWidth="100.0" prefWidth="200.0" />
+           <ColumnConstraints hgrow="ALWAYS"  minWidth="0" prefWidth="0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="500.0" />
+           <ColumnConstraints hgrow="ALWAYS"  minWidth="0" prefWidth="0" />
+           <ColumnConstraints hgrow="SOMETIMES"  minWidth="00.0" prefWidth="300"/>
        </columnConstraints>
        <rowConstraints>
-           <RowConstraints minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="50.0" prefHeight="80.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="240.0" prefHeight="430.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="100.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="100.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="100.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="150.0" prefHeight="390.0" vgrow="SOMETIMES" />
            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
        </rowConstraints>
 
        <padding><Insets top="0" right="25" bottom="0" left="20"/></padding>
    <!-- Name  -->
        <Label fx:id="fullname_lb" GridPane.columnIndex="0" GridPane.rowIndex="0" text="Testname"/>
-       <Label fx:id="phonenumber" GridPane.columnIndex="1" GridPane.rowIndex="0" text="Testname"/>
-       <Label fx:id="moveInDate" GridPane.columnIndex="2" GridPane.rowIndex="0" text="Testname"/>
+    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" alignment="CENTER_LEFT">
+        <Label text="Deine eingetragene Handynummer ist:" />
+        <Label fx:id="phonenumber" />
+    </VBox>
+        <Label fx:id="moveInDate" GridPane.columnIndex="4" GridPane.rowIndex="0" text="Testname"/>
 
 
    <!-- Changebale Birthday  -->
@@ -39,15 +44,15 @@
           <Label  fx:id="birthday_lb" />
       </VBox>
 
-       <Button onAction="#changeBirthday" fx:id="birthday_bt" GridPane.columnIndex="2" GridPane.rowIndex="1" text="Bearbeiten" prefWidth="150" prefHeight="40" />
-       <DatePicker fx:id="birthdaypicker" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" visible="false" disable="true" showWeekNumbers="false" />
+       <Button onAction="#changeBirthday" fx:id="birthday_bt" GridPane.columnIndex="4" GridPane.rowIndex="1" text="Bearbeiten" prefWidth="150" prefHeight="40" />
+       <DatePicker fx:id="birthdaypicker" GridPane.columnIndex="2" GridPane.rowIndex="1" prefWidth="150" visible="false" disable="true" showWeekNumbers="false" />
    <!-- ProfilPic change  -->
        <VBox GridPane.rowIndex="2"  GridPane.columnIndex="0" alignment="TOP_LEFT" spacing="5">
            <Label text="Dein Profilbild:" GridPane.rowIndex="2"  GridPane.columnIndex="0"/>
            <ImageView fx:id="ownProfilePic" GridPane.rowIndex="2"  GridPane.columnIndex="0" />
        </VBox>
 
-       <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="1" GridPane.columnSpan="1" spacing="10" alignment="BASELINE_LEFT"/>
+       <HBox fx:id="profilpics" GridPane.rowIndex="2"  GridPane.columnIndex="2" GridPane.columnSpan="1" spacing="10" alignment="BASELINE_LEFT"/>
    <!-- delete user -->
-       <Button fx:id="deleteUser_bt" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="4"  GridPane.columnIndex="2" style="-fx-border-color: red; -fx-border-style: solid" />
+       <Button fx:id="deleteUser_bt" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="4"  GridPane.columnIndex="4" alignment="BOTTOM_RIGHT" style="-fx-border-color: red; -fx-border-style: solid" />
    </GridPane>
