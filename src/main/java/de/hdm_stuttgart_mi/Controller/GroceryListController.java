@@ -15,24 +15,15 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-//import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
-/*import javafx.scene.paint.Color;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;*/
 
-public class GroceryListController extends Supercontroller implements Initializable {
-    //only for testing
-    //Navigation nav = new Navigation(3);
-
+public class GroceryListController extends SuperController implements Initializable {
 
     @FXML private ListView<HBox> itemlistView;
     @FXML private TextField itemContent;
@@ -45,9 +36,6 @@ public class GroceryListController extends Supercontroller implements Initializa
 
     //debugger
     private static final Logger log = LogManager.getLogger(GroceryListController.class);
-
-    public GroceryListController() throws FileNotFoundException {
-    }
 
 
     //loading gui
@@ -89,6 +77,7 @@ public class GroceryListController extends Supercontroller implements Initializa
                         deleteItem(value);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                        log.error("Icon wasn't found");
                     }
                 });
 
@@ -112,6 +101,7 @@ public class GroceryListController extends Supercontroller implements Initializa
                         try {
                             checkItem(value, price);
                         } catch (FileNotFoundException e) {
+                            log.error("Icon wasn't found");
                             e.printStackTrace();
                         }
                     });
@@ -144,6 +134,7 @@ public class GroceryListController extends Supercontroller implements Initializa
         try {
             initItemListView();
         } catch (FileNotFoundException e) {
+            log.error("Icon wasn't found");
             e.printStackTrace();
         }
         initItemTypes();
@@ -185,6 +176,7 @@ public class GroceryListController extends Supercontroller implements Initializa
         if(itemContent.getText() == null || itemContent.getText().equals("") ){
             itemContent.getStyleClass().add("error");
             itemContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
+            log.debug("User input is empty");
             //remove error
             itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null); });
         }
@@ -192,6 +184,7 @@ public class GroceryListController extends Supercontroller implements Initializa
         else if(itemExists(itemContent.getText())){
             itemContent.getStyleClass().add("error");
             itemContent.setTooltip(new Tooltip("Item existiert schon"));
+            log.debug("User input already exists");
             itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null);});
         }
         else {

@@ -14,16 +14,19 @@
     <Loggers>
 
         <!-- You may want to define class or package level per-logger rules -->
-        <Logger name="de.hdm_stuttgart_mi.GroceryList.GroceryList" level="info">
+        <Logger name="de.hdm_stuttgart_mi.GroceryList.GroceryList" level="debug">
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="de.hdm_stuttgart_mi.notificationAndUsers.Navigation" level="info">
+        <Logger name="de.hdm_stuttgart_mi.notificationAndUsers.Navigation" level="debug">
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="de.hdm_stuttgart_mi.Controller.GroceryListController" level="debuug">
+        <Logger name="de.hdm_stuttgart_mi.Blackboard.Blackboard" level="debug">
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Root level="info">
+        <Logger name="de.hdm_stuttgart_mi.Controller" level="debug">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+        <Root level="debug">
             <AppenderRef ref="STDOUT"/>
         </Root>
     </Loggers>

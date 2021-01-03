@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class BlackboardController extends Supercontroller implements Initializable {
+public class BlackboardController extends SuperController implements Initializable {
     @FXML private ListView<HBox> notesListed;
     @FXML private TextField noteContent;
     @FXML private ToggleButton pinnedSelection;
@@ -35,7 +35,7 @@ public class BlackboardController extends Supercontroller implements Initializab
 
         for(Note value : blackboard.getNoteList()){
             HBox hBox = new HBox();
-                hBox.getStyleClass().add("hboxLena");
+                hBox.getStyleClass().add("grocerylist");
 
             Label content = new Label(value.getContent());
                 content.getStyleClass().add("contentLabel");

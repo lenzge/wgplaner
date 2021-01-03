@@ -7,15 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 
-public class ProfilController extends Supercontroller implements Initializable {
+public class ProfilController extends SuperController implements Initializable {
 
     private static final Logger log = LogManager.getLogger(ProfilController.class);
     final private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -46,6 +43,7 @@ public class ProfilController extends Supercontroller implements Initializable {
     @FXML private DatePicker birthdaypicker;
     @FXML private TextField phonenumber_tf;
     @FXML private Button apply_bt;
+    @FXML private ToggleButton color;
 
 
 
@@ -222,6 +220,27 @@ public class ProfilController extends Supercontroller implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             log.error("Icon was not initialized");
+        }
+
+    }
+
+    public void colorMode(ActionEvent actionEvent) {
+        ToggleButton button = ((ToggleButton) actionEvent.getSource());
+        BorderPane root = (BorderPane) button.getScene().getRoot();
+        log.debug(root.getStyleClass());
+        if(color.isSelected()){
+            root.getStyleClass().remove("root-dark");
+            root.getStyleClass().remove("root-light");
+            root.getStyleClass().add("root-light");
+            log.debug("Style changed light");
+            log.debug(root.getStyleClass());
+        }
+        else if(!color.isSelected()){
+            root.getStyleClass().remove("root-dark");
+            root.getStyleClass().remove("root-light");
+            root.getStyleClass().add("root-dark");
+            log.debug("Style changed black");
+            log.debug(root.getStyleClass());
         }
     }
 }

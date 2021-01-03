@@ -9,51 +9,40 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Driver class for a simple JavaFX demonstration.
- *
- */
-public class FxmlGuiDriver extends Application {
+public class Main extends Application {
 
+    //logger
+	private static final Logger log = LogManager.getLogger(Main.class);
 
-	private static final Logger log = LogManager.getLogger(FxmlGuiDriver.class);
-
-    /**
-     * @param args unused
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public void start(Stage stage) throws Exception {
-        log.info("Starting GUI");
+	public void start(Stage stage) throws Exception {
+        log.info("Starting GUI from main");
 
         final String fxmlFile = "/fxml/main.fxml";
-
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 
-        /*parse stylesheet to external form*/
-        final String stylesheet = getClass().getResource("/styles/stylesLena.css").toExternalForm();
-
+        //parse stylesheet to external form
+        final String stylesheet = getClass().getResource("/styles/styles.css").toExternalForm();
+        log.debug("parse stylesheet");
 
         final FXMLLoader loader = new FXMLLoader();
-
         final Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
         loader.setController(this);
 
         log.debug("Showing JFX scene");
         final Scene scene = new Scene(rootNode);
-
-
         scene.getStylesheets().add(stylesheet);
-
         stage.setTitle("WGPlaner");
         stage.setScene(scene);
 
-
         stage.show();
-
     }
+
+    //start
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    //stop
     @Override
     public void stop() throws Exception {
         Navigation nav = new Navigation();

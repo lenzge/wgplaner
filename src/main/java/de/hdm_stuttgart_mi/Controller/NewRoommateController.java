@@ -4,9 +4,7 @@ import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class NewRoommateController extends Supercontroller implements Initializable {
+public class NewRoommateController extends SuperController implements Initializable {
     private static final Logger log = LogManager.getLogger(NewRoommateController.class);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 

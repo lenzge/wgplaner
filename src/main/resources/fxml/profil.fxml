@@ -9,10 +9,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.control.ToggleButton?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="de.hdm_stuttgart_mi.Controller.ProfilController"
-          styleClass="menu" style="-fx-background-color: #424045">
+          styleClass="menu" >
 
        <columnConstraints>
            <ColumnConstraints hgrow="SOMETIMES"  minWidth="250.0" prefWidth="250" />
@@ -33,15 +34,18 @@
 
        <padding><Insets top="10" right="25" bottom="20" left="20"/></padding>
    <!--Heading-->
-    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" >
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="5" >
 
         <Label text="Dein Profil"  styleClass="heading" />
-        <Button onAction="#edit" fx:id="edit" >
+        <Button onAction="#edit" fx:id="edit" styleClass="transparent">
             <HBox.margin><Insets top="5" left="10" bottom="10"/></HBox.margin>
             <graphic>
                 <ImageView fx:id="editIconView" />
             </graphic>
         </Button>
+        <ToggleButton fx:id="color" onAction="#colorMode" text="color" prefWidth="100.0" prefHeight="45" >
+            <HBox.margin><Insets top="5" left="10" bottom="10"/></HBox.margin>
+        </ToggleButton>
     </HBox>
 
    <!-- Name  -->

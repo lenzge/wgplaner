@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class ItemFactory {
 
-
+    //all types for initialize in GUI
     private static final String[] itemFactory = {"Lebensmittel","Reinigung","Sonstiges"};
 
     public static Iitem getInstance(String type, String content, String author){
