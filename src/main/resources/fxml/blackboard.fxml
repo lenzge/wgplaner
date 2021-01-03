@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
@@ -21,7 +18,7 @@
     <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
         <children>
             <ListView fx:id="notesListed" GridPane.rowIndex="0"/>
-            <HBox fx:id="addnewNote" GridPane.rowIndex="1" GridPane.rowSpan="1" spacing="5">
+            <HBox fx:id="addNewNote" GridPane.rowIndex="1" GridPane.rowSpan="1" spacing="5">
                 <TextField fx:id="noteContent" promptText="neuer Pinn" prefWidth="180.0" prefHeight="45" minWidth="176" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
                         <Insets>
@@ -29,20 +26,20 @@
                         </Insets>
                     </HBox.margin>
                 </TextField>
-                <CheckBox fx:id="checkboxPinned" text="Pinned" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT">
-                    <HBox.margin>
-                        <Insets>
-                            <top>15</top>
-                        </Insets>
-                    </HBox.margin>
-                </CheckBox>
-                <!--<ToggleButton fx:id="pinned" mnemonicParsing="false" text="Pinned" prefWidth="180.0" minWidth="180.0" prefHeight="45" >
+<!--                <CheckBox fx:id="checkboxPinned" text="Pinned" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT">-->
+<!--                    <HBox.margin>-->
+<!--                        <Insets>-->
+<!--                            <top>15</top>-->
+<!--                        </Insets>-->
+<!--                    </HBox.margin>-->
+<!--                </CheckBox>-->
+                <ToggleButton fx:id="pinnedSelection" mnemonicParsing="false" text="Pinned" prefWidth="180.0" minWidth="180.0" prefHeight="45" >
                     <HBox.margin>
                         <Insets>
                             <top>5</top>
                         </Insets>
                     </HBox.margin>
-                </ToggleButton>-->
+                </ToggleButton>
                 <Button fx:id="addNote" onAction="#addNote" text="Hinzufügen" prefWidth="180.0" minWidth="180.0" prefHeight="45">
                     <HBox.margin>
                         <Insets>

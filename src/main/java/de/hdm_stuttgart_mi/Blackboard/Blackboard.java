@@ -45,6 +45,7 @@ public class Blackboard {
                 String content = (String) jsonObjectFromArray.get("content");
                 String author = (String) jsonObjectFromArray.get("author");
                 LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date);
+                //boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
                 boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
                 Note note = new Note(content, author, timestamp, isPinned);
@@ -91,24 +92,23 @@ public class Blackboard {
     }
 
     public void addNote(String content, Roommate author, LocalDate timestamp, boolean isPinned){
-        Note note = new Note(content, author.getFullname(), timestamp, isPinned);
+        Note note = new Note (content, author.getFullname(), timestamp, isPinned);
         noteList.add(note);
         log.info(note.toString() + " added");
 
     }
 
     public void deleteNote(Note note){
-
-
+        noteList.removeIf(value -> value.getContent().equals(note.getContent()));
         log.info(note.toString() + " deleted");
     }
 
-    public void pinnNote(Note note, boolean isPinned){
-
-
-        log.info(note.toString() + " is pinned");
-        log.info(note.toString() + " isn´t pinned anymore");
-    }
+//    public void pinnNote(Note note, boolean isPinned){
+//
+//
+//        log.info(note.toString() + " is pinned");
+//        log.info(note.toString() + " isn´t pinned anymore");
+//    }
 
 
     @Override
