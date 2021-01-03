@@ -35,10 +35,10 @@
 }
 
 .button:hover{
-    -fx-background-color: #1d9399;
+    -fx-background-color: #1d999f;
 }
 .button:focused {
-    -fx-background-color: #1d9399;
+    -fx-background-color: #1d999f;
 }
 /* Component specific styles */
 
@@ -50,7 +50,7 @@
 
 
 #profilePic {
-    -fx-effect: dropshadow(one-pass-box,#1d9399,10,5.0,0,0)
+    -fx-effect: #1d999f
 }
 
 #roommateName{

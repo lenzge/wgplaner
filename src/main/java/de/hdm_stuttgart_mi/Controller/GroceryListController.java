@@ -8,12 +8,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -37,8 +41,13 @@ public class GroceryListController extends Supercontroller implements Initializa
     //global
     GroceryList groceryList;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    String filenameTrashIcon = "src/main/resources/icons/trash.png";
+
     //debugger
     private static final Logger log = LogManager.getLogger(GroceryListController.class);
+
+    public GroceryListController() throws FileNotFoundException {
+    }
 
 
     //loading gui
@@ -59,22 +68,29 @@ public class GroceryListController extends Supercontroller implements Initializa
     }
 
     //loads every item from itemList into the ListView
-    private void initItemListView(){
+    private void initItemListView() throws FileNotFoundException {
 
         ObservableList<HBox> obsList = FXCollections.observableArrayList();
 
         for(Iitem value : groceryList.getItemList()){
             HBox hbox = new HBox();
-                hbox.getStyleClass().add("hboxLena");
+                hbox.getStyleClass().add("grocerylist");
             Label content = new Label(value.getContent());
                 content.getStyleClass().add("contentLabel");
             Label type = new Label(value.getType());
                 type.getStyleClass().add("typeLabel");
                 type.setVisible(false); //only visible while hovering
-            Button delete = new Button("löschen");
+            Button delete = new Button();
+                delete.setGraphic(createImageView());
                 delete.getStyleClass().add("deleteButton");
                 delete.setVisible(false); //only visible while hovering
-                delete.setOnAction(event -> deleteItem(value));
+                delete.setOnAction(event -> {
+                    try {
+                        deleteItem(value);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                });
 
             //bought items
             if (value.getPrice() != null) {
@@ -92,7 +108,13 @@ public class GroceryListController extends Supercontroller implements Initializa
                     price.getStyleClass().add("columnthree");
                 Button check = new Button ("kaufen");
                     check.getStyleClass().add("columnfour");
-                    check.setOnAction(event -> checkItem(value, price));
+                    check.setOnAction(event -> {
+                        try {
+                            checkItem(value, price);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                 hbox.getChildren().addAll(content, type, price, check, delete);
             }
@@ -107,10 +129,23 @@ public class GroceryListController extends Supercontroller implements Initializa
         log.info("ListView initialzied");
     }
 
+    private ImageView createImageView() throws FileNotFoundException {
+        FileInputStream input = new FileInputStream(filenameTrashIcon);
+        Image trashIcon = new Image(input);
+        ImageView trash = new ImageView(trashIcon);
+        trash.setFitWidth(20);
+        trash.setFitHeight(20);
+        return trash;
+    }
+
     //start
     @Override public void initialize(URL location, ResourceBundle resources){
         groceryList = new GroceryList();
-        initItemListView();
+        try {
+            initItemListView();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         initItemTypes();
         log.info("open GroceryList");
     }
@@ -120,7 +155,7 @@ public class GroceryListController extends Supercontroller implements Initializa
     //edit functions
 
     //change item from non-bought to bought
-    private void checkItem(Iitem value, TextField textfield) {
+    private void checkItem(Iitem value, TextField textfield) throws FileNotFoundException {
         //error, if price is no price
         if(textfield.getText() == null || !textfield.getText().matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
             log.info("input "+ textfield.getText() + " is no price");
@@ -138,14 +173,14 @@ public class GroceryListController extends Supercontroller implements Initializa
     }
 
     //delete item from itemList
-    private void deleteItem(Iitem value){
+    private void deleteItem(Iitem value) throws FileNotFoundException {
         groceryList.deleteItem(value);
         groceryList.safeItems();
         initItemListView();
     }
 
     //add item to itemList
-    @FXML private void addItem() {
+    @FXML private void addItem() throws FileNotFoundException {
         //item needs content
         if(itemContent.getText() == null || itemContent.getText().equals("") ){
             itemContent.getStyleClass().add("error");

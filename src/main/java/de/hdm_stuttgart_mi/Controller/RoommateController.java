@@ -35,7 +35,7 @@ public class RoommateController implements Initializable {
         for (Roommate roommate : nav.getRoommateList()) {
             if (roommate.getID() != currentUser.getID()) {
                 HBox hbox = new HBox();
-                hbox.getStyleClass().add("hboxLea");
+                hbox.getStyleClass().add("roommate");
                 Image profilPic = new Image(new FileInputStream(roommate.getProfilepic()));
                 ImageView profilPicView = new ImageView(profilPic);
                 profilPicView.setFitWidth(70);
