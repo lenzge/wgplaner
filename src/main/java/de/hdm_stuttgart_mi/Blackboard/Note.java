@@ -34,9 +34,7 @@ public class Note {
         this.timestamp = timestamp;
     }
 
-    public void setIsPinned() {
-        this.isPinned = isPinned;
-    }
+
 
     public boolean getIsPinned(){
         return isPinned;

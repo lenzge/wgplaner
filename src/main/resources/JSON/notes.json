@@ -1,16 +1,1 @@
-{
-  "notes":[
-    {
-      "content": "Gehe um 18 Uhr ins Pub könnt euch gerne anschließen",
-      "author": "KeinPlanWerDasSeinKönnte",
-      "timestamp": null,
-      "isPinned": true
-    },
-    {
-      "content": "War schon mit dem Hund draußen",
-      "author": "KeinPlanWerDasSeinKönnte",
-      "timestamp": null,
-      "isPinned": false
-    }
-  ]
-}
+{"note":[{"isPinned":true,"author":"KeinPlanWerDasSeinKönnte","content":"Gehe um 18 Uhr ins Pub könnt euch gerne anschließen","timestamp":"12.12.2020"},{"isPinned":false,"author":"KeinPlanWerDasSeinKönnte","content":"War schon mit dem Hund draußen","timestamp":"12.12.2020"}]}

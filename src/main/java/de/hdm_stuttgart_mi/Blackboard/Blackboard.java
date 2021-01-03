@@ -1,6 +1,8 @@
 package de.hdm_stuttgart_mi.Blackboard;
 
-
+import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,22 +19,28 @@ import java.util.List;
 
 public class Blackboard {
 
-    List<Note> noteList = new ArrayList<>();
+    //Logger
+    private static final Logger log = LogManager.getLogger(Blackboard.class);
 
+    //Global collection
+    List<Note> noteList;
+
+    //JSON File
     File file = new File("src\\main\\resources\\JSON\\notes.json");
 
+    //Date Format
     DateTimeFormatter date = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void initNote() {
+        noteList = new ArrayList<>();
         JSONParser parser = new JSONParser();
         try{
-
             String jsonContent = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
             JSONObject json = (JSONObject) parser.parse(jsonContent);
 
-            JSONArray jsonArray = (JSONArray) json.get("notes");
-            for(int x = 0; x < jsonArray.size(); x++){
-                JSONObject jsonObjectFromArray = (JSONObject) jsonArray.get(x);
+            JSONArray jsonArray = (JSONArray) json.get("note");
+            for (Object o : jsonArray) {
+                JSONObject jsonObjectFromArray = (JSONObject) o;
 
                 String content = (String) jsonObjectFromArray.get("content");
                 String author = (String) jsonObjectFromArray.get("author");
@@ -40,10 +48,14 @@ public class Blackboard {
                 boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
                 Note note = new Note(content, author, timestamp, isPinned);
+                noteList.add(note);
+                log.debug("add note: " + note.toString());
             }
+            log.info("Blackboard initialized");
 
         } catch(Exception e){
             e.printStackTrace();
+            log.error("IOException");
         }
     }
     public void safeBlackboard() {
@@ -53,7 +65,7 @@ public class Blackboard {
             JSONObject entries = new JSONObject();
             entries.put("content",note.getContent());
             entries.put("author",note.getAuthor());
-            entries.put("timestamp",note.getTimestamp());
+            entries.put("timestamp",note.getTimestamp().format(date));
             entries.put("isPinned",note.getIsPinned());
             notes.add(entries);
         }
@@ -62,8 +74,53 @@ public class Blackboard {
 
         try(FileWriter writer = new FileWriter(file)){
             writer.write(obj.toJSONString());
+            log.info("Notes safed");
         }catch (IOException e){
             e.printStackTrace();
+            log.error("IOException");
         }
     }
+
+    public List<Note> getNoteList(){
+        return noteList;
+    }
+
+    public Blackboard(){
+        log.debug("try to initialize blackboard");
+        initNote();
+    }
+
+    public void addNote(String content, Roommate author, LocalDate timestamp, boolean isPinned){
+        Note note = new Note(content, author.getFullname(), timestamp, isPinned);
+        noteList.add(note);
+        log.info(note.toString() + " added");
+
+    }
+
+    public void deleteNote(Note note){
+
+
+        log.info(note.toString() + " deleted");
+    }
+
+    public void pinnNote(Note note, boolean isPinned){
+
+
+        log.info(note.toString() + " is pinned");
+        log.info(note.toString() + " isn´t pinned anymore");
+    }
+
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Note note: noteList) {
+            stringBuilder.append(note.getContent()).append(", ");
+            stringBuilder.append(note.getAuthor()).append(", ");
+            stringBuilder.append(note.getTimestamp()).append(", ");
+            stringBuilder.append(note.getIsPinned()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
 }

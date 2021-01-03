@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<GridPane fx:id="root" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="de.hdm_stuttgart_mi.Controller.BlackboardController"
+          styleClass="main-panel">
+    <rowConstraints>
+        <RowConstraints minHeight="200.0" prefHeight="680.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="NEVER"/>
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" prefWidth="1100.0"/>
+    </columnConstraints>
+    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+        <children>
+            <ListView fx:id="notesListed" GridPane.rowIndex="0"/>
+            <HBox fx:id="addnewNote" GridPane.rowIndex="1" GridPane.rowSpan="1" spacing="5">
+                <TextField fx:id="noteContent" promptText="neuer Pinn" prefWidth="180.0" prefHeight="45" minWidth="176" HBox.hgrow="SOMETIMES">
+                    <HBox.margin>
+                        <Insets>
+                            <top>5</top>
+                        </Insets>
+                    </HBox.margin>
+                </TextField>
+                <CheckBox fx:id="checkboxPinned" text="Pinned" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT">
+                    <HBox.margin>
+                        <Insets>
+                            <top>15</top>
+                        </Insets>
+                    </HBox.margin>
+                </CheckBox>
+                <!--<ToggleButton fx:id="pinned" mnemonicParsing="false" text="Pinned" prefWidth="180.0" minWidth="180.0" prefHeight="45" >
+                    <HBox.margin>
+                        <Insets>
+                            <top>5</top>
+                        </Insets>
+                    </HBox.margin>
+                </ToggleButton>-->
+                <Button fx:id="addNote" onAction="#addNote" text="Hinzufügen" prefWidth="180.0" minWidth="180.0" prefHeight="45">
+                    <HBox.margin>
+                        <Insets>
+                            <top>5</top>
+                        </Insets>
+                    </HBox.margin>
+                </Button>
+            </HBox>
+        </children>
+</GridPane>

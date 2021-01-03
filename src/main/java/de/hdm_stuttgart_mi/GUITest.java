@@ -23,7 +23,7 @@ public class GUITest extends Application {
         Navigation nav = new Navigation();
         log.info("Starting GUI");
 
-        final String fxmlFile = "/fxml/grocerylist.fxml";
+        final String fxmlFile = "/fxml/blackboard.fxml";
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 
         /*stylesheet als ExternalForm Kennzeichnen*/

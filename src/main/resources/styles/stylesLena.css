@@ -118,6 +118,7 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #424045;
+
 }
 
 
@@ -211,4 +212,12 @@
 }
 .toggle-button:selected{
     -fx-background-color: #1d9399;
+}
+
+#checkboxPinned {
+    -fx-text-fill: #1d9399;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial Narrow";
+
 }
