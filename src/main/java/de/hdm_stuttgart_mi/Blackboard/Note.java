@@ -9,7 +9,6 @@ public class Note {
     private LocalDate timestamp;
     private boolean isPinned;
 
-
     public String getContent() {
         return content;
     }
@@ -40,10 +39,11 @@ public class Note {
         return isPinned;
     }
 
-    public Note(String content, String author, LocalDate timestamp, boolean isPinned ){
+    public Note(String content, String author, LocalDate timestamp, boolean isPinned){
         this.content = content;
         this.author = author;
         this.timestamp = timestamp;
         this.isPinned = isPinned;
     }
+
 }

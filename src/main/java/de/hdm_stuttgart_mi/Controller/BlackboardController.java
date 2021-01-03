@@ -9,12 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -23,7 +23,7 @@ import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
 public class BlackboardController extends Supercontroller implements Initializable {
     @FXML private ListView<HBox> notesListed;
     @FXML private TextField noteContent;
-    @FXML private CheckBox pinned;
+    @FXML private ToggleButton pinnedSelection;
 
     Blackboard blackboard;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -40,27 +40,21 @@ public class BlackboardController extends Supercontroller implements Initializab
             Label content = new Label(value.getContent());
                 content.getStyleClass().add("contentLabel");
 
-            CheckBox pinned = new CheckBox();
-                if (value.getIsPinned() == true){
+            ToggleButton pinned = new ToggleButton();
+                if (value.getIsPinned()){
                     pinned.setSelected(true);
                 }
-                //pinned.getStyleClass().add("toggle-button");
-
-
-            //Label pinned = new Label();
-              //  pinned.getStyleClass().add("contentLabel");
 
             Button delete = new Button("Löschen");
                 delete.getStyleClass().add("deleteButton");
                 delete.setOnAction(event -> deleteNote(value));
 
-            Label date = new Label(value.getTimestamp().format(formatter));
-                date.getStyleClass().add("columnthree");
 
-            Label createdPin = new Label(value.getAuthor());
+            VBox UserAndTime = new VBox(new Label(value.getTimestamp().format(formatter)), new Label(value.getAuthor()));
+                UserAndTime.getStyleClass().add("columnthree");
 
 
-            hBox.getChildren().addAll(content, pinned, date, createdPin, delete);
+            hBox.getChildren().addAll(content, pinned, UserAndTime, delete);
 
             HBox.setHgrow(content, Priority.ALWAYS);
             observableList.add(hBox);
@@ -83,21 +77,26 @@ public class BlackboardController extends Supercontroller implements Initializab
         initNotesListed();
     }
 
-    @FXML private void addNote(){
-        if (noteContent.getText() == null || noteContent.getText().equals("")){
-            noteContent.getStyleClass().add("error");
-            noteContent.setTooltip(new Tooltip("Leer"));
-            //remove error
-            noteContent.setOnMouseClicked((event) -> {noteContent.getStyleClass().remove("error"); noteContent.setTooltip(null);});
+    private boolean noteExists(String content){
+        for(Note note : blackboard.getNoteList()){
+            if (note.getContent().equals(content)){
+                return true;
+            }
         }
-        else if (noteDoubled(noteContent.getText())){
+        return false;
+    }
+
+    @FXML private void addNote() {
+        if(noteContent.getText() == null || noteContent.getText().equals("")){
             noteContent.getStyleClass().add("error");
-            noteContent.setTooltip(new Tooltip("Existiert schon"));
-            //remove error
+            noteContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
             noteContent.setOnMouseClicked((event) -> {noteContent.getStyleClass().remove("error"); noteContent.setTooltip(null);});
-        }
-        else{
-            blackboard.addNote(noteContent.getText(), currentUser, LocalDate.now(), pinned.isSelected());
+        } else if(noteExists(noteContent.getText())){
+            noteContent.getStyleClass().add("error");
+            noteContent.setTooltip(new Tooltip("Notiz existiert schon"));
+            noteContent.setOnMouseClicked((event) -> {noteContent.getStyleClass().remove("error"); noteContent.setTooltip(null);});
+        } else {
+            blackboard.addNote(noteContent.getText(),currentUser,LocalDate.now(),pinnedSelection.isSelected());
             blackboard.safeBlackboard();
             blackboard.initNote();
             initNotesListed();
@@ -105,14 +104,9 @@ public class BlackboardController extends Supercontroller implements Initializab
         }
     }
 
-    private boolean noteDoubled(String content){
-        for(Note note:blackboard.getNoteList()){
-            if (note.getContent().equals(content)){
-                return true;
-            }
-        }
-        return false;
-    }
+
+
+
 
 
 
