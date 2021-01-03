@@ -27,7 +27,7 @@ public class SuperController {
         Node centerRoot = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
         centerRoot.getStyleClass().add("center");
         root.setCenter(centerRoot);
-        log.debug(root.getStyleClass());
+        log.debug("changed first scene");
 
     }
     //menu stays, only center changes
@@ -38,7 +38,7 @@ public class SuperController {
         Node centerRoot = FXMLLoader.load(getClass().getResource("/fxml/"+button.getId()+".fxml"));
         centerRoot.getStyleClass().add("center");
         root.setCenter(centerRoot);
-        log.debug(root.getStyleClass());
+        log.debug("changed center");
 
     }
     //menu disappears, center changes
@@ -50,7 +50,7 @@ public class SuperController {
         sceneRoot.getStyleClass().add("center");
         root.setCenter(sceneRoot);
         root.setLeft(null);
-        log.debug(root.getStyleClass());
+        log.debug("changed scene");
 
     }
     public void terminate(ActionEvent event){

@@ -35,7 +35,7 @@ public class GroceryListController extends SuperController implements Initializa
     String filenameTrashIcon = "src/main/resources/icons/trash.png";
 
     //debugger
-    private static final Logger log = LogManager.getLogger(GroceryListController.class);
+    private static final Logger log = LogManager.getRootLogger();
 
 
     //loading gui
@@ -149,11 +149,10 @@ public class GroceryListController extends SuperController implements Initializa
     private void checkItem(Iitem value, TextField textfield) throws FileNotFoundException {
         //error, if price is no price
         if(textfield.getText() == null || !textfield.getText().matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
-            log.info("input "+ textfield.getText() + " is no price");
+            log.warn("input "+ textfield.getText() + " is no price");
             textfield.setText("€");
             textfield.getStyleClass().add("error");
-            textfield.setOnMouseClicked((event) -> {textfield.getStyleClass().remove("error");
-                                                    log.debug("error removed");});
+            textfield.setOnMouseClicked((event) -> {textfield.getStyleClass().remove("error"); });
         }
         else {
             groceryList.boughtItem(value, textfield.getText(), currentUser);
@@ -176,7 +175,7 @@ public class GroceryListController extends SuperController implements Initializa
         if(itemContent.getText() == null || itemContent.getText().equals("") ){
             itemContent.getStyleClass().add("error");
             itemContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
-            log.debug("User input is empty");
+            log.warn("User input is empty");
             //remove error
             itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null); });
         }
@@ -184,7 +183,7 @@ public class GroceryListController extends SuperController implements Initializa
         else if(itemExists(itemContent.getText())){
             itemContent.getStyleClass().add("error");
             itemContent.setTooltip(new Tooltip("Item existiert schon"));
-            log.debug("User input already exists");
+            log.warn("User input already exists");
             itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null);});
         }
         else {

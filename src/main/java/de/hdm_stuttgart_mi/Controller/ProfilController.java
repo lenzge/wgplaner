@@ -227,7 +227,6 @@ public class ProfilController extends SuperController implements Initializable {
     public void colorMode(ActionEvent actionEvent) {
         ToggleButton button = ((ToggleButton) actionEvent.getSource());
         BorderPane root = (BorderPane) button.getScene().getRoot();
-        log.debug(root.getStyleClass());
         if(color.isSelected()){
             root.getStyleClass().remove("root-dark");
             root.getStyleClass().remove("root-light");
