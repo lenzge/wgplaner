@@ -31,22 +31,26 @@
            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
        </rowConstraints>
 
-       <padding><Insets top="10" right="25" bottom="15" left="20"/></padding>
+       <padding><Insets top="10" right="25" bottom="20" left="20"/></padding>
    <!--Heading-->
-    <Label text="Dein Profil" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="heading" />
-    <Line GridPane.rowIndex="0" startX="Infinity" endX="-Infinity" GridPane.valignment="BOTTOM" />
-    <Button onAction="#edit" fx:id="edit" GridPane.columnIndex="4" GridPane.rowIndex="0"  GridPane.halignment="RIGHT">
-        <graphic>
-            <ImageView fx:id="editIconView" />
-        </graphic>
-    </Button>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" >
+
+        <Label text="Dein Profil"  styleClass="heading" />
+        <Button onAction="#edit" fx:id="edit" >
+            <HBox.margin><Insets top="5" left="10" bottom="10"/></HBox.margin>
+            <graphic>
+                <ImageView fx:id="editIconView" />
+            </graphic>
+        </Button>
+    </HBox>
+
    <!-- Name  -->
        <Label fx:id="fullname_lb" GridPane.columnIndex="0" GridPane.rowIndex="1" text="Hier sollte der name stehen"/>
        <Label fx:id="moveInDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
        <Label text="Deine Handynummer:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
        <Label fx:id="phonenumber" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-       <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" GridPane.columnIndex="4" GridPane.rowIndex="2" visible="false"/>
+       <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" GridPane.columnIndex="2" GridPane.rowIndex="2" visible="false"/>
 
    <!-- Changebale Birthday  -->
 
@@ -57,14 +61,17 @@
 
        <DatePicker fx:id="birthdaypicker" GridPane.columnIndex="2" GridPane.rowIndex="3" prefWidth="150" visible="false" disable="true" showWeekNumbers="false" />
    <!-- ProfilPic change  -->
-       <VBox GridPane.rowIndex="4"  GridPane.columnIndex="0" alignment="TOP_LEFT" spacing="5">
+       <VBox GridPane.rowIndex="4"  GridPane.columnIndex="0" GridPane.valignment="TOP" spacing="5">
            <Label text="Dein Profilbild:" />
-           <ImageView fx:id="ownProfilePic"  />
+           <ImageView fx:id="ownProfilePic"/>
+       </VBox>
+       <VBox GridPane.rowIndex="4"  GridPane.columnIndex="2" GridPane.columnSpan="1" >
+           <Label/>
+           <HBox fx:id="profilpics" spacing="10" visible="false" />
        </VBox>
 
-       <HBox fx:id="profilpics" GridPane.rowIndex="4"  GridPane.columnIndex="2" GridPane.columnSpan="1" spacing="10" visible="false" alignment="BASELINE_LEFT"/>
 
-    <Button text="Übernehmen" onAction="#apply" fx:id="apply_bt" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.columnIndex="4" visible="false"/>
+    <Button text="Übernehmen" onAction="#apply" fx:id="apply_bt" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.columnIndex="0" visible="false"/>
    <!-- delete user -->
        <Button fx:id="startscreen" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="6"  GridPane.columnIndex="4" GridPane.halignment="RIGHT" styleClass="moveOutButton" />
    </GridPane>

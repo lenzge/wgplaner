@@ -14,8 +14,8 @@
         <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="110.0" vgrow="SOMETIMES" />
             <RowConstraints prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
@@ -30,7 +30,7 @@
             <ColumnConstraints hgrow="SOMETIMES"  prefWidth="65.0" />
             <ColumnConstraints hgrow="SOMETIMES" prefWidth="175.0" />
         </columnConstraints>
-        <padding><Insets right="5"  left="5"/></padding>
+        <padding><Insets right="10"  left="10"/></padding>
         <children>
             <Button  fx:id="profil" onAction="#changeCenterScene" GridPane.columnIndex="0" GridPane.columnSpan="2" prefWidth="250.0" prefHeight="40" GridPane.rowIndex="1" >
                 <graphic>
@@ -41,8 +41,8 @@
             <Button fx:id="blackboard" text="Pinnwand" onAction="#changeCenterScene"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
             <Button fx:id="grocerylist" text="Einkaufsliste" onAction="#changeCenterScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
             <Button fx:id="roommates" text="Mitbewohner" onAction="#changeCenterScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
-            <Button fx:id="startscreen" text="Ausloggen" onAction="#changeScene" prefWidth="150.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="1"/>
-            <Button fx:id="terminate" onAction="#terminate" prefWidth="40.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="0">
+            <Button fx:id="startscreen" text="Ausloggen" onAction="#changeScene" prefWidth="200.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="1"/>
+            <Button fx:id="terminate" onAction="#terminate" prefWidth="60.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="0">
                 <graphic>
                     <ImageView fx:id="shutdownIcon"/>
                 </graphic>

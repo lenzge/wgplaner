@@ -59,11 +59,12 @@ public class ProfilController extends Supercontroller implements Initializable {
         moveInDate.setText("Du bist am "+currentUser.getMoveInDate().format(formatter)+" eingezogen");
     }
     private void initIcon() throws FileNotFoundException {
+        edit.setTooltip(new Tooltip("Bearbeiten"));
         FileInputStream editIconPath = new FileInputStream("src/main/resources/icons/stift.png");
         Image editIcon= new Image(editIconPath);
         editIconView.setImage(editIcon);
-        editIconView.setFitHeight(20);
-        editIconView.setFitWidth(20);
+        editIconView.setFitHeight(25);
+        editIconView.setFitWidth(25);
     }
     private void setOwnPp() throws FileNotFoundException {
         FileInputStream currentPp = new FileInputStream(currentUser.getProfilepic());
