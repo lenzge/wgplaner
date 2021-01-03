@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:id="root"
           xmlns="http://javafx.com/javafx"
           fx:controller="de.hdm_stuttgart_mi.Controller.NewRoommateController"
@@ -48,6 +49,11 @@
 
     </VBox>
        <Button fx:id="menu" onAction="#apply" GridPane.columnIndex="2" GridPane.columnSpan="4"  GridPane.rowIndex="6" text="Übernehmen"  textAlignment="CENTER"   prefWidth="400" prefHeight="50"/>
+       <Button fx:id="startscreen" onAction="#changeScene" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="LEFT">
+           <graphic>
+               <ImageView fx:id="backbutton"/>
+           </graphic>
+       </Button>
 </GridPane>
 
 

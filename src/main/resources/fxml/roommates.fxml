@@ -26,7 +26,8 @@
     <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
 
     <children>
-        <HBox GridPane.columnIndex="1" spacing="20" style="-fx-background-color:#424045 ">
+        <HBox GridPane.columnIndex="0" GridPane.columnSpan="2" spacing="20" styleClass="hboxHead">
+            <Label minWidth="80"/>
             <Label text="Mitbewohner" minWidth="200"/>
             <Label text="Einzugsdatum" minWidth="200"/>
             <Label text="Telefonnummer" minWidth="200"/>
