@@ -22,20 +22,30 @@ public class Blackboard {
     //Logger
     private static final Logger log = LogManager.getLogger(Blackboard.class);
 
-    //Global collection
-    List<Note> noteList;
-
     //JSON File
     File file = new File("src\\main\\resources\\JSON\\notes.json");
 
     //Date Format
     DateTimeFormatter date = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
+    //Global collection
+    List<Note> noteList;
+
+    public List<Note> getNoteList(){
+        return noteList;
+    }
+    public Blackboard(){
+        log.debug("try to initialize blackboard");
+        initNote();
+    }
+
+    // All Notes from the JSONFile get written in the noteList
     public void initNote() {
         noteList = new ArrayList<>();
         JSONParser parser = new JSONParser();
         try{
             String jsonContent = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
+            log.debug("read JSONFile");
             JSONObject json = (JSONObject) parser.parse(jsonContent);
 
             JSONArray jsonArray = (JSONArray) json.get("note");
@@ -45,7 +55,6 @@ public class Blackboard {
                 String content = (String) jsonObjectFromArray.get("content");
                 String author = (String) jsonObjectFromArray.get("author");
                 LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date);
-                //boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
                 boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
                 Note note = new Note(content, author, timestamp, isPinned);
@@ -59,6 +68,8 @@ public class Blackboard {
             log.error("IOException");
         }
     }
+
+    // NoteList get safed in the JSONFile
     public void safeBlackboard() {
         JSONObject obj = new JSONObject();
         JSONArray notes = new JSONArray();
@@ -82,20 +93,11 @@ public class Blackboard {
         }
     }
 
-    public List<Note> getNoteList(){
-        return noteList;
-    }
-
-    public Blackboard(){
-        log.debug("try to initialize blackboard");
-        initNote();
-    }
-
+    // edit noteList
     public void addNote(String content, Roommate author, LocalDate timestamp, boolean isPinned){
         Note note = new Note (content, author.getFullname(), timestamp, isPinned);
         noteList.add(note);
         log.info(note.toString() + " added");
-
     }
 
     public void deleteNote(Note note){
@@ -103,13 +105,11 @@ public class Blackboard {
         log.info(note.toString() + " deleted");
     }
 
-//    public void pinnNote(Note note, boolean isPinned){
-//
-//
-//        log.info(note.toString() + " is pinned");
-//        log.info(note.toString() + " isn´t pinned anymore");
-//    }
-
+    public void changePinnNote(Note note, boolean isPinned) throws IOException {
+        note.setPinned(isPinned);
+        safeBlackboard();
+        log.info(note.toString() + " changed pin status");
+    }
 
     @Override
     public String toString(){

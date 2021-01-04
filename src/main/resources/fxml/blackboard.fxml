@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+
+<?import javafx.scene.image.ImageView?>
 <GridPane fx:id="root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="de.hdm_stuttgart_mi.Controller.BlackboardController"
@@ -26,14 +28,10 @@
                         </Insets>
                     </HBox.margin>
                 </TextField>
-<!--                <CheckBox fx:id="checkboxPinned" text="Pinned" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT">-->
-<!--                    <HBox.margin>-->
-<!--                        <Insets>-->
-<!--                            <top>15</top>-->
-<!--                        </Insets>-->
-<!--                    </HBox.margin>-->
-<!--                </CheckBox>-->
-                <ToggleButton fx:id="pinnedSelection" mnemonicParsing="false" text="Pinned" prefWidth="180.0" minWidth="180.0" prefHeight="45" >
+                <ToggleButton fx:id="pinnedSelection" mnemonicParsing="false" text="" prefWidth="60.0" minWidth="60.0" prefHeight="45" >
+                    <graphic>
+                        <ImageView fx:id="pinIcon"/>
+                    </graphic>
                     <HBox.margin>
                         <Insets>
                             <top>5</top>

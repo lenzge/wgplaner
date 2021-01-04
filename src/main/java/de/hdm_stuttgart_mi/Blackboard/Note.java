@@ -33,6 +33,8 @@ public class Note {
         this.timestamp = timestamp;
     }
 
+    public void setPinned(boolean isPinned){this.isPinned = isPinned;}
+
 
 
     public boolean getIsPinned(){
