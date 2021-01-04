@@ -31,9 +31,11 @@ public class ProfilController extends SuperController implements Initializable {
     private static final Logger log = LogManager.getLogger(ProfilController.class);
     final private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
     Navigation nav = new Navigation();
+    protected static boolean colorOn=false;
 
     @FXML private ImageView ownProfilePic;
     @FXML private ImageView editIconView;
+    @FXML private ImageView colorIconView;
     @FXML private Button edit;
     @FXML private Label birthday_lb;
     @FXML private Label moveInDate;
@@ -43,7 +45,7 @@ public class ProfilController extends SuperController implements Initializable {
     @FXML private DatePicker birthdaypicker;
     @FXML private TextField phonenumber_tf;
     @FXML private Button apply_bt;
-    @FXML private ToggleButton color;
+    @FXML private Button color;
 
 
 
@@ -58,7 +60,15 @@ public class ProfilController extends SuperController implements Initializable {
     }
     private void initIcon() throws FileNotFoundException {
         edit.setTooltip(new Tooltip("Bearbeiten"));
-        FileInputStream editIconPath = new FileInputStream("src/main/resources/icons/stift.png");
+        FileInputStream editIconPath ;
+        if(colorOn)
+          {
+            editIconPath = new FileInputStream("src/main/resources/icons/darkpen.png");
+          }
+        else
+          {
+            editIconPath = new FileInputStream("src/main/resources/icons/pen.png");
+          }
         Image editIcon= new Image(editIconPath);
         editIconView.setImage(editIcon);
         editIconView.setFitHeight(25);
@@ -221,25 +231,53 @@ public class ProfilController extends SuperController implements Initializable {
             e.printStackTrace();
             log.error("Icon was not initialized");
         }
+        try {
+            initColorIcon();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            log.error("darkmode wasnt initialized");
+        }
 
     }
+    private void initColorIcon() throws FileNotFoundException {
+        if(colorOn){
+            FileInputStream sunIconPath = new FileInputStream("src/main/resources/icons/darkmode.png");
+            Image editIcon= new Image(sunIconPath);
+            colorIconView.setImage(editIcon);
+            colorIconView.setFitHeight(25);
+            colorIconView.setFitWidth(25);
+        }
+        else{
+            FileInputStream moonIconPath = new FileInputStream("src/main/resources/icons/whitemode.png");
+            Image editIcon= new Image(moonIconPath);
+            colorIconView.setImage(editIcon);
+            colorIconView.setFitHeight(25);
+            colorIconView.setFitWidth(25);
 
-    public void colorMode(ActionEvent actionEvent) {
-        ToggleButton button = ((ToggleButton) actionEvent.getSource());
+        }
+    }
+
+    public void colorMode(ActionEvent actionEvent) throws FileNotFoundException {
+
+        Button button = ((Button) actionEvent.getSource());
         BorderPane root = (BorderPane) button.getScene().getRoot();
-        if(color.isSelected()){
+        if(!colorOn){
             root.getStyleClass().remove("root-dark");
             root.getStyleClass().remove("root-light");
             root.getStyleClass().add("root-light");
             log.debug("Style changed light");
             log.debug(root.getStyleClass());
+            colorOn=true;
         }
-        else if(!color.isSelected()){
+        else if(colorOn){
             root.getStyleClass().remove("root-dark");
             root.getStyleClass().remove("root-light");
             root.getStyleClass().add("root-dark");
             log.debug("Style changed black");
             log.debug(root.getStyleClass());
+            colorOn=false;
         }
+        initColorIcon();
+        initIcon();
     }
 }

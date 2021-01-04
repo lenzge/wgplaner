@@ -43,18 +43,21 @@
                 <ImageView fx:id="editIconView" />
             </graphic>
         </Button>
-        <ToggleButton fx:id="color" onAction="#colorMode" text="color" prefWidth="100.0" prefHeight="45" >
-            <HBox.margin><Insets top="5" left="10" bottom="10"/></HBox.margin>
-        </ToggleButton>
-    </HBox>
 
+    </HBox>
+    <Button fx:id="color" onAction="#colorMode" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.columnIndex="4" GridPane.valignment="TOP" >
+        <HBox.margin><Insets top="5" left="10" bottom="10"/></HBox.margin>
+        <graphic>
+            <ImageView fx:id="colorIconView" />
+        </graphic>
+    </Button>
    <!-- Name  -->
        <Label fx:id="fullname_lb" GridPane.columnIndex="0" GridPane.rowIndex="1" text="Hier sollte der name stehen"/>
        <Label fx:id="moveInDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
        <Label text="Deine Handynummer:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
        <Label fx:id="phonenumber" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-       <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" GridPane.columnIndex="2" GridPane.rowIndex="2" visible="false"/>
+       <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" maxWidth="150" GridPane.columnIndex="2" GridPane.rowIndex="2" visible="false"/>
 
    <!-- Changebale Birthday  -->
 

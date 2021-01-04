@@ -23,6 +23,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import static de.hdm_stuttgart_mi.Controller.ProfilController.colorOn;
+
 public class NewRoommateController extends SuperController implements Initializable {
     private static final Logger log = LogManager.getLogger(NewRoommateController.class);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -99,9 +101,17 @@ public class NewRoommateController extends SuperController implements Initializa
 
     }
     private void initIcon() throws FileNotFoundException {
-        FileInputStream backIconPath = new FileInputStream("src/main/resources/icons/pfeil.png");
+        FileInputStream backIconPath;
+        if(colorOn){
+            backIconPath = new FileInputStream("src/main/resources/icons/darkback.png");
+        }
+        else{
+            backIconPath = new FileInputStream("src/main/resources/icons/back.png");
+        }
         Image backIcon= new Image(backIconPath);
         backbutton.setImage(backIcon);
+        backbutton.setFitWidth(30);
+        backbutton.setFitHeight(25);
     }
     private void initProfilpics() throws FileNotFoundException {
 
