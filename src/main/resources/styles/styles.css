@@ -187,3 +187,8 @@
     -fx-font-weight: bold;
     -fx-font-family: "Arial Narrow";
 }
+
+.pinButtonListView{
+    -fx-pref-width: 40;
+    /*-fx-alignment: center-left;*/
+}
