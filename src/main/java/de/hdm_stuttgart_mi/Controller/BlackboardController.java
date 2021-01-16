@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
+import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
 
 public class BlackboardController extends SuperController implements Initializable {
 

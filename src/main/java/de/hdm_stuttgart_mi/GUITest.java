@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+import de.hdm_stuttgart_mi.notificationAndUsers.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +20,7 @@ public class GUITest extends Application {
 
 
     public void start(Stage stage) throws Exception {
-        Navigation nav = new Navigation();
+        User nav = new User();
         log.info("Starting GUI");
 
         final String fxmlFile = "/fxml/blackboard.fxml";

@@ -1,6 +1,5 @@
 package de.hdm_stuttgart_mi.GroceryList;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,6 +1,5 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -8,7 +7,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
+import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
 
 public class WelcomeController implements Initializable {
     @FXML private Label welcomeText;

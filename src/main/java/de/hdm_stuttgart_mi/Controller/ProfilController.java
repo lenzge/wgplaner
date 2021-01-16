@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+import de.hdm_stuttgart_mi.notificationAndUsers.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,14 +24,20 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.fillImageView;
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.validPhoneNumber;
+import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
 
 public class ProfilController extends SuperController implements Initializable {
 
+    protected static boolean colorOn=false;
+
     private static final Logger log = LogManager.getLogger(ProfilController.class);
     final private DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    Navigation nav = new Navigation();
-    protected static boolean colorOn=false;
+
+    User user = new User();
+
+
 
     @FXML private ImageView ownProfilePic;
     @FXML private ImageView editIconView;
@@ -58,33 +64,62 @@ public class ProfilController extends SuperController implements Initializable {
     private void initMoveInDate(){
         moveInDate.setText("Du bist am "+currentUser.getMoveInDate().format(formatter)+" eingezogen");
     }
-    private void initIcon() throws FileNotFoundException {
+    private void initEditIcon() throws FileNotFoundException {
+        String ColorOffPath = "src/main/resources/icons/pen.png";
+        String ColorOnPath = "src/main/resources/icons/darkpen.png";
         edit.setTooltip(new Tooltip("Bearbeiten"));
-        FileInputStream editIconPath ;
         if(colorOn)
           {
-            editIconPath = new FileInputStream("src/main/resources/icons/darkpen.png");
+              fillImageView(editIconView, ColorOnPath, 25, 25);
           }
         else
           {
-            editIconPath = new FileInputStream("src/main/resources/icons/pen.png");
+              fillImageView(editIconView, ColorOffPath, 25, 25);
           }
-        Image editIcon= new Image(editIconPath);
-        editIconView.setImage(editIcon);
-        editIconView.setFitHeight(25);
-        editIconView.setFitWidth(25);
+
     }
     private void setOwnPp() throws FileNotFoundException {
-        FileInputStream currentPp = new FileInputStream(currentUser.getProfilepic());
-        Image currentProfilePic= new Image(currentPp);
-        ownProfilePic.setImage(currentProfilePic);
-        ownProfilePic.setFitHeight(80);
-        ownProfilePic.setFitWidth(80);
+        fillImageView(ownProfilePic,currentUser.getProfilepic(),80,80);
     }
 
-//OnAction method for "Bearbeiten"-Button
-    @FXML
-    private void edit(){
+    private void initColorIcon() throws FileNotFoundException {
+        String ColorOffPath = "src/main/resources/icons/whitemode.png";
+        String ColorOnPath = "src/main/resources/icons/darkmode.png";
+        if(colorOn){
+
+            fillImageView(colorIconView, ColorOnPath, 25, 25);
+        }
+        else{
+            fillImageView(colorIconView, ColorOffPath, 25, 25);
+        }
+    }
+
+    public void colorMode(ActionEvent actionEvent) throws FileNotFoundException {
+
+        Button button = ((Button) actionEvent.getSource());
+        BorderPane root = (BorderPane) button.getScene().getRoot();
+        if(!colorOn){
+            root.getStyleClass().remove("root-dark");
+            root.getStyleClass().remove("root-light");
+            root.getStyleClass().add("root-light");
+            log.debug("Style changed light");
+            log.debug(root.getStyleClass());
+            colorOn=true;
+        }
+        else if(colorOn){
+            root.getStyleClass().remove("root-dark");
+            root.getStyleClass().remove("root-light");
+            root.getStyleClass().add("root-dark");
+            log.debug("Style changed black");
+            log.debug(root.getStyleClass());
+            colorOn=false;
+        }
+        initColorIcon();
+        initEditIcon();
+    }
+
+    //OnAction method for "Bearbeiten"-Button
+    @FXML private void edit(){
 
             apply_bt.setVisible(true);
             edit.setVisible(false);
@@ -93,17 +128,17 @@ public class ProfilController extends SuperController implements Initializable {
             profilpics.setVisible(true);
             phonenumber_tf.setVisible(true);
     }
-//On action Method that apllys changes
+//On action Method that checks and apllys changes
    @FXML private void apply(ActionEvent event) throws IOException {
        boolean applyable = true;
 
        if (birthdaypicker.getValue() != null) {
            currentUser.setBirthday(birthdaypicker.getValue());
            birthday_lb.setText(currentUser.getBirthday().format(formatter));
-           nav.updateCurrentUser();
+           user.updateCurrentUser();
        }
        if (!(phonenumber_tf.getText().equals(""))) {
-           if (phonenumber_tf.getText().matches("^(\\d+)$")) {
+           if (validPhoneNumber(phonenumber_tf.getText())) {
                currentUser.setPhonenumber(phonenumber_tf.getText());
                initPhonenumber();
            } else {
@@ -140,7 +175,7 @@ public class ProfilController extends SuperController implements Initializable {
 
    //OnActionEvent Method that delets the User that is currently logged in and switches back to login screen
    @FXML public void deleteUser(ActionEvent e) throws IOException {
-        nav.deleteFromList();
+        user.deleteFromList();
         super.changeScene(e);
     }
 
@@ -197,12 +232,10 @@ public class ProfilController extends SuperController implements Initializable {
 
     private void changeProfilepic(ToggleButton button) throws FileNotFoundException {
         currentUser.setProfilepic(button.getId());
-        nav.updateCurrentUser();
+        user.updateCurrentUser();
         setOwnPp();
         setProfilePics();
     }
-
-
 
 
 
@@ -226,7 +259,7 @@ public class ProfilController extends SuperController implements Initializable {
             log.error("ProfilPics to choose were not initialized");
         }
         try {
-            initIcon();
+            initEditIcon();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             log.error("Icon was not initialized");
@@ -237,47 +270,5 @@ public class ProfilController extends SuperController implements Initializable {
             e.printStackTrace();
             log.error("darkmode wasnt initialized");
         }
-
-    }
-    private void initColorIcon() throws FileNotFoundException {
-        if(colorOn){
-            FileInputStream sunIconPath = new FileInputStream("src/main/resources/icons/darkmode.png");
-            Image editIcon= new Image(sunIconPath);
-            colorIconView.setImage(editIcon);
-            colorIconView.setFitHeight(25);
-            colorIconView.setFitWidth(25);
-        }
-        else{
-            FileInputStream moonIconPath = new FileInputStream("src/main/resources/icons/whitemode.png");
-            Image editIcon= new Image(moonIconPath);
-            colorIconView.setImage(editIcon);
-            colorIconView.setFitHeight(25);
-            colorIconView.setFitWidth(25);
-
-        }
-    }
-
-    public void colorMode(ActionEvent actionEvent) throws FileNotFoundException {
-
-        Button button = ((Button) actionEvent.getSource());
-        BorderPane root = (BorderPane) button.getScene().getRoot();
-        if(!colorOn){
-            root.getStyleClass().remove("root-dark");
-            root.getStyleClass().remove("root-light");
-            root.getStyleClass().add("root-light");
-            log.debug("Style changed light");
-            log.debug(root.getStyleClass());
-            colorOn=true;
-        }
-        else if(colorOn){
-            root.getStyleClass().remove("root-dark");
-            root.getStyleClass().remove("root-light");
-            root.getStyleClass().add("root-dark");
-            log.debug("Style changed black");
-            log.debug(root.getStyleClass());
-            colorOn=false;
-        }
-        initColorIcon();
-        initIcon();
     }
 }

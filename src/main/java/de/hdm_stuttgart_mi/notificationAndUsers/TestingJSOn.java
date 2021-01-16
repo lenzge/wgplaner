@@ -16,7 +16,7 @@ public class TestingJSOn {
         LocalDate moveInDate = LocalDate.parse("21.03.2020",formatter) ;
         LocalDate birthday= LocalDate.parse("21.02.2020",formatter)  ;
        // Roommate dan = new Roommate("Danny","Kruger",3,"0129374368",true,moveInDate,birthday,"src/main/resources/images/Königstiger.jpg");
-        Navigation nav = new Navigation();
+        User nav = new User();
 
         Roommate lara = nav.getRoommate(0);
         log.info(lara.toString() + lara.getProfilepic() + "" + lara.getID());

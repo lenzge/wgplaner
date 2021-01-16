@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
+import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
 
 public class MenuController extends SuperController implements Initializable {
 

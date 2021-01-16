@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+import de.hdm_stuttgart_mi.notificationAndUsers.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +45,7 @@ public class Main extends Application {
     //stop
     @Override
     public void stop() throws Exception {
-        Navigation nav = new Navigation();
+        User nav = new User();
         nav.updateCurrentUser();
         super.stop();
         log.info("Terminating application");

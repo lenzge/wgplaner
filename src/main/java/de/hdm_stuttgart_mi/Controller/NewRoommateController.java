@@ -1,12 +1,11 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+import de.hdm_stuttgart_mi.notificationAndUsers.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -15,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -23,14 +21,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.*;
 import static de.hdm_stuttgart_mi.Controller.ProfilController.colorOn;
 
 public class NewRoommateController extends SuperController implements Initializable {
     private static final Logger log = LogManager.getLogger(NewRoommateController.class);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
+    User user = new User();
+
     private LocalDate birthday;
     private String profilePic;
+
     @FXML
     private DatePicker birthday_dp;
     @FXML
@@ -47,8 +49,6 @@ public class NewRoommateController extends SuperController implements Initializa
     private GridPane root;
     @FXML
     private ImageView backbutton;
-    Navigation nav = new Navigation();
-
 
 
     @FXML
@@ -77,7 +77,7 @@ public class NewRoommateController extends SuperController implements Initializa
         } else {
             lastname = lastname_tf.getText();
         }
-        if (phonenumber_tf.getText().matches("^(\\d+)$")) {
+        if (validPhoneNumber(phonenumber_tf.getText())) {
             phonenumber = phonenumber_tf.getText();
         } else {
             phonenumber_tf.setText("Nur Zahlen in der Telefonnummer erlaubt");
@@ -91,28 +91,30 @@ public class NewRoommateController extends SuperController implements Initializa
         if (applyable) {
             Roommate newRoommate = new Roommate(firstname, lastname, 0, phonenumber, true, LocalDate.now(), birthday, profilePic);
             log.debug("Roommate created");
-            nav.addCurrentRoomate(newRoommate);
-            int id = nav.getRoommate(nav.roommateListLenght() - 1).getID();
-            nav = new Navigation(id);
+
+
+            user.addNewRoommate(newRoommate);
+            int id = user.getRoommate(user.roommateListLenght() - 1).getID();
+            user = new User(id);
 
             super.changeFirstScene(e);
         }
 
 
     }
+
     private void initIcon() throws FileNotFoundException {
-        FileInputStream backIconPath;
-        if(colorOn){
-            backIconPath = new FileInputStream("src/main/resources/icons/darkback.png");
+
+        String ColorOffPath = "src/main/resources/icons/back.png";
+        String ColorOnPath = "src/main/resources/icons/darkback.png";
+        if (colorOn) {
+            fillImageView(backbutton, ColorOnPath, 30, 25);
+        } else {
+            fillImageView(backbutton, ColorOffPath, 30, 25);
         }
-        else{
-            backIconPath = new FileInputStream("src/main/resources/icons/back.png");
-        }
-        Image backIcon= new Image(backIconPath);
-        backbutton.setImage(backIcon);
-        backbutton.setFitWidth(30);
-        backbutton.setFitHeight(25);
+
     }
+
     private void initProfilpics() throws FileNotFoundException {
 
         ToggleGroup toggleGroup = new ToggleGroup();
@@ -124,11 +126,9 @@ public class NewRoommateController extends SuperController implements Initializa
         assert list != null;
         for (String profilepicPath : list) {
             ToggleButton button = new ToggleButton();
-            FileInputStream input = new FileInputStream("src/main/resources/images/" + profilepicPath);
-            Image profilePic = new Image(input);
-            ImageView showProfilePic = new ImageView(profilePic);
-            showProfilePic.setFitWidth(100);
-            showProfilePic.setFitHeight(100);
+
+            ImageView showProfilePic = getImageView("src/main/resources/images/" + profilepicPath, 100, 100);
+
             button.setGraphic(showProfilePic);
             button.setId("src/main/resources/images/" + profilepicPath);
 
@@ -140,7 +140,6 @@ public class NewRoommateController extends SuperController implements Initializa
     }
 
     private void profilButton(ToggleButton button) {
-
         profilePic = button.getId();
         button.setSelected(true);
         log.debug(profilePic);

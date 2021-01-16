@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Navigation;
+import de.hdm_stuttgart_mi.notificationAndUsers.User;
 import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.Navigation.currentUser;
+import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
 
 
 public class StartscreenController extends SuperController implements Initializable {
@@ -24,7 +24,7 @@ public class StartscreenController extends SuperController implements Initializa
     @FXML private MenuButton roommateMenuButton;
     //@FXML private BorderPane root;
 
-    Navigation nav = new Navigation();
+    User nav = new User();
     private void initMenuButton(){
         roommateMenuButton.setText("Mitbewohner");
         for(int i = 0;i<nav.roommateListLenght();i++ ){
@@ -42,7 +42,7 @@ public class StartscreenController extends SuperController implements Initializa
         roommateMenuButton.setTextFill(Paint.valueOf("#1d9399"));
         String Id =((MenuItem)e.getSource()).getId();
         int id = Integer.parseInt(Id);
-        nav = new Navigation(id);
+        nav = new User(id);
         log.info("Der aktuelle User "+currentUser.getFullname());
     }
 
