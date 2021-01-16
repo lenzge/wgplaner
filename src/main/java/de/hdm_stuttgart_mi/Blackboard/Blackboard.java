@@ -57,9 +57,19 @@ public class Blackboard {
                 LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date);
                 boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
-                Note note = new Note(content, author, timestamp, isPinned);
-                noteList.add(note);
-                log.debug("add note: " + note.toString());
+                if (isPinned){
+                    Note note = new Note(content, author, timestamp, true);
+                    noteList.add(0,note); // Pinned Notes ore on the top
+                    log.debug("add note: " + note.toString());
+                }
+                // Delete unpinned Notes that are older than 5 Days
+                else if (LocalDate.now().minusDays(5).compareTo(LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date)) > 0){
+                } else{
+                    Note note = new Note(content, author, timestamp, false);
+                    noteList.add(note);
+                    log.debug("add note: " + note.toString());
+                }
+
             }
             log.info("Blackboard initialized");
 
@@ -105,7 +115,7 @@ public class Blackboard {
         log.info(note.toString() + " deleted");
     }
 
-    public void changePinnNote(Note note, boolean isPinned) throws IOException {
+    public void changePinNote(Note note, boolean isPinned) throws IOException {
         note.setPinned(isPinned);
         safeBlackboard();
         log.info(note.toString() + " changed pin status");

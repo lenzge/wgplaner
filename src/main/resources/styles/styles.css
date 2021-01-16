@@ -181,14 +181,22 @@
 }
 
 /* blackboard */
+.contentLabelWrap{
+    -fx-min-width: 76;
+    -fx-max-width: 750;
+}
 #checkboxPinned {
     -fx-text-fill: -fx-button-hover;
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-font-family: "Arial Narrow";
 }
-
 .pinButtonListView{
-    -fx-pref-width: 40;
+    -fx-pref-width: 20;
     /*-fx-alignment: center-left;*/
+}
+.userAndTimeVbox{
+    -fx-min-width: 76;
+    -fx-pref-width: 120;
+    -fx-alignment: center;
 }
