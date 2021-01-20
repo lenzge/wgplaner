@@ -41,6 +41,12 @@ public class BlackboardController extends SuperController implements Initializab
     //debugger
     private static final Logger log = LogManager.getLogger(BlackboardController.class);
 
+    //Toggle Button in the blackboard.fxml
+    public BlackboardController() throws FileNotFoundException{
+    }
+    FileInputStream pinIconPath = new FileInputStream(PinIcon);
+    private Image pin = new Image(pinIconPath);
+
     //load nodeList into the NoteListView
     private void initNoteListView() throws FileNotFoundException {
         ObservableList<HBox> observableList = FXCollections.observableArrayList();
@@ -52,17 +58,21 @@ public class BlackboardController extends SuperController implements Initializab
 
             //shows the content
             Label content = new Label(value.getContent());
-                content.getStyleClass().add("contentLabel");
+                content.getStyleClass().add("contentLabelWrap");
+                content.setWrapText(true);
 
             // shows if the Note is pinned and you can change the pinned status
             ToggleButton pinned = new ToggleButton();
                 pinned.getStyleClass().add("pinButtonListView");
+
                 pinned.setGraphic(createPinImage());
                 if (value.getIsPinned()){
                     pinned.setSelected(true);
+//                    pinned.setVisible(false);
+                    pinned.setOnMouseEntered(event -> visiblePinned(pinned));
                     pinned.setOnAction(event -> {
                         try {
-                            blackboard.changePinnNote(value,false);
+                            blackboard.changePinNote(value,false);
                         } catch (IOException e) {
                             e.printStackTrace();
                             log.error("Icon wasn't found");
@@ -72,13 +82,12 @@ public class BlackboardController extends SuperController implements Initializab
                     pinned.setSelected(false);
                     pinned.setOnAction(event -> {
                         try {
-                            blackboard.changePinnNote(value,true);
+                            blackboard.changePinNote(value,true);
                         } catch (IOException e) {
                             e.printStackTrace();
                             log.error("Icon wasn't found");
                         }
                     });
-//                    pinned.setVisible(false); // only visible while hovering
                 }
 
             // Delete button
@@ -96,12 +105,12 @@ public class BlackboardController extends SuperController implements Initializab
                 });
 
             VBox UserAndTime = new VBox(new Label(value.getTimestamp().format(formatter)), new Label(value.getAuthor()));
-                UserAndTime.getStyleClass().add("columnthree");
+                UserAndTime.getStyleClass().add("userAndTimeVbox");
 
             hBox.getChildren().addAll(content, pinned, UserAndTime, delete);
             HBox.setHgrow(content, Priority.ALWAYS);
-            hBox.setOnMouseEntered(event -> visible(delete,pinned)); //TODO Pinned entfernen falls es nicht klapt
-            hBox.setOnMouseExited(event -> hidden(delete,pinned));
+            hBox.setOnMouseEntered(event -> visible(delete)); //TODO Pinned entfernen falls es nicht klapt
+            hBox.setOnMouseExited(event -> hidden(delete));
 
             observableList.add(hBox);
         }
@@ -109,6 +118,7 @@ public class BlackboardController extends SuperController implements Initializab
         log.info("BlackboardListView initialized");
     }
 
+    //Images for the Buttons
     private ImageView createTrashImage() throws FileNotFoundException {
         FileInputStream inputStream = new FileInputStream(TrashIcon);
         Image trashIcon = new Image(inputStream);
@@ -127,11 +137,7 @@ public class BlackboardController extends SuperController implements Initializab
         return pinOnList;
     }
 
-    //Toggle Button in the blackboard.fxml
-    public BlackboardController() throws FileNotFoundException{
-    }
-    FileInputStream pinIconPath = new FileInputStream(PinIcon);
-    private Image pin = new Image(pinIconPath);
+
 
     //start
     @Override
@@ -184,12 +190,16 @@ public class BlackboardController extends SuperController implements Initializab
     }
 
     //for the elements, which should be only visible while hovering
-    private void visible(Button delete, ToggleButton pinned){
+    private void visible(Button delete) {
         delete.setVisible(true);
-//        pinned.setVisible(true);
     }
-    private void hidden(Button delete, ToggleButton pinned){
+    private void hidden(Button delete){
         delete.setVisible(false);
-//        pinned.setVisible(false);
+    }
+    private void visiblePinned(ToggleButton pinned){
+        pinned.setVisible(true);
+    }
+    private void hiddenPinned(ToggleButton pinned){
+        pinned.setVisible(false);
     }
 }
