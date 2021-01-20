@@ -34,26 +34,40 @@
     </padding>
 
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="5"
-          GridPane.columnSpan="4">
-        <Label text="Vorname:" prefWidth="200" prefHeight="30"/>
-        <TextField fx:id="firstname_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
-        <Label text="Nachname:" prefHeight="30" prefWidth="400"/>
-        <TextField fx:id="lastname_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
-        <Label fx:id="birthday_lb" text="Geburtstag:" prefWidth="200" prefHeight="30"/>
-        <DatePicker fx:id="birthday_dp" prefWidth="300" prefHeight="40" onAction="#datepicked" showWeekNumbers="false"/>
-        <Label text="Telefonnummer:" prefHeight="30" prefWidth="400"/>
-        <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
-        <Label text="Wähle ein Profilbild:" prefWidth="200" prefHeight="30"/>
-        <HBox fx:id="profilepicList" spacing="10">
-        </HBox>
-
+          GridPane.columnSpan="4" spacing="20">
+        <VBox>
+            <Label text="Vorname:" prefWidth="200" prefHeight="30"/>
+            <TextField fx:id="firstname_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
+        </VBox>
+        <VBox>
+            <Label text="Nachname:" prefHeight="30" prefWidth="400"/>
+            <TextField fx:id="lastname_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
+        </VBox>
+        <VBox>
+            <Label fx:id="birthday_lb" text="Geburtstag:" prefWidth="200" prefHeight="30"/>
+            <DatePicker fx:id="birthday_dp" prefWidth="300" prefHeight="40" onAction="#datepicked" showWeekNumbers="false"/>
+        </VBox>
+        <VBox>
+            <Label text="Telefonnummer:" prefHeight="30" prefWidth="400"/>
+            <TextField fx:id="phonenumber_tf" onMouseClicked="#clear" prefWidth="300" prefHeight="40"/>
+        </VBox>
+        <VBox>
+            <Label text="Dein Passwort:" prefHeight="30" prefWidth="400"/>
+            <PasswordField fx:id="password_tf" onMousePressed="#showPassword" prefWidth="300" prefHeight="40"/>
+            <Label fx:id="passwordInfo" text="Dein Passwort muss min. 8 (max. 20) Zeichen enthalten; Min. eine Zahl, ein Groß- &amp; ein Kleinbuchstabe; keine Leerzeichen" style="-fx-font-size: 15" prefHeight="30"/>
+        </VBox>
+        <VBox>
+            <Label text="Wähle ein Profilbild:" prefWidth="200" prefHeight="30"/>
+            <HBox fx:id="profilepicList" spacing="10"> </HBox>
+        </VBox>
     </VBox>
-       <Button fx:id="menu" onAction="#apply" GridPane.columnIndex="2" GridPane.columnSpan="4"  GridPane.rowIndex="6" text="Übernehmen"  textAlignment="CENTER"   prefWidth="400" prefHeight="50"/>
-       <Button fx:id="startscreen" onAction="#changeScene" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="LEFT" styleClass="transparent">
+
+    <Button fx:id="menu" onAction="#apply" GridPane.columnIndex="2" GridPane.columnSpan="4"  GridPane.rowIndex="6" text="Übernehmen"  textAlignment="CENTER"   prefWidth="400" prefHeight="50"/>
+    <Button fx:id="startscreen" onAction="#changeScene" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="LEFT" styleClass="transparent">
            <graphic>
                <ImageView fx:id="backbutton"/>
            </graphic>
-       </Button>
+    </Button>
 </GridPane>
 
 

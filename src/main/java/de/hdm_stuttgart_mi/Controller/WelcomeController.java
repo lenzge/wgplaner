@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class WelcomeController implements Initializable {
     @FXML private Label welcomeText;

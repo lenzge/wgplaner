@@ -1,6 +1,6 @@
 package de.hdm_stuttgart_mi;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.User;
+import de.hdm_stuttgart_mi.Users.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

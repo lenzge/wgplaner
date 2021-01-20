@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi.notificationAndUsers;
+package de.hdm_stuttgart_mi.Users;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -76,12 +76,6 @@ public class User {
         saveRoommates();
     }
 
-    /**
-     * public static FormerRoommate getFormer(int i){
-     * return formerRoommateList[i];
-     * }
-     **/
-
 
     public void saveRoommates() {
         JSONObject obj = new JSONObject();
@@ -92,7 +86,7 @@ public class User {
             innerObj.put("lastname", roommate.getLastname());
             innerObj.put("ID", roommate.getID());
             innerObj.put("phonenumber", roommate.getPhonenumber());
-            innerObj.put("current", roommate.isCurrent());
+            innerObj.put("password", roommate.getPassword());
             innerObj.put("moveInDate", roommate.getMoveInDate().format(formatter));
             innerObj.put("birthday", roommate.getBirthday().format(formatter));
             innerObj.put("profilepic", roommate.getProfilepic());
@@ -135,7 +129,7 @@ public class User {
 
                 String phonenumber = (String) tempJasonObject.get("phonenumber");
 
-                boolean current = (boolean) tempJasonObject.get("current");
+                String password = (String) tempJasonObject.get("password");
 
                 LocalDate moveInDate = LocalDate.parse((String) tempJasonObject.get("moveInDate"), formatter);
                 LocalDate birthday = LocalDate.parse((String) tempJasonObject.get("birthday"), formatter);
@@ -143,7 +137,7 @@ public class User {
 
                 /*int ID = Math.toIntExact(id);*/
 
-                roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, current, moveInDate, birthday, profilePic));
+                roommateList.add(new Roommate(firstname, lastname, ID, phonenumber, password, moveInDate, birthday, profilePic));
                 log.debug("roommate initialized");
             }
             log.info("Rommates initialized");

@@ -3,43 +3,28 @@ package de.hdm_stuttgart_mi.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.fillImageView;
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class MenuController extends SuperController implements Initializable {
 
-    @FXML private Label welcomeText;
+
     @FXML private ImageView profilePic;
     @FXML private ImageView shutdownIcon;
     @FXML private Button profil;
-    @FXML private GridPane changing;
-    @FXML private GridPane root;
 
-    private String catsmile = "=^.^=";
-
-
-    FileInputStream shutdownIconPath = new FileInputStream("src/main/resources/icons/shutdown.png");
-    private Image shutdown= new Image(shutdownIconPath);
-
-
-    public MenuController() throws FileNotFoundException {
+    private void initPp() throws FileNotFoundException {
+        fillImageView(profilePic,currentUser.getProfilepic(),55,55);
     }
-    public void initPp() throws FileNotFoundException {
-        FileInputStream pp = new FileInputStream(currentUser.getProfilepic());
-        Image currentProfilePic= new Image(pp);
-        System.out.println(currentProfilePic.getUrl());
-        profilePic.setImage(currentProfilePic);
-        profilePic.setFitWidth(55);
-        profilePic.setFitHeight(55);
+    private void initShutdownIcon() throws FileNotFoundException {
+        String shutdownIconPath = "src/main/resources/icons/shutdown.png";
+        fillImageView(shutdownIcon,shutdownIconPath,25,25);
     }
 
 
@@ -51,9 +36,11 @@ public class MenuController extends SuperController implements Initializable {
             e.printStackTrace();
         }
         profil.setText(currentUser.getFullname());
-        shutdownIcon.setImage(shutdown);
-        shutdownIcon.setFitWidth(25);
-        shutdownIcon.setFitHeight(25);
+        try {
+            initShutdownIcon();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

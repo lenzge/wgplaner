@@ -1,7 +1,7 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
-import de.hdm_stuttgart_mi.notificationAndUsers.User;
+import de.hdm_stuttgart_mi.Users.Roommate;
+import de.hdm_stuttgart_mi.Users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.Controller.ExternMethods.getImageView;
-import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class RoommateController implements Initializable {
     @FXML private ListView roommateListView;

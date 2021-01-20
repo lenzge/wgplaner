@@ -19,12 +19,19 @@
     <padding><Insets top="5" right="5" bottom="10" left="5"/></padding>
     <VBox alignment="CENTER" styleClass="menu" spacing="50" minWidth="600" maxWidth="Infinity">
         <padding><Insets top="100" right="25" bottom="100" left="25"/></padding>
-        <VBox alignment="CENTER">
-            <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30" alignment="CENTER"/>
+        <VBox alignment="CENTER" spacing="10">
+            <VBox alignment="CENTER">
+                <Label text="Hallo, wähle bitte deinen Namen:" prefWidth="400" prefHeight="30"/>
                 <HBox spacing="10" alignment="CENTER">
-                    <MenuButton fx:id="roommateMenuButton" prefWidth="400" prefHeight="40" alignment="CENTER"/>
-                    <Button fx:id="menu" text="weiter" onAction="#changeFirstScene" prefHeight="40"/>
+                    <MenuButton fx:id="roommateMenuButton" prefWidth="320" prefHeight="40"/>
+                    <Button fx:id="menu" text="weiter" onAction="#check" prefHeight="40"/>
                 </HBox>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Passwort:" prefWidth="400" prefHeight="30" alignment="BASELINE_LEFT"/>
+                <PasswordField fx:id="password_pf" maxWidth="400" prefHeight="40" alignment="BASELINE_LEFT"/>
+            </VBox>
+
         </VBox>
         <VBox alignment="CENTER" >
             <padding><Insets top="25"/></padding>

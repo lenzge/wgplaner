@@ -10,9 +10,10 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.PasswordField?>
 <GridPane fx:id= "root" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.hdm_stuttgart_mi.Controller.ProfilController"
+          fx:controller="de.hdm_stuttgart_mi.Controller.ProfileController"
           styleClass="menu" >
 
        <columnConstraints>
@@ -24,11 +25,11 @@
        </columnConstraints>
        <rowConstraints>
            <RowConstraints minHeight="80.0" prefHeight="130.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="80.0" prefHeight="130.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="80.0" prefHeight="130.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="80.0" prefHeight="130.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="80.0" prefHeight="130.0" vgrow="SOMETIMES" />
-           <RowConstraints minHeight="70.0" prefHeight="140.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="110.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="110.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="110.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="150.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="80.0" prefHeight="150.0" vgrow="SOMETIMES" />
            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
        </rowConstraints>
 
@@ -61,24 +62,41 @@
 
    <!-- Changebale Birthday  -->
 
-          <Label text="Geburtstag" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-          <Label  fx:id="birthday_lb" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <Label text="Geburtstag" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label  fx:id="birthday_lb" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+   <!-- Change Password  -->
+    <VBox fx:id="newPassword" GridPane.rowIndex="5"  GridPane.columnIndex="0" visible="false"  GridPane.valignment="BOTTOM">
+        <Label text="Passwort ändern:" />
+            <VBox>
+                <Label text="Neues Passwort:" maxWidth="200"/>
+                <PasswordField fx:id="password_tf" maxWidth="200"/>
+            </VBox>
+
+    </VBox>
+    <VBox fx:id="controlPassword" GridPane.rowIndex="5"  GridPane.columnIndex="2" GridPane.columnSpan="2" visible="false" GridPane.valignment="BOTTOM">
+        <Label/>
+        <VBox>
+            <Label text="Passwort wiederholen:"/>
+            <PasswordField fx:id="passwordControl_tf" prefWidth="200" maxWidth="250"/>
+        </VBox>
+    </VBox>
+    <Label fx:id="passwordError" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="5" style="-fx-text-fill: red; -fx-font-size: 15;"/>
 
 
 
-       <DatePicker fx:id="birthdaypicker" GridPane.columnIndex="2" GridPane.rowIndex="3" prefWidth="150" visible="false" disable="true" showWeekNumbers="false" />
+
    <!-- ProfilPic change  -->
-       <VBox GridPane.rowIndex="4"  GridPane.columnIndex="0" GridPane.valignment="TOP" spacing="5">
+       <VBox fx:id="ownPP" GridPane.rowIndex="4"  GridPane.columnIndex="0" GridPane.valignment="TOP" spacing="5" visible="false">
            <Label text="Dein Profilbild:" />
            <ImageView fx:id="ownProfilePic"/>
        </VBox>
        <VBox GridPane.rowIndex="4"  GridPane.columnIndex="2" GridPane.columnSpan="1" >
-           <Label/>
+           <Label />
            <HBox fx:id="profilpics" spacing="10" visible="false" />
        </VBox>
 
 
-    <Button text="Übernehmen" onAction="#apply" fx:id="apply_bt" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.columnIndex="0" visible="false"/>
+    <Button text="Übernehmen" onAction="#apply" fx:id="apply_bt" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4"  visible="false"/>
    <!-- delete user -->
        <Button fx:id="startscreen" onAction="#deleteUser" text="Ausziehen" GridPane.rowIndex="6"  GridPane.columnIndex="4" GridPane.halignment="RIGHT" styleClass="moveOutButton" />
    </GridPane>

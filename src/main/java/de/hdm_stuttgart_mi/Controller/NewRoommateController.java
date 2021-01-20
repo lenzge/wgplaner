@@ -1,14 +1,13 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
-import de.hdm_stuttgart_mi.notificationAndUsers.User;
+import de.hdm_stuttgart_mi.Users.Roommate;
+import de.hdm_stuttgart_mi.Users.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +21,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.Controller.ExternMethods.*;
-import static de.hdm_stuttgart_mi.Controller.ProfilController.colorOn;
+import static de.hdm_stuttgart_mi.Controller.ProfileController.colorOn;
 
 public class NewRoommateController extends SuperController implements Initializable {
     private static final Logger log = LogManager.getLogger(NewRoommateController.class);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    User user = new User();
+    private User user = new User();
 
     private LocalDate birthday;
     private String profilePic;
@@ -44,11 +43,9 @@ public class NewRoommateController extends SuperController implements Initializa
     @FXML
     private TextField phonenumber_tf;
     @FXML
-    private Label birthday_lb;
-    @FXML
-    private GridPane root;
-    @FXML
     private ImageView backbutton;
+    @FXML
+    private PasswordField password_tf;
 
 
     @FXML
@@ -62,21 +59,32 @@ public class NewRoommateController extends SuperController implements Initializa
     @FXML
     private void apply(ActionEvent e) throws IOException {
         boolean applyable = true;
-        String firstname = "", lastname = "", phonenumber = "";
-        if (firstname_tf.getText() == null || firstname_tf.getText().equals("") || firstname_tf.getText().matches("[^a-zA-Z]")) {
-            firstname_tf.setText("Bitte trage deinen Vornamen ein. Es sind keine Zahlen erlaubt");
+        String firstname = "", lastname = "", phonenumber = "",password="";
+        if (validName(firstname_tf.getText())) {
+            firstname = firstname_tf.getText();
+        } else {
+            firstname_tf.setText("Bitte trage deinen Vornamen ein. Es sind keine Zahlen oder Sonderzeichen erlaubt");
             firstname_tf.getStyleClass().add("error");
             applyable = false;
-        } else {
-            firstname = firstname_tf.getText();
         }
-        if (lastname_tf.getText() == null || lastname_tf.getText().equals("") || lastname_tf.getText().matches("[^a-zA-Z]")) {
-            lastname_tf.setText("Bitte trage deinen Nachnamen ein. Es sind keine Zahlen erlaubt");
+
+        if (validName(lastname_tf.getText())) {
+            lastname = lastname_tf.getText();
+        } else {
+            lastname_tf.setText("Bitte trage deinen Nachnamen ein. Es sind keine Zahlen oder Sonderzeichen erlaubt");
             lastname_tf.getStyleClass().add("error");
             applyable = false;
-        } else {
-            lastname = lastname_tf.getText();
         }
+
+        if(validPassword(password_tf.getText())){
+            password=password_tf.getText();
+        }
+        else {
+            password_tf.setText("");
+            password_tf.getStyleClass().add("error");
+            applyable = false;
+        }
+
         if (validPhoneNumber(phonenumber_tf.getText())) {
             phonenumber = phonenumber_tf.getText();
         } else {
@@ -84,12 +92,19 @@ public class NewRoommateController extends SuperController implements Initializa
             phonenumber_tf.getStyleClass().add("error");
             applyable = false;
         }
+
         if (birthday_dp.getValue() == null) {
             birthday_dp.getStyleClass().add("error");
             applyable = false;
         }
+
+        if (profilePic==null){
+            applyable = false;
+            profilepicList.getStyleClass().add("error");
+        }
+
         if (applyable) {
-            Roommate newRoommate = new Roommate(firstname, lastname, 0, phonenumber, true, LocalDate.now(), birthday, profilePic);
+            Roommate newRoommate = new Roommate(firstname, lastname, 0, phonenumber, password, LocalDate.now(), birthday, profilePic);
             log.debug("Roommate created");
 
 
@@ -140,6 +155,7 @@ public class NewRoommateController extends SuperController implements Initializa
     }
 
     private void profilButton(ToggleButton button) {
+        profilepicList.getStyleClass().remove("error");
         profilePic = button.getId();
         button.setSelected(true);
         log.debug(profilePic);
@@ -155,6 +171,11 @@ public class NewRoommateController extends SuperController implements Initializa
         if (mouseEvent.getSource() instanceof DatePicker) {
             DatePicker textfield = (DatePicker) mouseEvent.getSource();
             textfield.getStyleClass().remove("error");
+        }
+    }
+    @FXML private void showPassword(MouseEvent e){
+        while(e.isDragDetect()){
+
         }
     }
 

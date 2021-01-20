@@ -34,4 +34,11 @@ public class ExternMethods {
     public static boolean validPhoneNumber(String phoneNumber){
        return phoneNumber.matches("^(\\d+)$");
     }
+    public static boolean validName(String name){
+        return name != null && !(name.equals("")) && name.matches("([a-zA-Z]+)");
+    }
+    public static boolean validPassword(String password){
+        return password != null && !(password.equals("")) && password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$");
+                                                                            //min 1 number, min 1 lower/min 1 upper alphabet/no whitespaces/at least 8 characters
+    }
 }

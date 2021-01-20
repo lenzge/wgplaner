@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 
 public class GroceryListController extends SuperController implements Initializable {

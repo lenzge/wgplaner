@@ -1,6 +1,8 @@
-package de.hdm_stuttgart_mi.notificationAndUsers;
+package de.hdm_stuttgart_mi.Users;
 
 import java.time.LocalDate;
+
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.validPassword;
 
 
 public class Roommate {
@@ -8,17 +10,17 @@ public class Roommate {
     private String lastname;
     private int ID;
     private String phonenumber;
-    private  boolean current;
+    private String password;
     private LocalDate moveInDate;
     private LocalDate birthday;
     private String profilepic;
 
-    public Roommate(String firstname, String lastname, int ID, String phonenumber, boolean current, LocalDate moveInDate, LocalDate birthday,String profilepic){
+    public Roommate(String firstname, String lastname, int ID, String phonenumber, String password, LocalDate moveInDate, LocalDate birthday, String profilepic){
         this.firstname= firstname;
         this.lastname=lastname;
         this.ID=ID;
         this.phonenumber=phonenumber;
-        this.current=current;
+        this.password = password;
         this.moveInDate=moveInDate;
         this.birthday=birthday;
         this.profilepic= profilepic;
@@ -51,8 +53,8 @@ public class Roommate {
         return phonenumber;
     }
 
-    public boolean isCurrent() {
-        return current;
+    public String getPassword() {
+        return password;
     }
 
     public LocalDate getMoveInDate() {
@@ -72,16 +74,15 @@ public class Roommate {
         this.phonenumber = phonenumber;
     }
 
-    public void setCurrent(boolean current) {
-        this.current = current;
-    }
 
     public void setID(int ID) {
         this.ID = ID;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void changePassword(String password){
+        if(validPassword(password)){
+            this.password=password;
+        }
     }
 
     public void setProfilepic(String profilepicURL) {

@@ -1,20 +1,22 @@
 package de.hdm_stuttgart_mi.Controller;
 
-import de.hdm_stuttgart_mi.notificationAndUsers.User;
-import de.hdm_stuttgart_mi.notificationAndUsers.Roommate;
+import de.hdm_stuttgart_mi.Users.User;
+import de.hdm_stuttgart_mi.Users.Roommate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.paint.Paint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static de.hdm_stuttgart_mi.notificationAndUsers.User.currentUser;
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 
 public class StartscreenController extends SuperController implements Initializable {
@@ -22,6 +24,7 @@ public class StartscreenController extends SuperController implements Initializa
     private static final Logger log = LogManager.getLogger(StartscreenController.class);
 
     @FXML private MenuButton roommateMenuButton;
+    @FXML private PasswordField password_pf;
     //@FXML private BorderPane root;
 
     User nav = new User();
@@ -36,6 +39,17 @@ public class StartscreenController extends SuperController implements Initializa
 
             roommateMenuButton.getItems().add(menuitem);
         }
+    }
+    @FXML
+    private void check(ActionEvent event) throws IOException {
+        if(password_pf.getText().equals(currentUser.getPassword())){
+            changeFirstScene(event);
+        }
+        else{
+            password_pf.getStyleClass().add("error");
+            password_pf.setText("");
+        }
+
     }
     private void changeMenuButtonText(ActionEvent e){
         roommateMenuButton.setText(((MenuItem)e.getSource()).getText());
