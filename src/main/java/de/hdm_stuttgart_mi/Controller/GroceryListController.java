@@ -2,20 +2,19 @@ package de.hdm_stuttgart_mi.Controller;
 
 import de.hdm_stuttgart_mi.GroceryList.GroceryList;
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
+import de.hdm_stuttgart_mi.GroceryList.STATUS;
 import de.hdm_stuttgart_mi.ItemFactory.ItemFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -23,14 +22,14 @@ import java.util.ResourceBundle;
 import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 
-public class GroceryListController extends SuperController implements Initializable {
+public class GroceryListController implements Initializable {
 
     @FXML private ListView<HBox> itemlistView;
     @FXML private TextField itemContent;
     @FXML private MenuButton itemType;
 
     //global
-    GroceryList groceryList;
+    private GroceryList groceryList;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     String filenameTrashIcon = "src/main/resources/icons/trash.png";
 
@@ -69,7 +68,7 @@ public class GroceryListController extends SuperController implements Initializa
                 type.getStyleClass().add("typeLabel");
                 type.setVisible(false); //only visible while hovering
             Button delete = new Button();
-                delete.setGraphic(createImageView());
+                delete.setGraphic(ExternMethods.getImageView(filenameTrashIcon, 20, 20));
                 delete.getStyleClass().add("deleteButton");
                 delete.setVisible(false); //only visible while hovering
                 delete.setOnAction(event -> {
@@ -119,15 +118,6 @@ public class GroceryListController extends SuperController implements Initializa
         log.info("ListView initialzied");
     }
 
-    private ImageView createImageView() throws FileNotFoundException {
-        FileInputStream input = new FileInputStream(filenameTrashIcon);
-        Image trashIcon = new Image(input);
-        ImageView trash = new ImageView(trashIcon);
-        trash.setFitWidth(20);
-        trash.setFitHeight(20);
-        return trash;
-    }
-
     //start
     @Override public void initialize(URL location, ResourceBundle resources){
         groceryList = new GroceryList();
@@ -147,15 +137,15 @@ public class GroceryListController extends SuperController implements Initializa
 
     //change item from non-bought to bought
     private void checkItem(Iitem value, TextField textfield) throws FileNotFoundException {
+        boolean tryBuy = groceryList.boughtItem(value, textfield.getText(), currentUser);
+
         //error, if price is no price
-        if(textfield.getText() == null || !textfield.getText().matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
-            log.warn("input "+ textfield.getText() + " is no price");
+        if(!tryBuy) {
             textfield.setText("€");
             textfield.getStyleClass().add("error");
             textfield.setOnMouseClicked((event) -> {textfield.getStyleClass().remove("error"); });
         }
         else {
-            groceryList.boughtItem(value, textfield.getText(), currentUser);
             groceryList.safeItems();
             groceryList.initItems();
             initItemListView();
@@ -171,41 +161,33 @@ public class GroceryListController extends SuperController implements Initializa
 
     //add item to itemList
     @FXML private void addItem() throws FileNotFoundException {
-        //item needs content
-        if(itemContent.getText() == null || itemContent.getText().equals("") ){
-            itemContent.getStyleClass().add("error");
-            itemContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
-            log.warn("User input is empty");
-            //remove error
-            itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null); });
+        STATUS status = groceryList.addItem(itemType.getText(), itemContent.getText(), currentUser);
+        switch (status){
+            //item needs content
+            case EMPTY:
+                itemContent.getStyleClass().add("error");
+                itemContent.setTooltip(new Tooltip("Leeres Eingabefeld"));
+                //remove error
+                itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null); });
+                break;
+            //item shouldn't already exists in itemList
+            case EXISTS:
+                itemContent.getStyleClass().add("error");
+                itemContent.setTooltip(new Tooltip("Item existiert schon"));
+                itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null);});
+                break;
+            case RIGHT:
+                groceryList.addItem(itemType.getText(), itemContent.getText(), currentUser);
+                groceryList.safeItems();
+                groceryList.initItems();
+                initItemListView();
+                itemContent.setText("");
         }
-        //item shouldn't already exists in itemList
-        else if(itemExists(itemContent.getText())){
-            itemContent.getStyleClass().add("error");
-            itemContent.setTooltip(new Tooltip("Item existiert schon"));
-            log.warn("User input already exists");
-            itemContent.setOnMouseClicked((event) -> {itemContent.getStyleClass().remove("error"); itemContent.setTooltip(null);});
-        }
-        else {
-            groceryList.addItem(itemType.getText(), itemContent.getText(), currentUser);
-            groceryList.safeItems();
-            groceryList.initItems();
-            initItemListView();
-            itemContent.setText("");
 
-        }
     }
 
 
     // helper functions
-
-    //does the new item already exists?
-    private boolean itemExists(String content){
-        for(Iitem item: groceryList.getItemList()){
-            if (item.getContent().equals(content)) return true;
-        }
-        return false;
-    }
 
     //for elements, which should only visible while hovering
     private void visible(Label type, Button delete){

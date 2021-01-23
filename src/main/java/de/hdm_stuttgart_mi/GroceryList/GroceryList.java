@@ -26,7 +26,7 @@ public class GroceryList {
     private static final Logger log = LogManager.getLogger(GroceryList.class);
 
     //Global collection
-    List<Iitem> itemList;
+    private List<Iitem> itemList;
 
     //Date Format
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -125,10 +125,27 @@ public class GroceryList {
 
     //edit itemList
 
-    public void addItem(String type, String content, Roommate author){
-        Iitem item = ItemFactory.getInstance(type, content, author.getFullname());
-        itemList.add(item);
-        log.info(item.toString() + " added");
+    //does the new item already exists?
+    private boolean itemExists(String content){
+        return itemList.parallelStream().anyMatch(i -> i.getContent().equals(content));
+    }
+
+    public STATUS addItem(String type, String content, Roommate author){
+
+        if(content == null || content.equals("")){
+            log.info("User input is empty");
+            return STATUS.EMPTY;
+        }
+        else if(itemExists(content)){
+            log.info("User input already exists");
+            return STATUS.EXISTS;
+        }
+        else {
+            Iitem item = ItemFactory.getInstance(type, content, author.getFullname());
+            itemList.add(item);
+            log.info(item.toString() + " added");
+            return STATUS.RIGHT;
+        }
     }
 
     public void deleteItem(Iitem item){
@@ -136,13 +153,16 @@ public class GroceryList {
         log.info(item.toString() + " deleted");
     }
 
-    public void boughtItem (Iitem item, String price, Roommate boughtBy){
-        for (Iitem value : itemList) {
-            if (value.getContent().equals(item.getContent())) {
-                value.boughtItem(price, LocalDate.now(), boughtBy.getFullname());
-            }
+    public boolean boughtItem (Iitem item, String price, Roommate boughtBy){
+        if(price.matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
+            itemList.parallelStream().filter(i -> i.getContent().equals(item.getContent())).forEach(i -> i.boughtItem(price, LocalDate.now(), boughtBy.getFullname()));
+            log.info(item.toString() + " bought");
+            return true;
         }
-        log.info(item.toString() + " bought");
+        else {
+            log.debug(price + " is no price");
+            return false;
+        }
     }
 
 
