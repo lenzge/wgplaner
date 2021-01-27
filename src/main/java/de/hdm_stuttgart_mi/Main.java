@@ -23,10 +23,13 @@ public class Main extends Application {
     private File file = new File("src/main/resources/JSON/roommates.json");
     private File backupFile = new File("src/main/resources/JSON/backup.json");
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private Runnable backup = () -> {backup(); };
     //logger
 	private static final Logger log = LogManager.getLogger(Main.class);
 
 	public void start(Stage stage) throws Exception {
+	    new Thread(backup).start();
+
         log.info("Starting GUI from main");
 
         final String fxmlFile = "/fxml/base.fxml";
@@ -59,29 +62,40 @@ public class Main extends Application {
     public void stop() throws Exception {
         User user = new User();
         user.updateCurrentUser();
+        backup();
         super.stop();
         log.info("Terminating application");
     }
 
-    private void backup(){
+    public void backup(){
         JSONParser parser = new JSONParser();
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(file.toURI())), "UTF-8");
-            JSONObject json = (JSONObject) parser.parse(content);
+        while(true){
+            try {
+                String content = new String(Files.readAllBytes(Paths.get(file.toURI())), "UTF-8");
+                JSONObject json = (JSONObject) parser.parse(content);
 
-            JSONArray jsonArray = (JSONArray) json.get("roommates");
+                JSONArray jsonArray = (JSONArray) json.get("roommates");
 
-            try (FileWriter writer = new FileWriter(backupFile)) {
-                writer.write(jsonArray.toJSONString());
-            } catch (IOException e) {
+                try (FileWriter writer = new FileWriter(backupFile)) {
+                    writer.write(jsonArray.toJSONString());
+                    log.info("Backup written");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    log.error("couldn't write into JSON Backup File");
+                }
+
+            } catch (Exception e) {
                 e.printStackTrace();
-                log.error("couldn't write into JSON Backup File");
+                log.error("rommate list couldn't be initialized");
+            }
+            try {
+                Thread.sleep(300000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("rommate list couldn't be initialized");
         }
+
     }
 }
 
