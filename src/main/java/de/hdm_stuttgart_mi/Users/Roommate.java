@@ -3,6 +3,7 @@ package de.hdm_stuttgart_mi.Users;
 import java.time.LocalDate;
 
 import static de.hdm_stuttgart_mi.Controller.ExternMethods.validPassword;
+import static de.hdm_stuttgart_mi.Controller.ExternMethods.validPhoneNumber;
 
 
 public class Roommate {
@@ -71,11 +72,13 @@ public class Roommate {
     //setter
 
     public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+        if (validPhoneNumber(phonenumber)) {
+            this.phonenumber = phonenumber;
+        }
     }
 
 
-    public void setID(int ID) {
+    protected void setID(int ID) {
         this.ID = ID;
     }
 

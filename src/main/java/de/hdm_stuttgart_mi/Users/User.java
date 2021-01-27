@@ -93,7 +93,7 @@ public class User {
             list.add(innerObj);
         }
         obj.put("roommates", list);
-        log.debug(obj);
+        //log.debug(obj);
 
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(obj.toJSONString());

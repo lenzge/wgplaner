@@ -1,17 +1,25 @@
 package de.hdm_stuttgart_mi.Users;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+
+import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class UserTest {
-    @Test public void testDeleteUser(){
-        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate moveInDate = LocalDate.parse("21.03.2020",formatter) ;
-        Roommate user1 = new Roommate("Karl","H.",0,"","true",moveInDate,LocalDate.parse("21.03.2020",formatter),"/hdfjszfg");
-        Roommate user2 = new Roommate("Thomas","M.",1,"","true",moveInDate,LocalDate.parse("21.03.2020",formatter),"/hdfjszfg");
-        Roommate user3 = new Roommate("Miriam","S.",2,"","true",moveInDate,LocalDate.parse("21.03.2020",formatter),"/hdfjszfg");
+    @Test public void updateCurrentUser(){
 
+        User user = new User(1);
+        currentUser.setPhonenumber("0125653472647");
+        user.updateCurrentUser();
+        Assert.assertEquals(currentUser.getPhonenumber(),"0125653472647");
+
+        currentUser.setPhonenumber("93246372hfz17");
+        user.updateCurrentUser();
+        Assert.assertEquals(currentUser.getPhonenumber(),"0125653472647");
     }
 }
