@@ -1,11 +1,14 @@
 package de.hdm_stuttgart_mi.Controller;
 
+import de.hdm_stuttgart_mi.Users.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +28,11 @@ public class MenuController extends SuperController implements Initializable {
     private void initShutdownIcon() throws FileNotFoundException {
         String shutdownIconPath = "src/main/resources/icons/shutdown.png";
         fillImageView(shutdownIcon,shutdownIconPath,25,25);
+    }
+    @FXML private void back(ActionEvent e) throws IOException {
+        User user = new User();
+        user.updateCurrentUser();
+        changeScene(e);
     }
 
 

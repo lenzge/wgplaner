@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.hdm_stuttgart_mi.Controller.MainController"
+            fx:controller="de.hdm_stuttgart_mi.Controller.BaseController"
             styleClass="main-panel, root-dark"
             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="800" prefWidth="1400">

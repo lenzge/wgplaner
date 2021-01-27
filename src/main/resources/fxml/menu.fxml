@@ -41,7 +41,7 @@
             <Button fx:id="blackboard" text="Pinnwand" onAction="#changeCenterScene"   prefWidth="250.0" prefHeight="40" GridPane.rowIndex="3"  GridPane.columnSpan="2"/>
             <Button fx:id="grocerylist" text="Einkaufsliste" onAction="#changeCenterScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="4"  GridPane.columnSpan="2"/>
             <Button fx:id="roommates" text="Mitbewohner" onAction="#changeCenterScene"  prefWidth="250.0" prefHeight="40" GridPane.rowIndex="5"  GridPane.columnSpan="2"/>
-            <Button fx:id="startscreen" text="Ausloggen" onAction="#changeScene" prefWidth="200.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="1"/>
+            <Button fx:id="startscreen" text="Ausloggen" onAction="#back" prefWidth="200.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="1"/>
             <Button fx:id="terminate" onAction="#terminate" prefWidth="60.0" prefHeight="40" GridPane.rowIndex="9"  GridPane.columnIndex="0">
                 <graphic>
                     <ImageView fx:id="shutdownIcon"/>

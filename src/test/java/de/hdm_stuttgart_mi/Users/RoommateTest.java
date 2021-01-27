@@ -14,5 +14,11 @@ public class RoommateTest {
     @Test public void testChangePassword(){
         testRoommate.changePassword("Test");
         Assert.assertEquals(testRoommate.getPassword(),"true");
+        testRoommate.changePassword("");
+        Assert.assertEquals(testRoommate.getPassword(),"true");
+        testRoommate.changePassword("dhuadgzgrgsfjzsgezf");
+        Assert.assertEquals(testRoommate.getPassword(),"true");
+        testRoommate.changePassword("Test12345");
+        Assert.assertEquals(testRoommate.getPassword(),"Test12345");
     }
 }

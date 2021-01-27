@@ -8,16 +8,28 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 
 public class Main extends Application {
-
+    private File file = new File("src/main/resources/JSON/roommates.json");
+    private File backupFile = new File("src/main/resources/JSON/backup.json");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     //logger
 	private static final Logger log = LogManager.getLogger(Main.class);
 
 	public void start(Stage stage) throws Exception {
         log.info("Starting GUI from main");
 
-        final String fxmlFile = "/fxml/main.fxml";
+        final String fxmlFile = "/fxml/base.fxml";
         log.debug("Loading FXML for main view from: {}", fxmlFile);
 
         //parse stylesheet to external form
@@ -45,9 +57,31 @@ public class Main extends Application {
     //stop
     @Override
     public void stop() throws Exception {
-        User nav = new User();
-        nav.updateCurrentUser();
+        User user = new User();
+        user.updateCurrentUser();
         super.stop();
         log.info("Terminating application");
     }
+
+    private void backup(){
+        JSONParser parser = new JSONParser();
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(file.toURI())), "UTF-8");
+            JSONObject json = (JSONObject) parser.parse(content);
+
+            JSONArray jsonArray = (JSONArray) json.get("roommates");
+
+            try (FileWriter writer = new FileWriter(backupFile)) {
+                writer.write(jsonArray.toJSONString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.error("couldn't write into JSON Backup File");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("rommate list couldn't be initialized");
+        }
+    }
 }
+
