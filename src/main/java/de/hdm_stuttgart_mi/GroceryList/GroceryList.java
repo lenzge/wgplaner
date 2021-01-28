@@ -27,6 +27,7 @@ public class GroceryList {
 
     //Global collection
     private List<Iitem> itemList;
+    private List<Iitem> backupList;
 
     //Date Format
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -35,7 +36,7 @@ public class GroceryList {
     File file = new File("src\\main\\resources\\JSON\\items.json");
 
 
-    public List<Iitem> getItemList() { return itemList; }
+    public List<Iitem> getItemList() { return List.copyOf(itemList); }
     public GroceryList() {
         log.debug("try to initialize groceryList");
         initItems();
@@ -148,16 +149,29 @@ public class GroceryList {
         }
     }
 
-    public void deleteItem(Iitem item){
+    public void deleteItem(Iitem item) {
         itemList.removeIf(value -> value.getContent().equals(item.getContent()));
         log.info(item.toString() + " deleted");
     }
 
+    // only needed for testing
+    public void deleteAllItems(){
+        ArrayList<Iitem> removeItems = new ArrayList<>();
+
+        removeItems.addAll(itemList);
+        for(Iitem item : removeItems){
+            itemList.remove(item);
+        }
+    }
+
     public boolean boughtItem (Iitem item, String price, Roommate boughtBy){
         if(price.matches("^(\\d{1,3}(,\\d{1,2})?€$)")) {
-            itemList.parallelStream().filter(i -> i.getContent().equals(item.getContent())).forEach(i -> i.boughtItem(price, LocalDate.now(), boughtBy.getFullname()));
-            log.info(item.toString() + " bought");
-            return true;
+                itemList.parallelStream().
+                        filter(i -> i.getContent().equals(item.getContent())).
+                        forEach(i -> i.boughtItem(price, LocalDate.now(), boughtBy.getFullname()));
+                log.info(item.toString() + " bought");
+                return true;
+
         }
         else {
             log.debug(price + " is no price");
