@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import static de.hdm_stuttgart_mi.Controller.ProfileController.colorOn;
 import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class BlackboardController extends SuperController implements Initializable {
@@ -35,8 +36,10 @@ public class BlackboardController extends SuperController implements Initializab
     //global
     Blackboard blackboard;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    String TrashIcon = "src/main/resources/icons/trash.png";
-    String PinIcon = "src/main/resources/icons/pin.png";
+    String TrashIconDarkMode = "src/main/resources/icons/trash.png";
+    String PinIconDarkMode = "src/main/resources/icons/pin.png";
+    String TrashIconLightMode = "src/main/resources/icons/darkTrash.png";
+    String PinIconLightMode = "src/main/resources/icons/darkpin.png";
 
     //debugger
     private static final Logger log = LogManager.getLogger(BlackboardController.class);
@@ -44,8 +47,8 @@ public class BlackboardController extends SuperController implements Initializab
     //Toggle Button in the blackboard.fxml
     public BlackboardController() throws FileNotFoundException{
     }
-    FileInputStream pinIconPath = new FileInputStream(PinIcon);
-    private Image pin = new Image(pinIconPath);
+    FileInputStream pinIconPath = new FileInputStream(PinIconDarkMode);
+    private final Image PIN = new Image(pinIconPath);
 
     //load nodeList into the NoteListView
     private void initNoteListView() throws FileNotFoundException {
@@ -61,34 +64,42 @@ public class BlackboardController extends SuperController implements Initializab
                 content.getStyleClass().add("contentLabelWrap");
                 content.setWrapText(true);
 
-            // shows if the Note is pinned and you can change the pinned status
+            // shows if the Note is pinned and change the pinned status
             ToggleButton pinned = new ToggleButton();
                 pinned.getStyleClass().add("pinButtonListView");
 
                 pinned.setGraphic(createPinImage());
                 if (value.getIsPinned()){
                     pinned.setSelected(true);
-//                    pinned.setVisible(false);
-                    pinned.setOnMouseEntered(event -> visiblePinned(pinned));
                     pinned.setOnAction(event -> {
                         try {
                             blackboard.changePinNote(value,false);
+                            blackboard.safeBlackboard();
+                            blackboard.initNote();
+                            initNoteListView();
                         } catch (IOException e) {
                             e.printStackTrace();
                             log.error("Icon wasn't found");
                         }
                     });
+
                 } else {
                     pinned.setSelected(false);
                     pinned.setOnAction(event -> {
                         try {
                             blackboard.changePinNote(value,true);
+                            blackboard.safeBlackboard();
+                            blackboard.initNote();
+                            initNoteListView();
                         } catch (IOException e) {
                             e.printStackTrace();
                             log.error("Icon wasn't found");
                         }
                     });
+
                 }
+
+
 
             // Delete button
             Button delete = new Button();
@@ -109,7 +120,7 @@ public class BlackboardController extends SuperController implements Initializab
 
             hBox.getChildren().addAll(content, pinned, UserAndTime, delete);
             HBox.setHgrow(content, Priority.ALWAYS);
-            hBox.setOnMouseEntered(event -> visible(delete)); //TODO Pinned entfernen falls es nicht klapt
+            hBox.setOnMouseEntered(event -> visible(delete));
             hBox.setOnMouseExited(event -> hidden(delete));
 
             observableList.add(hBox);
@@ -118,32 +129,48 @@ public class BlackboardController extends SuperController implements Initializab
         log.info("BlackboardListView initialized");
     }
 
-    //Images for the Buttons
+    //Images for the Buttons in light and dark mode
     private ImageView createTrashImage() throws FileNotFoundException {
-        FileInputStream inputStream = new FileInputStream(TrashIcon);
-        Image trashIcon = new Image(inputStream);
-        ImageView trash = new ImageView(trashIcon);
-        trash.setFitHeight(20);
-        trash.setFitWidth(20);
-        return trash;
+        if (!colorOn){
+            FileInputStream inputStream = new FileInputStream(TrashIconDarkMode);
+            Image trashIcon = new Image(inputStream);
+            ImageView trash = new ImageView(trashIcon);
+            trash.setFitHeight(20);
+            trash.setFitWidth(20);
+            return trash;
+        } else {
+            FileInputStream inputStream = new FileInputStream(TrashIconLightMode);
+            Image trashIcon = new Image(inputStream);
+            ImageView trash = new ImageView(trashIcon);
+            trash.setFitHeight(20);
+            trash.setFitWidth(20);
+            return trash;
+        }
     }
 
     private ImageView createPinImage() throws FileNotFoundException {
-        FileInputStream inputStream = new FileInputStream(PinIcon);
-        Image pinIconList = new Image(inputStream);
-        ImageView pinOnList = new ImageView(pinIconList);
-        pinOnList.setFitWidth(20);
-        pinOnList.setFitHeight(20);
-        return pinOnList;
+        if (!colorOn){
+            FileInputStream inputStream = new FileInputStream(PinIconDarkMode);
+            Image pinIconList = new Image(inputStream);
+            ImageView pinOnList = new ImageView(pinIconList);
+            pinOnList.setFitWidth(20);
+            pinOnList.setFitHeight(20);
+            return pinOnList;
+        } else {
+            FileInputStream inputStream = new FileInputStream(PinIconLightMode);
+            Image pinIconList = new Image(inputStream);
+            ImageView pinOnList = new ImageView(pinIconList);
+            pinOnList.setFitWidth(20);
+            pinOnList.setFitHeight(20);
+            return pinOnList;
+        }
     }
-
-
 
     //start
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         blackboard = new Blackboard();
-        pinIcon.setImage(pin);
+        pinIcon.setImage(PIN);
         try {
             initNoteListView();
         } catch (FileNotFoundException e) {
@@ -195,11 +222,5 @@ public class BlackboardController extends SuperController implements Initializab
     }
     private void hidden(Button delete){
         delete.setVisible(false);
-    }
-    private void visiblePinned(ToggleButton pinned){
-        pinned.setVisible(true);
-    }
-    private void hiddenPinned(ToggleButton pinned){
-        pinned.setVisible(false);
     }
 }
