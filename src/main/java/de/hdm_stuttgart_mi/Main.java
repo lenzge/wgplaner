@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,11 +26,14 @@ public class Main extends Application {
     private File backupFile = new File("src/main/resources/JSON/backup.json");
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private Runnable backup = () -> {backup(); };
+    private Thread backupThread = new Thread(backup);
+    public static boolean running;
     //logger
 	private static final Logger log = LogManager.getLogger(Main.class);
 
 	public void start(Stage stage) throws Exception {
-	    new Thread(backup).start();
+	    backupThread.setDaemon(true);
+	    backupThread.start();
 
         log.info("Starting GUI from main");
 
@@ -45,8 +50,13 @@ public class Main extends Application {
 
         log.debug("Showing JFX scene");
         final Scene scene = new Scene(rootNode);
+        /**
+         add stylesheet, set title and set the ApplicationIcon
+          **/
         scene.getStylesheets().add(stylesheet);
         stage.setTitle("WGPlaner");
+        Image image = new Image(new FileInputStream("src/main/resources/icons/startIcon.png")); //"https://icons8.de/icons/set/home-page  https://icons8.de
+        stage.getIcons().add(image);
         stage.setScene(scene);
 
         stage.show();
@@ -60,7 +70,8 @@ public class Main extends Application {
     //stop
     @Override
     public void stop() throws Exception {
-        User user = new User();
+        running=false;
+	    User user = new User();
         user.updateCurrentUser();
         backup();
         super.stop();
@@ -69,7 +80,7 @@ public class Main extends Application {
 
     public void backup(){
         JSONParser parser = new JSONParser();
-        while(true){
+        do {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.toURI())), "UTF-8");
                 JSONObject json = (JSONObject) parser.parse(content);
@@ -95,6 +106,7 @@ public class Main extends Application {
             }
 
         }
+        while(running);
 
     }
 }

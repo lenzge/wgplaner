@@ -1,5 +1,6 @@
 package de.hdm_stuttgart_mi.Controller;
 
+import de.hdm_stuttgart_mi.Main;
 import de.hdm_stuttgart_mi.Users.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +58,7 @@ public class SuperController {
     public void terminate(ActionEvent event){
         User user = new User();
         user.updateCurrentUser();
+        Main.running=false;
         System.exit(0);
     }
 }

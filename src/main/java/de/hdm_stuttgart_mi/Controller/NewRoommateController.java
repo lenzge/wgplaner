@@ -107,10 +107,7 @@ public class NewRoommateController extends SuperController implements Initializa
             Roommate newRoommate = new Roommate(firstname, lastname, 0, phonenumber, password, LocalDate.now(), birthday, profilePic);
             log.debug("Roommate created");
 
-
             user.addNewRoommate(newRoommate);
-            int id = user.getRoommate(user.roommateListLenght() - 1).getID();
-            user = new User(id);
 
             super.changeFirstScene(e);
         }

@@ -39,8 +39,6 @@ public class User {
         setCurrentUser(i);
     }
 
-    //static FormerRoommate formerRoommateList[];
-
     private void setCurrentUser(int index) {
         //for testing
         if (index == -1) {
@@ -108,6 +106,7 @@ public class User {
         newMate.setID(roommateListLenght());
         roommateList.add(newMate);
         saveRoommates();
+        setCurrentUser(roommateListLenght()-1);
     }
 
     public void initRoommate() {

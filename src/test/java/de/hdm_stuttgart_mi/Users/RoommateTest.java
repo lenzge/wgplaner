@@ -36,5 +36,7 @@ public class RoommateTest {
     }
     @Test public void testValidPhoneNumber(){
         Assert.assertTrue(validPhoneNumber("234376483613984"));
+        Assert.assertFalse(validPhoneNumber("234376  483613984"));
+        Assert.assertFalse(validPhoneNumber("2343764ewe83613984"));
     }
 }

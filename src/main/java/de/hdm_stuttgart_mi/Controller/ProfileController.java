@@ -23,13 +23,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static de.hdm_stuttgart_mi.Controller.ExternMethods.*;
 import static de.hdm_stuttgart_mi.Users.User.currentUser;
 
 public class ProfileController extends SuperController implements Initializable {
-
+    /**
+     variable for dark and lightmode
+     **/
     protected static boolean colorOn=false;
 
     private static final Logger log = LogManager.getLogger(ProfileController.class);
@@ -208,8 +211,15 @@ public class ProfileController extends SuperController implements Initializable 
 
    //OnActionEvent Method that delets the User that is currently logged in and switches back to login screen
    @FXML private void deleteUser(ActionEvent e) throws IOException {
-        user.deleteFromList();
-        super.changeScene(e);
+       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+       alert.setHeaderText("Bist du sicher dass du deinen Account löschen willst?");
+       alert.setContentText("Wir würden dich sehr vermissen :(");
+       Optional<ButtonType> option = alert.showAndWait();
+       if (option.get() == ButtonType.OK) {
+           user.deleteFromList();
+           super.changeScene(e);
+       }
+
     }
 
 
