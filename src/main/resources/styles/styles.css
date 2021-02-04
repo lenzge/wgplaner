@@ -68,6 +68,7 @@
     -fx-padding: 0;
     -fx-border-width: 0px;
     -fx-border-color: -fx-base-dark;
+    -fx-background-color: -fx-base-light;
 }
 .list-cell{
     -fx-background-color: -fx-base-light;

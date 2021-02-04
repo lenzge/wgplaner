@@ -39,13 +39,13 @@ public class GroceryListTest {
 
         //Item that already exists -> doesn't work
         Assert.assertEquals(groceryList.addItem("Lebensmittel","Karotten", testRoommate), STATUS.EXISTS);
-        Assert.assertEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
-                "Item{content='Zwiebeln', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Lebensmittel'}");
+        Assert.assertNotEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
+                "Item{content='Karotten', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Lebensmittel'}");
 
         //Item without content -> doesn't work
         Assert.assertEquals(groceryList.addItem("Lebensmittel","", testRoommate), STATUS.EMPTY);
-        Assert.assertEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
-                "Item{content='Zwiebeln', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Lebensmittel'}");
+        Assert.assertNotEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
+                "Item{content='', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Lebensmittel'}");
 
     }
 
@@ -53,6 +53,7 @@ public class GroceryListTest {
     public void testDeleteItem(){
         Iitem toDelete = groceryList.getItemList().get(3);
         groceryList.deleteItem(toDelete);
+        //is the deleted Item still in the List? -> no
         Assert.assertFalse( groceryList.getItemList().parallelStream().anyMatch(i -> i.getContent().equals(toDelete.getContent())));
 
     }
@@ -63,19 +64,18 @@ public class GroceryListTest {
 
         //wrong regex
         Assert.assertFalse(groceryList.boughtItem(toBuy, "1hxy", testRoommate));
-        Assert.assertEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
-                "Item{content='Alufolie', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Sonstiges'}");
+        Assert.assertNotEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
+                "Item{content='Alufolie', author='Karl H.', price='1hxy', boughtDate=" + LocalDate.now()+ ", boughtBy='Karl H.', type='Sonstiges'}");
 
         //no price
         Assert.assertFalse(groceryList.boughtItem(toBuy, "", testRoommate));
-        Assert.assertEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
-                "Item{content='Alufolie', author='Karl H.', price='null', boughtDate=null, boughtBy='null', type='Sonstiges'}");
+        Assert.assertNotEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
+                "Item{content='Alufolie', author='Karl H.', price='', boughtDate=" + LocalDate.now()+ ", boughtBy='Karl H.', type='Sonstiges'}");
 
         //right price
         Assert.assertTrue(groceryList.boughtItem(toBuy, "1,10€", testRoommate));
         Assert.assertEquals(groceryList.getItemList().get(groceryList.getItemList().size() -1).toString(),
                 "Item{content='Alufolie', author='Karl H.', price='1,10€', boughtDate=" + LocalDate.now()+ ", boughtBy='Karl H.', type='Sonstiges'}");
-
 
     }
 

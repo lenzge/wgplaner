@@ -27,7 +27,6 @@ public class GroceryList {
 
     //Global collection
     private List<Iitem> itemList;
-    private List<Iitem> backupList;
 
     //Date Format
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -171,10 +170,9 @@ public class GroceryList {
                         forEach(i -> i.boughtItem(price, LocalDate.now(), boughtBy.getFullname()));
                 log.info(item.toString() + " bought");
                 return true;
-
         }
         else {
-            log.debug(price + " is no price");
+            log.info(price + " is no price");
             return false;
         }
     }
