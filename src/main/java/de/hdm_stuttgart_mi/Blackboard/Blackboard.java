@@ -29,10 +29,10 @@ public class Blackboard {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     //Global collection
-    List<Note> noteList;
+    private List<Note> noteList;
 
     public List<Note> getNoteList() {
-        return noteList;
+        return List.copyOf(noteList);
     }
     public Blackboard() {
         log.debug("try to initialize blackboard");

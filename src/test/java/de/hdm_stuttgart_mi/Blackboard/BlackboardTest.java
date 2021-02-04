@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi;
+package de.hdm_stuttgart_mi.Blackboard;
 
 
 import org.junit.Assert;
@@ -17,10 +17,10 @@ public class BlackboardTest {
     @Test
     public void testChangePinStatus() {
         testNote.setPinned(true);
-        Assert.assertEquals(testNote.getIsPinned(),true);
+        Assert.assertTrue(testNote.getIsPinned());
 
         testNote.setPinned(false);
-        Assert.assertEquals(testNote.getIsPinned(),false);
+        Assert.assertFalse(testNote.getIsPinned());
     }
 
     @Test
@@ -33,5 +33,4 @@ public class BlackboardTest {
         testNote.setContent("123456789");
         Assert.assertEquals(testNote.getContent(),"123456789");
     }
-
 }
