@@ -1,4 +1,4 @@
-package de.hdm_stuttgart_mi;
+package de.hdm_stuttgart_mi.GroceryList;
 
 import de.hdm_stuttgart_mi.GroceryList.GroceryList;
 import de.hdm_stuttgart_mi.GroceryList.Iitem;
