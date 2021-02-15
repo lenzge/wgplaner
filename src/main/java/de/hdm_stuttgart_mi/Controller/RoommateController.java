@@ -11,6 +11,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -23,6 +25,7 @@ import static de.hdm_stuttgart_mi.Users.User.currentUser;
 public class RoommateController implements Initializable {
     @FXML private ListView roommateListView;
     User user = new User();
+    private static final Logger log = LogManager.getLogger(RoommateController.class);
 
 
     private void initRoommateListView() throws FileNotFoundException {
@@ -68,6 +71,7 @@ public class RoommateController implements Initializable {
             initRoommateListView();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            log.error("Listview couldn't be initialized");
         }
     }
     }

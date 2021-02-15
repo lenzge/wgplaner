@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +23,7 @@ public class MenuController extends SuperController implements Initializable {
     @FXML private ImageView profilePic;
     @FXML private ImageView shutdownIcon;
     @FXML private Button profil;
+    private static final Logger log = LogManager.getRootLogger();
 
     private void initPp() throws FileNotFoundException {
         fillImageView(profilePic,currentUser.getProfilepic(),55,55);
@@ -42,12 +45,14 @@ public class MenuController extends SuperController implements Initializable {
             initPp();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            log.error("Profilepicture couldn't be initialized in menu");
         }
         profil.setText(currentUser.getFullname());
         try {
             initShutdownIcon();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            log.error("ShutdownIcon couldn't be initialized in menu");
         }
     }
 

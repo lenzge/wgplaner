@@ -1,6 +1,5 @@
 package de.hdm_stuttgart_mi.Users;
 
-import de.hdm_stuttgart_mi.Main;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -40,11 +39,6 @@ public class UserTest {
         user.addNewRoommate(testRoommate2);
         Assert.assertEquals(testRoommate2,currentUser);
         user.deleteFromList();
-    }
-
-    @Test public void testBackup(){
-        Main main = new Main();
-        main.backup();
     }
 
 }

@@ -12,7 +12,10 @@
         </Console>
     </Appenders>
     <Loggers>
-
+        <logger name="src/main/java/de/hdm_stuttgart_mi/Main.java">
+            <level value="error" />
+            <appender-ref ref="Main" />
+        </logger>
         <!-- You may want to define class or package level per-logger rules -->
         <Root level="debug">
             <AppenderRef ref="STDOUT"/>
