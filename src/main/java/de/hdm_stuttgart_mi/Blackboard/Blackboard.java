@@ -26,15 +26,15 @@ public class Blackboard {
     File file = new File("src\\main\\resources\\JSON\\notes.json");
 
     //Date Format
-    DateTimeFormatter date = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     //Global collection
-    List<Note> noteList;
+    private List<Note> noteList;
 
-    public List<Note> getNoteList(){
-        return noteList;
+    public List<Note> getNoteList() {
+        return List.copyOf(noteList);
     }
-    public Blackboard(){
+    public Blackboard() {
         log.debug("try to initialize blackboard");
         initNote();
     }
@@ -43,7 +43,7 @@ public class Blackboard {
     public void initNote() {
         noteList = new ArrayList<>();
         JSONParser parser = new JSONParser();
-        try{
+        try {
             String jsonContent = new String(Files.readAllBytes(Paths.get(file.toURI())),"UTF-8");
             log.debug("read JSONFile");
             JSONObject json = (JSONObject) parser.parse(jsonContent);
@@ -54,17 +54,18 @@ public class Blackboard {
 
                 String content = (String) jsonObjectFromArray.get("content");
                 String author = (String) jsonObjectFromArray.get("author");
-                LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date);
+                LocalDate timestamp = LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), formatter);
                 boolean isPinned = (boolean) jsonObjectFromArray.get("isPinned");
 
-                if (isPinned){
+                if (isPinned) {
                     Note note = new Note(content, author, timestamp, true);
                     noteList.add(0,note); // Pinned Notes ore on the top
                     log.debug("add note: " + note.toString());
                 }
                 // Delete unpinned Notes that are older than 5 Days
-                else if (LocalDate.now().minusDays(5).compareTo(LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), date)) > 0){
-                } else{
+                else if (LocalDate.now().minusDays(5).compareTo(LocalDate.parse((String) jsonObjectFromArray.get("timestamp"), formatter)) > 0) {
+
+                } else {
                     Note note = new Note(content, author, timestamp, false);
                     noteList.add(note);
                     log.debug("add note: " + note.toString());
@@ -73,7 +74,7 @@ public class Blackboard {
             }
             log.info("Blackboard initialized");
 
-        } catch(Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
             log.error("IOException");
         }
@@ -83,46 +84,46 @@ public class Blackboard {
     public void safeBlackboard() {
         JSONObject obj = new JSONObject();
         JSONArray notes = new JSONArray();
-        for (Note note : noteList){
+        for (Note note : noteList) {
             JSONObject entries = new JSONObject();
             entries.put("content",note.getContent());
             entries.put("author",note.getAuthor());
-            entries.put("timestamp",note.getTimestamp().format(date));
+            entries.put("timestamp",note.getTimestamp().format(formatter));
             entries.put("isPinned",note.getIsPinned());
             notes.add(entries);
         }
         obj.put("note",notes);
         System.out.println(obj);
 
-        try(FileWriter writer = new FileWriter(file)){
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write(obj.toJSONString());
             log.info("Notes safed");
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             log.error("IOException");
         }
     }
 
     // edit noteList
-    public void addNote(String content, Roommate author, LocalDate timestamp, boolean isPinned){
+    public void addNote(String content, Roommate author, LocalDate timestamp, boolean isPinned) {
         Note note = new Note (content, author.getFullname(), timestamp, isPinned);
         noteList.add(note);
         log.info(note.toString() + " added");
     }
 
-    public void deleteNote(Note note){
+    public void deleteNote(Note note) {
         noteList.removeIf(value -> value.getContent().equals(note.getContent()));
         log.info(note.toString() + " deleted");
     }
 
-    public void changePinNote(Note note, boolean isPinned) throws IOException {
+    public void changePinNote(Note note, boolean isPinned) {
         note.setPinned(isPinned);
         safeBlackboard();
         log.info(note.toString() + " changed pin status");
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Note note: noteList) {
             stringBuilder.append(note.getContent()).append(", ");
@@ -132,5 +133,4 @@ public class Blackboard {
         }
         return stringBuilder.toString();
     }
-
 }

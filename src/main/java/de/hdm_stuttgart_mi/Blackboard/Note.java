@@ -27,12 +27,12 @@ public class Note {
     public LocalDate getTimestamp() {
         return TIMESTAMP;
     }
-    public boolean getIsPinned(){
+    public boolean getIsPinned() {
         return isPinned;
     }
 
 
-    public Note(String content, String author, LocalDate timestamp, boolean isPinned){
+    public Note(String content, String author, LocalDate timestamp, boolean isPinned) {
         this.content = content;
         this.AUTHOR = author;
         this.TIMESTAMP = timestamp;

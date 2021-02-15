@@ -31,7 +31,8 @@ public class GroceryListController implements Initializable {
     //global
     private GroceryList groceryList;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    String filenameTrashIcon = "src/main/resources/icons/trash.png";
+    String filenameLightTrashIcon = "src/main/resources/icons/trash.png";
+    String filenameDarkTrashIcon = "src/main/resources/icons/darkTrash.png";
 
     //debugger
     private static final Logger log = LogManager.getRootLogger();
@@ -68,7 +69,8 @@ public class GroceryListController implements Initializable {
                 type.getStyleClass().add("typeLabel");
                 type.setVisible(false); //only visible while hovering
             Button delete = new Button();
-                delete.setGraphic(ExternMethods.getImageView(filenameTrashIcon, 20, 20));
+                if (ProfileController.colorOn ) delete.setGraphic(ExternMethods.getImageView(filenameDarkTrashIcon, 20, 20));
+                else delete.setGraphic(ExternMethods.getImageView(filenameLightTrashIcon, 20, 20));
                 delete.getStyleClass().add("deleteButton");
                 delete.setVisible(false); //only visible while hovering
                 delete.setOnAction(event -> {
